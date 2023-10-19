@@ -120,5 +120,23 @@ namespace JobPortal.Api.Controllers
         {
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet("Login/{email}/{password}")]
+        public async Task<ActionResult<User>> Login(string email, string password)
+        {
+            if(email is not null && password is not null)
+            {
+                var user = await _context.Users
+                    .Where(x => x.Email!
+                    .ToLower()
+                    .Equals(email
+                    .ToLower()) 
+                    && x.Password == password)
+                    .FirstOrDefaultAsync();
+                return user != null ? Ok(user) : NotFound("User not found");
+
+            }
+            return BadRequest("Invalid Request");
+        }
     }
 }

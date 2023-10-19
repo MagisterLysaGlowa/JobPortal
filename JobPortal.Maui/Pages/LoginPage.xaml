@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="LoginPage"
+    x:DataType="viewmodels:LoginPageViewModel">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                MaximumWidthRequest="300">
+                <Label Text="Email" />
+                <Entry
+                    HeightRequest="60"
+                    Placeholder="E-mail"
+                    Text="{Binding Email}" />
+                <Label FontAttributes="Bold" TextColor="Red" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="0"
+                MaximumWidthRequest="300">
+                <Label Text="Password" />
+                <Entry
+                    HeightRequest="60"
+                    IsPassword="True"
+                    Placeholder="Password"
+                    Text="{Binding Password}" />
+                <Label FontAttributes="Bold" TextColor="Red" />
+            </StackLayout>
+
+            <VerticalStackLayout
+                Grid.Row="2"
+                Grid.Column="0"
+                MaximumWidthRequest="300">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="0"
+                        FlexLayout.Grow="1"
+                        HeightRequest="25"
+                        Orientation="Horizontal">
+                        <CheckBox VerticalOptions="Start" />
+                        <Label Text="Remember me?" />
+                    </StackLayout>
+                    <Label
+                        Grid.Column="1"
+                        Text="Forgot Password"
+                        TextColor="Blue" />
+                </Grid>
+            </VerticalStackLayout>
+
+            <Button
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="0,20,0,0"
+                Command="{Binding LoginCommand}"
+                FontAttributes="Bold"
+                FontSize="18"
+                MaximumWidthRequest="300"
+                Text="Zaloguj się" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
