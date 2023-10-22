@@ -19,6 +19,7 @@
             Text="Zaloguj się"
             TextColor="White" />
         <Button
+            Command="{Binding NavigateRegisterPageCommand}"
             FontAttributes="Bold"
             MaximumWidthRequest="300"
             Text="Zarejestruj się"

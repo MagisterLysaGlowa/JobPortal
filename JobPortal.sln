@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Api", "JobPortal.Api\JobPortal.Api.csproj", "{7C5DC048-FF1D-4D15-8516-54113871AEA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Api", "JobPortal.Api\JobPortal.Api.csproj", "{7C5DC048-FF1D-4D15-8516-54113871AEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Maui", "JobPortal.Maui\JobPortal.Maui.csproj", "{896A9FB5-4745-4923-A49F-F24B918A5174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Maui", "JobPortal.Maui\JobPortal.Maui.csproj", "{896A9FB5-4745-4923-A49F-F24B918A5174}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

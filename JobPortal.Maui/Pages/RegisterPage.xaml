@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="RegisterPage"
+    x:DataType="viewmodels:RegisterPageViewModel">
+    <StackLayout
+        x:Name="registerStackPanel"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Center">
+        <Label Text="{Binding Step}" />
+        <Frame
+            x:Name="frameBox1"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+            <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <Entry HeightRequest="60" Placeholder="Imię" />
+                <Entry HeightRequest="60" Placeholder="Nazwisko" />
+                <Button
+                    Command="{Binding NextStepCommand}"
+                    HeightRequest="60"
+                    Text="Następny krok" />
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="0">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox2"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+            <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <Entry HeightRequest="60" Placeholder="E-mail" />
+                <Entry HeightRequest="60" Placeholder="Numer telefonu" />
+                <Button
+                    Command="{Binding NextStepCommand}"
+                    HeightRequest="60"
+                    Text="Następny krok" />
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="1">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox3"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+            <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <DatePicker HeightRequest="60" />
+                <Entry HeightRequest="60" Placeholder="Miejscowość" />
+                <Button
+                    Command="{Binding NextStepCommand}"
+                    HeightRequest="60"
+                    Text="Następny krok" />
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="{x:Type Frame}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="2">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+    </StackLayout>
+</ContentPage>

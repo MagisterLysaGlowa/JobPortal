@@ -11,5 +11,11 @@ namespace JobPortal.Maui.ViewModels
         {
             await Shell.Current?.GoToAsync("//loginPage");
         }
+
+        [RelayCommand]
+        public async Task NavigateRegisterPage()
+        {
+            await Shell.Current?.GoToAsync("//registerPage");
+        }
     }
 }
