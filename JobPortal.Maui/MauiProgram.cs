@@ -2,6 +2,7 @@
 using JobPortal.Maui.ViewModels;
 using Microsoft.Extensions.Logging;
 
+
 namespace JobPortal.Maui
 {
     public static class MauiProgram
@@ -22,9 +23,8 @@ namespace JobPortal.Maui
             builder.Services.AddSingleton<LoginPageViewModel>();
             builder.Services.AddSingleton<RegisterPage>();
             builder.Services.AddSingleton<RegisterPageViewModel>();
-
 #if DEBUG
-            builder.Logging.AddDebug();
+                builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

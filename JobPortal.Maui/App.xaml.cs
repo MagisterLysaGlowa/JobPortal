@@ -1,4 +1,5 @@
-﻿using JobPortal.Maui.Model;
+﻿using JobPortal.Maui.Controlls;
+using JobPortal.Maui.Model;
 
 namespace JobPortal.Maui
 {
@@ -10,6 +11,13 @@ namespace JobPortal.Maui
             InitializeComponent();
 
             MainPage = new AppShell();
+
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
         }
     }
 }
