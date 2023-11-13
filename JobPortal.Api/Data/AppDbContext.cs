@@ -11,5 +11,6 @@ namespace JobPortal.Api.Data
         }
 
         public DbSet<User> Users { get; set; } = default!;
+        public DbSet<JobOfert> JobOferts { get; set; } = default!;
     }
 }

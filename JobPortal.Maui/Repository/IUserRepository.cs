@@ -5,5 +5,6 @@ namespace JobPortal.Maui.Repository
     public interface IUserRepository
     {
         Task<User> Login(string email, string password);
+        Task<int> Register(User user);
     }
 }

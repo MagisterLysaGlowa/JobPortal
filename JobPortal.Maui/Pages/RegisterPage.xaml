@@ -50,12 +50,12 @@
                         </DataTrigger>
                     </Border.Triggers>
                 </Border>
-                
-                
+                <Label IsVisible="{Binding NameError}" Text="{Binding NameErrorText}" TextColor="Red"/>
+
                 <!--SURNAME ENTRY-->
                 
                 <Border Style="{StaticResource EntryBorder}">
-                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Imię" Text="{Binding Surname}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Nazwisko" Text="{Binding Surname}">
                         <controlls:BorderlessEntry.Triggers>
                             <DataTrigger TargetType="Entry" Binding="{Binding SurnameError}" Value="True">
                                 <Setter Property="TextColor" Value="Red"/>
@@ -71,6 +71,7 @@
                         </DataTrigger>
                     </Border.Triggers>
                 </Border>
+                <Label IsVisible="{Binding SurnameError}" Text="{Binding SurnameErrorText}" TextColor="Red"/>
                 <Button
                     Command="{Binding NextStepCommand}"
                     CommandParameter="first"
@@ -84,11 +85,15 @@
                             Binding="{Binding Step}"
                             TargetType="Frame"
                             Value="0">
-                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="100" />
                         </DataTrigger>
                     </Style.Triggers>
                     <Style.Setters>
-                        <Setter Property="IsVisible" Value="False" />
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
                     </Style.Setters>
                 </Style>
             </Frame.Style>
@@ -103,8 +108,50 @@
                 Padding="0,30,0,30"
                 Spacing="20"
                 VerticalOptions="Center">
-                <Entry HeightRequest="60" Placeholder="E-mail"  Text="{Binding Email}"/>
-                <Entry HeightRequest="60" Placeholder="Numer telefonu"  Text="{Binding PhoneNumber}"/>
+                <!--EMAIL ENTRY-->
+
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Email" Text="{Binding Email}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding EmailError}" Value="True">
+                                <Setter Property="TextColor" Value="Red"/>
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding EmailError}" Value="True">
+                            <Setter Property="Stroke" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding EmailError}" Value="False">
+                            <Setter Property="Stroke" Value="Gray"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                
+                <Label IsVisible="{Binding EmailError}" Text="{Binding EmailErrorText}" TextColor="Red"/>
+                
+                <!--PHONE NUMBER ENTRY-->
+                
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Numer telefonu" Text="{Binding PhoneNumber}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding PhoneNumberError}" Value="True">
+                                <Setter Property="TextColor" Value="Red"/>
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding PhoneNumberError}" Value="True">
+                            <Setter Property="Stroke" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding PhoneNumberError}" Value="False">
+                            <Setter Property="Stroke" Value="Gray"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                <Label IsVisible="{Binding PhoneNumberError}" Text="{Binding PhoneNumberErrorText}" TextColor="Red"/>
+                
+                
                 <HorizontalStackLayout>
                     <Button
                         Command="{Binding PreviousStepCommand}"
@@ -125,18 +172,109 @@
                             Binding="{Binding Step}"
                             TargetType="Frame"
                             Value="1">
-                            <Setter Property="IsVisible" Value="True" />
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-200" />
                         </DataTrigger>
                     </Style.Triggers>
                     <Style.Setters>
-                        <Setter Property="IsVisible" Value="False" />
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
                     </Style.Setters>
                 </Style>
             </Frame.Style>
         </Frame>
 
         <Frame
-            x:Name="frameBox3"
+    x:Name="frameBox3"
+    BorderColor="Black"
+    CornerRadius="20"
+    MaximumWidthRequest="400">
+            <VerticalStackLayout
+        Padding="0,30,0,30"
+        Spacing="20"
+        VerticalOptions="Center">
+                <!--PASSWORD ENTRY-->
+
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Email" Text="{Binding Password}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding PasswordError}" Value="True">
+                                <Setter Property="TextColor" Value="Red"/>
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding PasswordError}" Value="True">
+                            <Setter Property="Stroke" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding PasswordError}" Value="False">
+                            <Setter Property="Stroke" Value="Gray"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+
+                <Label IsVisible="{Binding PasswordError}" Text="{Binding PasswordErrorText}" TextColor="Red"/>
+
+                <!--REPEAT PASSWORD NUMBER ENTRY-->
+
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Numer telefonu" Text="{Binding RepeatPassword}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding RepeatPasswordError}" Value="True">
+                                <Setter Property="TextColor" Value="Red"/>
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding RepeatPasswordError}" Value="True">
+                            <Setter Property="Stroke" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding RepeatPasswordError}" Value="False">
+                            <Setter Property="Stroke" Value="Gray"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                <Label IsVisible="{Binding RepeatPasswordError}" Text="{Binding RepeatPasswordErrorText}" TextColor="Red"/>
+
+
+                <HorizontalStackLayout>
+                    <Button
+                        Command="{Binding PreviousStepCommand}"
+                        CommandParameter="third"
+                        HeightRequest="60"
+                        Text="Poprzedni krok" />
+                    <Button
+                        CommandParameter="third"
+                        Command="{Binding NextStepCommand}"
+                        HeightRequest="60"
+                        Text="Następny krok" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Style.Triggers>
+                        <DataTrigger
+                    Binding="{Binding Step}"
+                    TargetType="Frame"
+                    Value="2">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-600" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox4"
             BorderColor="Black"
             CornerRadius="20"
             MaximumWidthRequest="400">
@@ -145,16 +283,36 @@
                 Spacing="20"
                 VerticalOptions="Center">
                 <DatePicker HeightRequest="60" Date="{Binding DateOfBirth}"/>
-                <Entry HeightRequest="60" Placeholder="Miejscowość"  Text="{Binding Location}"/>
+                
+                <!--LOCATION ENTRY-->
+                
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry HeightRequest="60" Placeholder="Miejsc" Text="{Binding Location}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger TargetType="Entry" Binding="{Binding LocationError}" Value="True">
+                                <Setter Property="TextColor" Value="Red"/>
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding LocationError}" Value="True">
+                            <Setter Property="Stroke" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding LocationError}" Value="False">
+                            <Setter Property="Stroke" Value="Gray"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                <Label IsVisible="{Binding LocationError}" Text="{Binding LocationErrorText}" TextColor="Red"/>
                 <HorizontalStackLayout>
                     <Button
                         Command="{Binding PreviousStepCommand}"
-                        CommandParameter="third"
+                        CommandParameter="fourth"
                         HeightRequest="60"
                         Text="Poprzedni krok" />
                     <Button
                         Command="{Binding NextStepCommand}"
-                        CommandParameter="third"
+                        CommandParameter="fourth"
                         HeightRequest="60"
                         Text="Następny krok" />
                 </HorizontalStackLayout>
@@ -165,12 +323,105 @@
                         <DataTrigger
                             Binding="{Binding Step}"
                             TargetType="Frame"
-                            Value="2">
-                            <Setter Property="IsVisible" Value="True" />
+                            Value="3">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-900" />
                         </DataTrigger>
                     </Style.Triggers>
                     <Style.Setters>
-                        <Setter Property="IsVisible" Value="False" />
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox5"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+            <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <Border Stroke="#C49B33"
+                        StrokeThickness="6"
+                        StrokeShape="RoundRectangle 100"
+                        Background="#2B0B98"
+                        WidthRequest="200"
+                        HeightRequest="200"
+                        Padding="0">
+                    <Image BackgroundColor="Pink" 
+                           Source="{Binding UserImageSource}"
+                           Aspect="Fill"/>
+                </Border>
+                <Button Text="Dodaj zdjęcie"
+                        Command="{Binding BrowserImageToUploadCommand}"/>
+                <HorizontalStackLayout>
+                    <Button
+                        Command="{Binding PreviousStepCommand}"
+                        CommandParameter="fifth"
+                        HeightRequest="60"
+                        Text="Poprzedni krok" />
+                    <Button
+                        Command="{Binding NextStepCommand}"
+                        CommandParameter="fifth"
+                        HeightRequest="60"
+                        Text="Następny krok" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="{x:Type Frame}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="4">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-1200" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox6"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+                <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <Label Text="Czy napewno chcesz założyć konto ?"/>
+                <Button Text="Zarejestruj się" Command="{Binding RegisterUserCommand}"/>
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="{x:Type Frame}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="5">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-1600" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
                     </Style.Setters>
                 </Style>
             </Frame.Style>

@@ -2,7 +2,6 @@
 using JobPortal.Maui.ViewModels;
 using Microsoft.Extensions.Logging;
 
-
 namespace JobPortal.Maui
 {
     public static class MauiProgram

@@ -25,10 +25,10 @@ namespace JobPortal.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             return await _context.Users.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace JobPortal.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -84,7 +84,7 @@ namespace JobPortal.Api.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
           if (_context.Users == null)
           {

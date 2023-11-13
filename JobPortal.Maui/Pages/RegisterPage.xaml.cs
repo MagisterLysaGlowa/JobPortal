@@ -1,5 +1,6 @@
 using JobPortal.Maui.ViewModels;
 using System.ComponentModel;
+using System.Net.Http;
 
 namespace JobPortal.Maui.Pages;
 
@@ -16,11 +17,14 @@ public partial class RegisterPage : ContentPage
     public RegisterPage(RegisterPageViewModel registerPageViewModel)
 	{
 		InitializeComponent();
-		vm = registerPageViewModel;
+        vm = registerPageViewModel;
 
 		frameList.Add(frameBox1);
 		frameList.Add(frameBox2);
 		frameList.Add(frameBox3);
+		frameList.Add(frameBox4);
+		frameList.Add(frameBox5);
+		frameList.Add(frameBox6);
 
         SlideAnimation1 = new Animation(v => frameList[vm.Step].TranslationX = v,-200,20,Easing.Linear);
         SlideAnimation2 = new Animation(v => frameList[vm.Step].TranslationX = v,20,0,Easing.Linear);
@@ -28,14 +32,13 @@ public partial class RegisterPage : ContentPage
 
 		vm.PropertyChanged += Vm_PropertyChanged;
 		BindingContext = vm;
-
     }
 
 	private void Vm_PropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName == nameof(RegisterPageViewModel.IsBusy))
 		{
-			if(vm.IsBusy)
+            if (vm.IsBusy)
 			{
                 FadeAnimation.Commit(this, "Fade", 16, 200, Easing.Linear, null, null);
                 SlideAnimation1.Commit(this, "Slide1", 16, 250, Easing.Linear, (v,c) =>
@@ -52,3 +55,5 @@ public partial class RegisterPage : ContentPage
 		}
 	}
 }
+
+
