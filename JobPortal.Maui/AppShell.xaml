@@ -5,18 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:JobPortal.Maui"
     xmlns:pages="clr-namespace:JobPortal.Maui.Pages"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
         Title="Welcome Page"
         ContentTemplate="{DataTemplate pages:WelcomePage}"
-        Route="welcomePage" />
+        Route="welcomePage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
         Title="Login Page"
         ContentTemplate="{DataTemplate pages:LoginPage}"
-        Route="loginPage" />
+        Route="loginPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
     <ShellContent
         Title="Register Page"
         ContentTemplate="{DataTemplate pages:RegisterPage}"
-        Route="registerPage" />
+        Route="registerPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False" />
+    <ShellContent
+        Title="Home Page"
+        ContentTemplate="{DataTemplate pages:HomePage}"
+        Route="homePage" />
 </Shell>

@@ -3,9 +3,17 @@
     x:Class="JobPortal.Maui.Pages.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="LoginPage"
     x:DataType="viewmodels:LoginPageViewModel">
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="Stroke" Value="Red" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <Grid>
             <Grid.RowDefinitions>
@@ -19,33 +27,87 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackLayout
+            <VerticalStackLayout
                 Grid.Row="0"
-                Grid.Column="0"
-                MaximumWidthRequest="300">
-                <Label Text="Email" />
-                <Entry
-                    HeightRequest="60"
-                    Placeholder="E-mail"
-                    Text="{Binding Email}" />
-                <Label FontAttributes="Bold" TextColor="Red" />
-            </StackLayout>
+                Padding="0,30,0,30"
+                MaximumWidthRequest="400"
+                Spacing="20"
+                VerticalOptions="Center">
 
-            <StackLayout
-                Grid.Row="1"
-                Grid.Column="0"
-                MaximumWidthRequest="300">
-                <Label Text="Password" />
-                <Entry
-                    HeightRequest="60"
-                    IsPassword="True"
-                    Placeholder="Password"
-                    Text="{Binding Password}" />
-                <Label FontAttributes="Bold" TextColor="Red" />
-            </StackLayout>
+                <!--  EMAIL ENTRY  -->
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry
+                        HeightRequest="60"
+                        Placeholder="Email"
+                        Text="{Binding Email}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger
+                                Binding="{Binding EmailError}"
+                                TargetType="Entry"
+                                Value="True">
+                                <Setter Property="TextColor" Value="Red" />
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger
+                            Binding="{Binding EmailError}"
+                            TargetType="Border"
+                            Value="True">
+                            <Setter Property="Stroke" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding EmailError}"
+                            TargetType="Border"
+                            Value="False">
+                            <Setter Property="Stroke" Value="Gray" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                <Label
+                    IsVisible="{Binding EmailError}"
+                    Text="{Binding EmailErrorText}"
+                    TextColor="Red" />
+
+                <!--  PASSWORD ENTRY  -->
+                <Border Style="{StaticResource EntryBorder}">
+                    <controlls:BorderlessEntry
+                        HeightRequest="60"
+                        IsPassword="True"
+                        Placeholder="Hasło"
+                        Text="{Binding Password}">
+                        <controlls:BorderlessEntry.Triggers>
+                            <DataTrigger
+                                Binding="{Binding PasswordError}"
+                                TargetType="Entry"
+                                Value="True">
+                                <Setter Property="TextColor" Value="Red" />
+                            </DataTrigger>
+                        </controlls:BorderlessEntry.Triggers>
+                    </controlls:BorderlessEntry>
+                    <Border.Triggers>
+                        <DataTrigger
+                            Binding="{Binding PasswordError}"
+                            TargetType="Border"
+                            Value="True">
+                            <Setter Property="Stroke" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding PasswordError}"
+                            TargetType="Border"
+                            Value="False">
+                            <Setter Property="Stroke" Value="Gray" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                </Border>
+                <Label
+                    IsVisible="{Binding PasswordError}"
+                    Text="{Binding PasswordErrorText}"
+                    TextColor="Red" />
+            </VerticalStackLayout>
 
             <VerticalStackLayout
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="0"
                 MaximumWidthRequest="300">
                 <Grid>
@@ -69,7 +131,7 @@
             </VerticalStackLayout>
 
             <Button
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="0"
                 Margin="0,20,0,0"
                 Command="{Binding LoginCommand}"

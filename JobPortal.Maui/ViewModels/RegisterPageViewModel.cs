@@ -102,7 +102,7 @@ namespace JobPortal.Maui.ViewModels
         [RelayCommand]
         public async Task NextStep(string frame)
         {
-            bool correct = EntryValidation(frame);
+            bool correct = await EntryValidation(frame);
             if (!correct) return;
             IsBusy = true;
             Step++;
@@ -113,7 +113,7 @@ namespace JobPortal.Maui.ViewModels
         [RelayCommand]
         public async Task PreviousStep(string frame)
         {
-            bool correct = EntryValidation(frame);
+            bool correct = await EntryValidation(frame);
             if (!correct) return;
             IsBusy = true;
             Step--;
@@ -213,7 +213,7 @@ namespace JobPortal.Maui.ViewModels
 
 
         //REGISTER VALIDATION
-        public bool EntryValidation(string frame)
+        public async Task<bool> EntryValidation(string frame)
         {
 
             if (frame == "first")
@@ -274,6 +274,11 @@ namespace JobPortal.Maui.ViewModels
                         EmailError = true;
                         EmailErrorText = "Niepoprawny email!";
                     }
+                    else if (!await userRepository.CheckIfEmailIsFree(Email))
+                    {
+                        EmailError = true;
+                        EmailErrorText = "Ten adres email jest już zajęty!";
+                    }
                     else
                     {
                         EmailError = false;
@@ -293,6 +298,11 @@ namespace JobPortal.Maui.ViewModels
                     {
                         PhoneNumberError = true;
                         PhoneNumberErrorText = "Niepoprawny numer telefonu!";
+                    }
+                    else if (!await userRepository.CheckIfPhoneIsFree(PhoneNumber))
+                    {
+                        PhoneNumberError = true;
+                        PhoneNumberErrorText = "Ten numer telefonu jest już zajęty!";
                     }
                     else
                     {

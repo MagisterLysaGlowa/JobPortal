@@ -9,9 +9,18 @@ namespace JobPortal.Maui.ViewModels
     public partial class LoginPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _email;
+        private string email;
         [ObservableProperty]
-        private string _password;
+        private bool emailError = false;
+        [ObservableProperty]
+        private string emailErrorText;
+
+        [ObservableProperty]
+        private string password;
+        [ObservableProperty]
+        private bool passwordError;
+        [ObservableProperty]
+        private string passwordErrorText;
         readonly IUserRepository userService = new UserService();
 
         [RelayCommand]
@@ -19,28 +28,50 @@ namespace JobPortal.Maui.ViewModels
         {
             try
             {
-                if(!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
+                bool correct = true;
+                /*EMAIL VALIDATION*/
+                if (String.IsNullOrWhiteSpace(Email))
                 {
-                    User user = await userService.Login(Email, Password);
-                    if(user == null)
-                    {
-                        await Shell.Current.DisplayAlert("Error", "Username/Password is incorrect", "Ok");
-                        return;
-                    }
-                    if (Preferences.ContainsKey(nameof(App.user)))
-                    {
-                        Preferences.Remove(nameof(App.user));
-                    }
-                    string userDetails = JsonConvert.SerializeObject(user);
-                    Preferences.Set(nameof(App.user), userDetails);
-                    App.user = user;
-                    await Shell.Current.DisplayAlert("Loged", $"User loged as {user.Email}", "Ok");
+                    EmailError = true;
+                    EmailErrorText = "Niepoprawny email";
+                    correct = false;
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Error", "All fields required", "Ok");
+                    EmailError = false;
+                    EmailErrorText = "";
+                }
+
+                /*PASSWORD VALIDATION*/
+                if (String.IsNullOrWhiteSpace(Password))
+                {
+                    PasswordError = true;
+                    PasswordErrorText = "Niepoprawne hasło";
+                    correct = false;
+                }
+                else
+                {
+                    PasswordError = false;
+                    PasswordErrorText = "";
+                }
+
+                if (!correct) return;
+
+                User user = await userService.Login(Email, Password);
+                if(user == null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Username/Password is incorrect", "Ok");
                     return;
                 }
+                if (Preferences.ContainsKey(nameof(App.user)))
+                {
+                    Preferences.Remove(nameof(App.user));
+                }
+                string userDetails = JsonConvert.SerializeObject(user);
+                Preferences.Set(nameof(App.user), userDetails);
+                App.user = user;
+                await Shell.Current?.GoToAsync("//homePage");
+
             }
             catch (Exception ex)
             {

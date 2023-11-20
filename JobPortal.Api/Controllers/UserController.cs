@@ -47,7 +47,7 @@ namespace JobPortal.Api.Controllers
                 return NotFound();
             }
 
-            return user;
+            return Ok(user);
         }
 
         // PUT: api/User/5
@@ -86,10 +86,11 @@ namespace JobPortal.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'AppDbContext.Users'  is null.");
-          }
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'AppDbContext.Users'  is null.");
+            }
+            user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password,13);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -121,6 +122,28 @@ namespace JobPortal.Api.Controllers
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        [HttpGet("IsUserEmailFree/{email}")]
+        public async Task<ActionResult<bool>> IsEmailFree(string email)
+        {
+            if (String.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest(); 
+            }
+            var userExist = await _context.Users.AnyAsync(x => x.Email == email);
+            return Ok(!userExist);
+        }
+
+        [HttpGet("IsUserPhoneFree/{phone}")]
+        public async Task<ActionResult<bool>> IsPhoneFree(string phone)
+        {
+            if (String.IsNullOrWhiteSpace(phone))
+            {
+                return BadRequest();
+            }
+            var userExist = await _context.Users.AnyAsync(x => x.PhoneNumber == phone);
+            return Ok(!userExist);
+        }
+
         [HttpGet("Login/{email}/{password}")]
         public async Task<ActionResult<User>> Login(string email, string password)
         {
@@ -130,10 +153,14 @@ namespace JobPortal.Api.Controllers
                     .Where(x => x.Email!
                     .ToLower()
                     .Equals(email
-                    .ToLower()) 
-                    && x.Password == password)
+                    .ToLower()))
                     .FirstOrDefaultAsync();
-                return user != null ? Ok(user) : NotFound("User not found");
+                if (user == null)
+                {
+                    return NotFound("Niepoprawny adres e-mail");
+                }
+                bool passwordHashCorrect = BCrypt.Net.BCrypt.EnhancedVerify(password, user.Password);
+                return passwordHashCorrect ? Ok(user) : NotFound("Niepoprawne hasło");
 
             }
             return BadRequest("Invalid Request");
