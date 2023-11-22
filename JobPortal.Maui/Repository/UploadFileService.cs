@@ -8,9 +8,22 @@ namespace JobPortal.Maui.Repository
 {
     public class UploadFileService : IUploadFileRepository
     {
-        public Task<ImageSource> ImportUserImage(string fileName)
+        private string apiUrl = "https://localhost:7260/api/UlpoadFile";
+        public async Task<ImageSource> ImportUserImage(string fileName)
         {
-            throw new NotImplementedException();
+            // Create instance of HttpClient
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"{apiUrl}/GetImage/{fileName}");
+            if(response.IsSuccessStatusCode)
+            {
+                byte[] imageData = await response.Content.ReadAsByteArrayAsync();
+                ImageSource imageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
+                return imageSource;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task UploadUserImage(FileResult uploadFile,string uploadFileName)

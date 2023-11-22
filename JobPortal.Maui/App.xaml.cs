@@ -11,7 +11,7 @@ namespace JobPortal.Maui
             InitializeComponent();
 
             MainPage = new AppShell();
-
+            
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
             {
 #if ANDROID

@@ -1,4 +1,6 @@
+using JobPortal.Maui.Model;
 using JobPortal.Maui.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace JobPortal.Maui.Pages;
 

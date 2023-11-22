@@ -5,8 +5,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:JobPortal.Maui"
     xmlns:pages="clr-namespace:JobPortal.Maui.Pages"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    x:Name="mainShell"
     Shell.FlyoutBehavior="Flyout">
 
+    <Shell.FlyoutHeader>
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Padding="0"
+                Background="#2B0B98"
+                HeightRequest="80"
+                Stroke="#C49B33"
+                StrokeShape="RoundRectangle 100"
+                StrokeThickness="6"
+                WidthRequest="80">
+                <Image
+                    x:Name="userProfileImage"
+                    Aspect="Fill"
+                    BackgroundColor="Pink" />
+            </Border>
+            <HorizontalStackLayout Grid.Column="1">
+                <Label Text="{Binding Name}" />
+                <Label Margin="5,0,0,0" Text="{Binding Surname}" />
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
     <ShellContent
         Title="Welcome Page"
         ContentTemplate="{DataTemplate pages:WelcomePage}"
@@ -26,7 +55,11 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Home Page"
+        Title="Home"
         ContentTemplate="{DataTemplate pages:HomePage}"
         Route="homePage" />
+    <ShellContent
+        Title="Profile"
+        ContentTemplate="{DataTemplate pages:ProfilePage}"
+        Route="profilePage" />
 </Shell>

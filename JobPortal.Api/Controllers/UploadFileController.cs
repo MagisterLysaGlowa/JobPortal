@@ -60,7 +60,7 @@ namespace JobPortal.Api.Controllers
             }
         }
 
-        [HttpGet("{fileName}")]
+        [HttpGet("GetImage/{fileName}")]
         public async Task<IActionResult> Get(string fileName)
         {
             var uploadsFolder = Path.Combine(webHostEnvironment.ContentRootPath, "SeverResources/Uploads");

@@ -9,14 +9,14 @@ namespace JobPortal.Maui.ViewModels
     public partial class LoginPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string email;
+        private string email = "kacperr@wp.pl";
         [ObservableProperty]
         private bool emailError = false;
         [ObservableProperty]
         private string emailErrorText;
 
         [ObservableProperty]
-        private string password;
+        private string password = "Dol@r12345";
         [ObservableProperty]
         private bool passwordError;
         [ObservableProperty]
@@ -69,6 +69,7 @@ namespace JobPortal.Maui.ViewModels
                 }
                 string userDetails = JsonConvert.SerializeObject(user);
                 Preferences.Set(nameof(App.user), userDetails);
+                AppShell.User = user;
                 App.user = user;
                 await Shell.Current?.GoToAsync("//homePage");
 
