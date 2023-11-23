@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Maui.Repository
 {
-    public interface IUploadFileRepository
+    public interface IFileOperationRepository
     {
         Task UploadUserImage(FileResult uploadFile, string uploadFileName);
         Task<ImageSource> ImportUserImage(string fileName);

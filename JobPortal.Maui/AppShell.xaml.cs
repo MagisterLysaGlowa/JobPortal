@@ -7,7 +7,7 @@ namespace JobPortal.Maui
 {
     public partial class AppShell : Shell
     {
-        private static IUploadFileRepository uploadFileService = new UploadFileService();
+        private static IFileOperationRepository uploadFileService = new FileOperationsService();
         private static Image userImage;
         private static User user;
         public static User User

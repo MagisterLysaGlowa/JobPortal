@@ -3,10 +3,148 @@
     x:Class="JobPortal.Maui.Pages.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="ProfilePage"
     x:DataType="viewmodels:ProfilePageViewModel">
-    <VerticalStackLayout>
-        <Label Text="Profile Page" />
-    </VerticalStackLayout>
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="Stroke" Value="black" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <ScrollView>
+            <Frame
+                Padding="20"
+                BorderColor="Black"
+                CornerRadius="15">
+                <Grid>
+                    <VerticalStackLayout>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Grid.Column="0"
+                                Padding="0"
+                                Background="#2B0B98"
+                                HeightRequest="150"
+                                Stroke="#C49B33"
+                                StrokeShape="RoundRectangle 100"
+                                StrokeThickness="6"
+                                WidthRequest="150">
+                                <Image
+                                    Aspect="Fill"
+                                    BackgroundColor="Pink"
+                                    Source="{Binding ProfileImage}" />
+                            </Border>
+
+                            <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding CurrentHeaderName}" />
+                                <Label Margin="5,0,0,0" Text="{Binding CurrentHeaderSurname}" />
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <Label Text="Podstawowe dane" />
+                        <Grid ColumnSpacing="100" WidthRequest="1000">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry
+                                    IsReadOnly="{Binding BasicInfoEdit}"
+                                    Placeholder="Imię"
+                                    Text="{Binding Name}" />
+                            </Border>
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry
+                                    IsReadOnly="{Binding BasicInfoEdit}"
+                                    Placeholder="Nazwisko"
+                                    Text="{Binding Surname}" />
+                            </Border>
+
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry
+                                    IsReadOnly="{Binding BasicInfoEdit}"
+                                    Placeholder="Email"
+                                    Text="{Binding Email}" />
+                            </Border>
+
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry
+                                    IsReadOnly="{Binding BasicInfoEdit}"
+                                    Placeholder="Numer telefonu"
+                                    Text="{Binding PhoneNumber}" />
+                            </Border>
+
+                            <Border
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry
+                                    IsReadOnly="{Binding BasicInfoEdit}"
+                                    Placeholder="Miejscowość"
+                                    Text="{Binding Location}" />
+                            </Border>
+
+                            <Border
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding BirthDate}" IsEnabled="{Binding BasicInfoEdit}">
+                                    <DatePicker.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding BasicInfoEdit}"
+                                            TargetType="DatePicker"
+                                            Value="False">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding BasicInfoEdit}"
+                                            TargetType="DatePicker"
+                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </DatePicker.Triggers>
+                                </DatePicker>
+                            </Border>
+
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Command="{Binding SetEditModeCommand}"
+                                Text="{Binding BasicInfoEditButtonText}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+        </ScrollView>
+    </Grid>
 </ContentPage>

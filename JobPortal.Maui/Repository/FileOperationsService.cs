@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Maui.Repository
 {
-    public class UploadFileService : IUploadFileRepository
+    public class FileOperationsService : IFileOperationRepository
     {
         private string apiUrl = "https://localhost:7260/api/UlpoadFile";
         public async Task<ImageSource> ImportUserImage(string fileName)

@@ -111,5 +111,36 @@ namespace JobPortal.Maui.Repository
                 return false;
             }
         }
+
+        public async Task<User> UpdateUser(int id, User user)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var jsonUser = JsonConvert.SerializeObject(user);
+                    var requestContent = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+                    string url = $"{apiUrl}/{id}";
+                    client.BaseAddress = new Uri(url);
+                    var response = await client.PutAsync(client.BaseAddress, requestContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = response.Content.ReadAsStringAsync().Result;
+                        User fetchedUser = JsonConvert.DeserializeObject<User>(responseContent);
+                        return await Task.FromResult(fetchedUser);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

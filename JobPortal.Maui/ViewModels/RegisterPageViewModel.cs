@@ -95,7 +95,7 @@ namespace JobPortal.Maui.ViewModels
         private FileResult FileToUpload { get; set; }
 
         /*REPOSITORY PROPERITES*/
-        private IUploadFileRepository uploadFileRepository = new UploadFileService();
+        private IFileOperationRepository uploadFileRepository = new FileOperationsService();
         private IUserRepository userRepository = new UserService();
 
         /*STEP COMMANDS WHICH CHANGE CURRENT VISIBLE FRAME*/
