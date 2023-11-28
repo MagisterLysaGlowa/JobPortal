@@ -18,5 +18,10 @@ namespace JobPortal.Maui.Model
         public string Password { get; set; }
         public string Access { get; set; }
         public DateTime BirthDate { get; set; }
+        public string Proffesion { get; set; }
+        public string Company { get; set; }
+        public DateTime ProffesionSince { get; set; }
+        public string ProffesionDescription { get; set; }
+        public string Industry { get; set; }
     }
 }

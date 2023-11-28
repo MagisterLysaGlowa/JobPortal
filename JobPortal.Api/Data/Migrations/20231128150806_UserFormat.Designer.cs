@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231113222903_Third_Migration")]
-    partial class Third_Migration
+    [Migration("20231128150806_UserFormat")]
+    partial class UserFormat
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,10 +79,16 @@ namespace JobPortal.Api.Data.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Company")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Industry")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
@@ -96,6 +102,15 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Proffesion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProffesionDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ProffesionSince")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");

@@ -38,11 +38,33 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         private DateTime birthDate;
 
-        /*UTILITY PROPERTIES*/
+        /*EDIT BASIC INFO PROPERTIES*/
         [ObservableProperty]
-        private bool basicInfoEdit = true;
+        private bool basicInfoEdit = false;
         [ObservableProperty]
         private string basicInfoEditButtonText = "Edytuj";
+
+        /*CURRENT WORKPLACE PROPERTIES*/
+        [ObservableProperty]
+        private string proffesion;
+        [ObservableProperty]
+        private string proffesionDescription;
+        [ObservableProperty]
+        private string company;
+        [ObservableProperty]
+        private DateTime proffesionSince;
+        [ObservableProperty]
+        private string industry;
+
+        /*EDIT CURRENT WORKPLACE PROPERTIES*/
+        [ObservableProperty]
+        private bool currentlyWorking = true;
+        [ObservableProperty]
+        private bool currentlyUnemployed = false;
+        [ObservableProperty]
+        private bool workplaceInfoEdit = false;
+        [ObservableProperty]
+        private string workplaceInfoEditButtonText = "Edytuj";
 
 
         /*REPOSITORIES INIT*/
@@ -71,10 +93,10 @@ namespace JobPortal.Maui.ViewModels
         /*COMMANDS*/
 
         [RelayCommand]
-        private void SetEditMode()
+        private void SetBasicInfoEditMode()
         {
-            BasicInfoEditButtonText = !BasicInfoEdit ? "Edytuj" : "Zapisz";
-            if (!BasicInfoEdit)
+            BasicInfoEditButtonText = BasicInfoEdit ? "Edytuj" : "Zapisz";
+            if (BasicInfoEdit)
             {
                 User user = new User();
                 user.Id = User.Id;
@@ -90,14 +112,48 @@ namespace JobPortal.Maui.ViewModels
                 user.PhoneNumber = PhoneNumber;
 
                 userService.UpdateUser(User.Id,user);
+                string userDetails = JsonConvert.SerializeObject(user);
+                Preferences.Set(nameof(App.user), userDetails);
             }
             BasicInfoEdit = !BasicInfoEdit;
+        }
+
+        [RelayCommand]
+        private async Task SetWorkplaceInfoEditMode()
+        {
+            WorkplaceInfoEditButtonText = WorkplaceInfoEdit ? "Edytuj" : "Zapisz";
+            if (CurrentlyWorking)
+            {
+                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
+                user.Proffesion = Proffesion;
+                user.Company = Company;
+                user.ProffesionDescription = ProffesionDescription;
+                user.Industry = Industry;
+                user.ProffesionSince = ProffesionSince;
+                await userService.UpdateUser(User.Id, user);
+                await Shell.Current.DisplayAlert("EDIT MODE", User.Name, "WORKING");
+            }
+
+            WorkplaceInfoEdit = !WorkplaceInfoEdit;
         }
 
         /*UTILITY METHODDS*/
         private async void SetProfileImage(string filePath)
         {
             ProfileImage = await fileOperationService.ImportUserImage(filePath);
+        }
+
+        public void ToggleCheckedCurrentlyWorking()
+        {
+            if (CurrentlyWorking)
+            {
+                Shell.Current.DisplayAlert("WORKING", "WORKING", "WORKING");
+            }
+
+            if (CurrentlyUnemployed)
+            {
+                Shell.Current.DisplayAlert("WE SIE KURWA DO ROBOTY", "WE SIE KURWA DO ROBOTY", "WE SIE KURWA DO ROBOTY");
+            }
         }
     }
 }
