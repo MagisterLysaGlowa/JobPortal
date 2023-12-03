@@ -40,5 +40,6 @@ namespace JobPortal.Api.Data
                 .WithMany(e => e.UserExperiences)
                 .HasForeignKey(ue => ue.ExperienceId);
         }
+        public DbSet<JobPortal.Api.Models.Experience> Experience { get; set; } = default!;
     }
 }

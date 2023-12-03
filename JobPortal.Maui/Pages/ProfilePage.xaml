@@ -303,6 +303,81 @@
                         </VerticalStackLayout>
                     </Frame>
 
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="experienceLayout">
+                            <Label Text="Doświadczenie zawodowe" />
+                            <Button Clicked="DisplayExperienceGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="experienceGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2">
+                                    <Label Text="Nazwa firmy" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding ExperienceCompanyName}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                    <Label Text="Nazwa stanowiska" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding ExperienceProffesion}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                    <Label Text="Lokalizacja" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding ExperienceLocation}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                                    <Label Text="Data rozpoczęcia pracy" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding ExperienceStartDate}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                                    <Label Text="Data zakończenia pracy" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding ExperienceEndDate}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+
+                                <HorizontalStackLayout
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertExperienceCommand}"
+                                        Text="Dodaj do opisu"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideExperienceGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>

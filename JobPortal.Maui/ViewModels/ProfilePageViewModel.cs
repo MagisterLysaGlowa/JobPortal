@@ -82,6 +82,18 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         private string carrierInfoEditButtonText = "Edytuj";
 
+        /*EXPERIENCE PROPERTIES*/
+        [ObservableProperty]
+        private string experienceProffesion;
+        [ObservableProperty]
+        private string experienceCompanyName;
+        [ObservableProperty]
+        private string experienceLocation;
+        [ObservableProperty]
+        private DateTime experienceStartDate;
+        [ObservableProperty]
+        private DateTime experienceEndDate;
+
         /*UTILITY PROPERTIES*/
         public bool workFlag = false;
         public bool carrierFlag = false;
@@ -91,6 +103,7 @@ namespace JobPortal.Maui.ViewModels
         private IUserRepository userService = new UserService();
         private IWorkRepository workService = new WorkService();
         private ICarrierRepository carrierService = new CarrierService(); 
+        private IExperienceRepository experienceService = new ExperienceService();
 
         public ProfilePageViewModel()
         {
@@ -100,8 +113,10 @@ namespace JobPortal.Maui.ViewModels
             SetUpUserInfo();
         }
 
-        /*COMMANDS*/
+        /*---COMMANDS---*/
 
+
+        /*BASIC USER INFO EDIT COMMAND*/
         [RelayCommand]
         private void SetBasicInfoEditMode()
         {
@@ -128,6 +143,7 @@ namespace JobPortal.Maui.ViewModels
             BasicInfoEdit = !BasicInfoEdit;
         }
 
+        /*USER WORK INFO EDIT COMMAND*/
         [RelayCommand]
         private async Task SetWorkplaceInfoEditMode()
         {
@@ -163,6 +179,7 @@ namespace JobPortal.Maui.ViewModels
             WorkplaceInfoEdit = !WorkplaceInfoEdit;
         }
 
+        /*USER CARRIER INFO EDIT COMMAND*/
         [RelayCommand]
         private async Task SetCarrierInfoEditMode()
         {
@@ -191,6 +208,20 @@ namespace JobPortal.Maui.ViewModels
             }
 
             CarrierInfoEdit = !CarrierInfoEdit;
+        }
+
+        [RelayCommand]
+        /*ADD NEW EXPERIENCE ELEMENT COMMAND*/
+        private void InsertExperience()
+        {
+            Experience experience = new Experience();
+            experience.Proffesion = ExperienceProffesion;
+            experience.CompanyName = ExperienceCompanyName;
+            experience.Location = ExperienceLocation;
+            experience.StartDate = ExperienceStartDate;
+            experience.EndDate = ExperienceEndDate;
+            experienceService.AddExperience(User.Id, experience);
+            Shell.Current.DisplayAlert("DODANO EXPA", "DODANO EXPA", "DODANO EXPA");
         }
 
         /*UTILITY METHODDS*/

@@ -12,6 +12,7 @@ public partial class ProfilePage : ContentPage
 		BindingContext = profilePageViewModel;
         vm = profilePageViewModel;
         vm.PropertyChanged += OnViewModelPropertyChanged;
+        experienceLayout.Children.Remove(experienceGrid);
 
         /*UI CHANGES RELATED WITH VIEWMODEL*/
 
@@ -76,5 +77,15 @@ public partial class ProfilePage : ContentPage
                 viewModel.ToggleCheckedCarrier();
             }
         }
+    }
+
+    private void DisplayExperienceGrid_Clicked(object sender, EventArgs e)
+    {
+        experienceLayout.Children.Add(experienceGrid);
+    }
+
+    private void HideExperienceGrid_Clicked(object sender, EventArgs e)
+    {
+        experienceLayout.Children.Remove(experienceGrid);
     }
 }
