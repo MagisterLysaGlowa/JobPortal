@@ -221,7 +221,6 @@ namespace JobPortal.Maui.ViewModels
             experience.StartDate = ExperienceStartDate;
             experience.EndDate = ExperienceEndDate;
             experienceService.AddExperience(User.Id, experience);
-            Shell.Current.DisplayAlert("DODANO EXPA", "DODANO EXPA", "DODANO EXPA");
         }
 
         /*UTILITY METHODDS*/
