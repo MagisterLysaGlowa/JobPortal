@@ -12,20 +12,46 @@ public partial class ProfilePage : ContentPage
 		BindingContext = profilePageViewModel;
         vm = profilePageViewModel;
         vm.PropertyChanged += OnViewModelPropertyChanged;
-	}
 
-    /*SET VISIBLITY OF CURRENT WORK GRID*/
+        /*UI CHANGES RELATED WITH VIEWMODEL*/
+
+        if (!vm.CurrentlyWorking)
+        {
+            workLayout.Children.Remove(workGrid);
+        }
+
+        if (!vm.CarrierYes)
+        {
+            carrierLayout.Children.Remove(carrierGrid);
+        }
+    }
+
+    /*SET VISIBLITY OF GRID*/
     private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
+        /*WORK GRID*/
         if (e.PropertyName == nameof(vm.CurrentlyWorking))
         {
             if (vm.CurrentlyWorking)
             {
-                testLayout.Children.Add(myGridTest);
+                workLayout.Children.Add(workGrid);
             }
             else
             {
-                testLayout.Children.Remove(myGridTest);
+                workLayout.Children.Remove(workGrid);
+            }
+        }
+
+        /*CARRIER GRID*/
+        if (e.PropertyName == nameof(vm.CarrierYes))
+        {
+            if (vm.CarrierYes)
+            {
+                carrierLayout.Children.Add(carrierGrid);
+            }
+            else
+            {
+                carrierLayout.Children.Remove(carrierGrid);
             }
         }
     }
@@ -37,6 +63,17 @@ public partial class ProfilePage : ContentPage
             if (BindingContext is ProfilePageViewModel viewModel)
             {
                 viewModel.ToggleCheckedCurrentlyWorking();
+            }
+        }
+    }
+
+    private void Carrier_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (e.Value)
+        {
+            if (BindingContext is ProfilePageViewModel viewModel)
+            {
+                viewModel.ToggleCheckedCarrier();
             }
         }
     }

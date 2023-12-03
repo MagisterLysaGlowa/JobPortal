@@ -4,6 +4,7 @@ using JobPortal.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231129164640_WorkMigration")]
+    partial class WorkMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,60 +24,6 @@ namespace JobPortal.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateSince")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("Carrier");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.Experience", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Proffesion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Experience");
-                });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfert", b =>
                 {
@@ -156,21 +105,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserExperience", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExperienceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "ExperienceId");
-
-                    b.HasIndex("ExperienceId");
-
-                    b.ToTable("UserExperience");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
                 {
                     b.Property<int>("Id")
@@ -206,34 +140,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("Work");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithOne("Carrier")
-                        .HasForeignKey("JobPortal.Api.Models.Carrier", "UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.UserExperience", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.Experience", "Experience")
-                        .WithMany("UserExperiences")
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("UserExperiences")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Experience");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.User", "User")
@@ -243,17 +149,8 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Experience", b =>
-                {
-                    b.Navigation("UserExperiences");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
-                    b.Navigation("Carrier");
-
-                    b.Navigation("UserExperiences");
-
                     b.Navigation("Work");
                 });
 #pragma warning restore 612, 618

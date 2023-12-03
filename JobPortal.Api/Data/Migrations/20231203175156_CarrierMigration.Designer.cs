@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231128150806_UserFormat")]
-    partial class UserFormat
+    [Migration("20231203175156_CarrierMigration")]
+    partial class CarrierMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace JobPortal.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateSince")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Carrier");
+                });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfert", b =>
                 {
@@ -79,16 +105,10 @@ namespace JobPortal.Api.Data.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Company")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Industry")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
@@ -103,21 +123,72 @@ namespace JobPortal.Api.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Proffesion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProffesionDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ProffesionSince")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Industry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Proffesion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProffesionDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ProffesionSince")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Work");
+                });
+
+            modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
+                {
+                    b.HasOne("JobPortal.Api.Models.User", "User")
+                        .WithOne("Carrier")
+                        .HasForeignKey("JobPortal.Api.Models.Carrier", "UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
+                {
+                    b.HasOne("JobPortal.Api.Models.User", "User")
+                        .WithOne("Work")
+                        .HasForeignKey("JobPortal.Api.Models.Work", "UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("JobPortal.Api.Models.User", b =>
+                {
+                    b.Navigation("Carrier");
+
+                    b.Navigation("Work");
                 });
 #pragma warning restore 612, 618
         }

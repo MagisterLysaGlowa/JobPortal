@@ -153,7 +153,7 @@
                     <!--  PROFILE CURRENT WORKPLACE  -->
 
                     <Frame Padding="20" BorderColor="Black">
-                        <VerticalStackLayout x:Name="testLayout">
+                        <VerticalStackLayout x:Name="workLayout">
                             <Label Text="Opis aktualnego stanowiska" />
                             <VerticalStackLayout>
                                 <HorizontalStackLayout>
@@ -172,7 +172,7 @@
                                     <Label Text="Nie jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
-                            <Grid x:Name="myGridTest">
+                            <Grid x:Name="workGrid">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -193,7 +193,7 @@
                                     <controlls:BorderlessEntry
                                         IsEnabled="{Binding WorkplaceInfoEdit}"
                                         Placeholder="Nazwa firmy"
-                                        Text="{Binding Company}" />
+                                        Text="{Binding CompanyName}" />
                                 </Border>
 
                                 <Border
@@ -243,20 +243,63 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <!--  PROFILE GENERAL EXPERIENCE  -->
+                    <!--  PROFILE CARRIER  -->
 
                     <Frame Padding="20" BorderColor="black">
-                        <VerticalStackLayout>
+                        <VerticalStackLayout x:Name="carrierLayout">
                             <Label Text="Podsumowanie zawodowe" />
                             <HorizontalStackLayout>
-                                <Border Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" />
-                                </Border>
-                                <Label Text="od" />
-                                <Border Style="{StaticResource EntryBorder}">
-                                    <DatePicker />
-                                </Border>
+                                <RadioButton
+                                    CheckedChanged="Carrier_CheckedChanged"
+                                    GroupName="CarrierGroup"
+                                    IsChecked="{Binding CarrierYes}" />
+                                <Label Text="Posiadam doświadczenie zawodowe" VerticalTextAlignment="Center" />
                             </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <RadioButton
+                                    CheckedChanged="Carrier_CheckedChanged"
+                                    GroupName="CarrierGroup"
+                                    IsChecked="{Binding CarrierNo}" />
+                                <Label Text="Nie posiadam doświadczenia zawodowego" VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+
+                            <Grid x:Name="carrierGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+
+
+                                <Border
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding CarrierName}" />
+                                </Border>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="od" />
+                                <Border
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Style="{StaticResource EntryBorder}">
+                                    <DatePicker Date="{Binding CarrierSince}" />
+                                </Border>
+
+                                <Button
+                                    Grid.Row="2"
+                                    Command="{Binding SetCarrierInfoEditModeCommand}"
+                                    Text="{Binding CarrierInfoEditButtonText}"
+                                    WidthRequest="250" />
+                            </Grid>
                         </VerticalStackLayout>
                     </Frame>
 

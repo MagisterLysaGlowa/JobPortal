@@ -6,42 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobPortal.Api.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UserFormat : Migration
+    public partial class WorkMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Company",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Industry",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Proffesion",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ProffesionDescription",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "ProffesionSince",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
             migrationBuilder.CreateTable(
                 name: "JobOferts",
                 columns: table => new
@@ -62,6 +31,36 @@ namespace JobPortal.Api.Data.Migrations
                 {
                     table.PrimaryKey("PK_JobOferts", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Work",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Proffesion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProffesionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProffesionSince = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Industry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Work", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Work_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Work_UserId",
+                table: "Work",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -70,25 +69,8 @@ namespace JobPortal.Api.Data.Migrations
             migrationBuilder.DropTable(
                 name: "JobOferts");
 
-            migrationBuilder.DropColumn(
-                name: "Company",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Industry",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Proffesion",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "ProffesionDescription",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "ProffesionSince",
-                table: "Users");
+            migrationBuilder.DropTable(
+                name: "Work");
         }
     }
 }

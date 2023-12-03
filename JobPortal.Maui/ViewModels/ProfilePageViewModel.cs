@@ -50,7 +50,7 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         private string proffesionDescription;
         [ObservableProperty]
-        private string company;
+        private string companyName;
         [ObservableProperty]
         private DateTime proffesionSince;
         [ObservableProperty]
@@ -58,36 +58,46 @@ namespace JobPortal.Maui.ViewModels
 
         /*EDIT CURRENT WORKPLACE PROPERTIES*/
         [ObservableProperty]
-        private bool currentlyWorking = true;
+        private bool currentlyWorking;
         [ObservableProperty]
-        private bool currentlyUnemployed = false;
+        private bool currentlyUnemployed;
         [ObservableProperty]
         private bool workplaceInfoEdit = false;
         [ObservableProperty]
         private string workplaceInfoEditButtonText = "Edytuj";
 
+        /*CARRIER PROPERTIES*/
+        [ObservableProperty]
+        private string carrierName;
+        [ObservableProperty]
+        private DateTime carrierSince;
+
+        /*EDIT CARRIER PROPERTIES*/
+        [ObservableProperty]
+        private bool carrierYes = false;
+        [ObservableProperty]
+        private bool carrierNo = true;
+        [ObservableProperty]
+        private bool carrierInfoEdit = false;
+        [ObservableProperty]
+        private string carrierInfoEditButtonText = "Edytuj";
+
+        /*UTILITY PROPERTIES*/
+        public bool workFlag = false;
+        public bool carrierFlag = false;
 
         /*REPOSITORIES INIT*/
         private IFileOperationRepository fileOperationService = new FileOperationsService();
         private IUserRepository userService = new UserService();
+        private IWorkRepository workService = new WorkService();
+        private ICarrierRepository carrierService = new CarrierService(); 
 
         public ProfilePageViewModel()
         {
             /*GET USER SAVED IN PREFERENCES FILES*/
             User = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
 
-            /*SETUP PROFILE HEADER*/
-            SetProfileImage(User.ImagePath);
-            CurrentHeaderName = User.Name;
-            CurrentHeaderSurname = User.Surname;
-
-            /*SETUP USER BASIC INFO*/
-            Name = User.Name;
-            Surname = User.Surname;
-            Email = User.Email;
-            PhoneNumber = User.PhoneNumber;
-            Location = User.Location;
-            BirthDate = User.BirthDate;
+            SetUpUserInfo();
         }
 
         /*COMMANDS*/
@@ -122,19 +132,65 @@ namespace JobPortal.Maui.ViewModels
         private async Task SetWorkplaceInfoEditMode()
         {
             WorkplaceInfoEditButtonText = WorkplaceInfoEdit ? "Edytuj" : "Zapisz";
-            if (CurrentlyWorking)
+            if (CurrentlyWorking && WorkplaceInfoEdit)
             {
-                var user = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
-                user.Proffesion = Proffesion;
-                user.Company = Company;
-                user.ProffesionDescription = ProffesionDescription;
-                user.Industry = Industry;
-                user.ProffesionSince = ProffesionSince;
-                await userService.UpdateUser(User.Id, user);
-                await Shell.Current.DisplayAlert("EDIT MODE", User.Name, "WORKING");
+                Work currentUserWork = await workService.GetWorkByUserId(User.Id);
+                if(currentUserWork != null)
+                {
+                    var work = new Work();
+                    work.Id = currentUserWork.Id;
+                    work.Proffesion = Proffesion;
+                    work.ProffesionDescription = ProffesionDescription;
+                    work.CompanyName = CompanyName;
+                    work.ProffesionSince = ProffesionSince;
+                    work.Industry = Industry;
+                    work.UserId = User.Id;
+                    await workService.UpdateWork(currentUserWork.Id, work);
+                }
+                else
+                {
+                    var work = new Work();
+                    work.Proffesion = Proffesion;
+                    work.ProffesionDescription = ProffesionDescription;
+                    work.CompanyName = CompanyName;
+                    work.ProffesionSince = ProffesionSince;
+                    work.Industry = Industry;
+                    work.UserId = User.Id;
+                    await workService.AddWork(work);
+                }
             }
 
             WorkplaceInfoEdit = !WorkplaceInfoEdit;
+        }
+
+        [RelayCommand]
+        private async Task SetCarrierInfoEditMode()
+        {
+            CarrierInfoEditButtonText = CarrierInfoEdit ? "Edytuj" : "Zapisz";
+            if (CarrierYes && CarrierInfoEdit)
+            {
+                Carrier userCarrier = await carrierService.GetCarrierByUserId(User.Id);
+                if (userCarrier != null)
+                {
+                    var carrier = new Carrier();
+                    carrier.Id = userCarrier.Id;
+                    carrier.Name = CarrierName;
+                    carrier.DateSince = CarrierSince;
+                    carrier.UserId = User.Id;
+                    await carrierService.UpdateCarrier(userCarrier.Id, carrier);
+                }
+                else
+                {
+                    var carrier = new Carrier();
+                    carrier.Name = CarrierName;
+                    carrier.DateSince = CarrierSince;
+                    carrier.UserId = User.Id;
+                    await Shell.Current.DisplayAlert("dodany", $"dodany ID: {carrier.Name} {carrier.DateSince} {carrier.UserId}", "dodany");
+                    await carrierService.AddCarrier(carrier);
+                }
+            }
+
+            CarrierInfoEdit = !CarrierInfoEdit;
         }
 
         /*UTILITY METHODDS*/
@@ -143,16 +199,96 @@ namespace JobPortal.Maui.ViewModels
             ProfileImage = await fileOperationService.ImportUserImage(filePath);
         }
 
-        public void ToggleCheckedCurrentlyWorking()
+        public async void ToggleCheckedCurrentlyWorking()
         {
-            if (CurrentlyWorking)
-            {
-                Shell.Current.DisplayAlert("WORKING", "WORKING", "WORKING");
-            }
-
             if (CurrentlyUnemployed)
             {
-                Shell.Current.DisplayAlert("WE SIE KURWA DO ROBOTY", "WE SIE KURWA DO ROBOTY", "WE SIE KURWA DO ROBOTY");
+                if (workFlag)
+                {
+                    Work currentUserWork = await workService.GetWorkByUserId(User.Id);
+                    if(currentUserWork != null)
+                    {
+                        await workService.DeleteWork(currentUserWork.Id);
+                        Proffesion = null;
+                        ProffesionDescription = null;
+                        CompanyName = null;
+                        ProffesionSince = DateTime.Now;
+                        Industry = null;
+                    }
+                }
+            }
+        }
+
+        public async void ToggleCheckedCarrier()
+        {
+            if (CarrierNo)
+            {
+                if (carrierFlag)
+                {
+                    Carrier userCarrier = await carrierService.GetCarrierByUserId(User.Id);
+                    if (userCarrier != null)
+                    {
+                        await carrierService.DeleteCarrier(userCarrier.Id);
+                        CarrierName = null;
+                        CarrierSince = DateTime.Now;
+                    }
+                }
+            }
+        }
+
+        public async void SetUpUserInfo()
+        {
+            /*GET USER SAVED IN PREFERENCES FILES*/
+            User = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
+
+            /*FETCH USER DATA*/
+            Work userWork = await workService.GetWorkByUserId(User.Id);
+            Carrier userCarrier = await carrierService.GetCarrierByUserId(User.Id);
+
+            /*SETUP PROFILE HEADER*/
+            SetProfileImage(User.ImagePath);
+            CurrentHeaderName = User.Name;
+            CurrentHeaderSurname = User.Surname;
+
+            /*SETUP USER BASIC INFO*/
+            Name = User.Name;
+            Surname = User.Surname;
+            Email = User.Email;
+            PhoneNumber = User.PhoneNumber;
+            Location = User.Location;
+            BirthDate = User.BirthDate;
+
+            /*SETUP WORK INFO*/
+            if(userWork != null)
+            {
+                CurrentlyWorking = true;
+                CurrentlyUnemployed = false;
+                workFlag = true;
+                Proffesion = userWork.Proffesion;
+                ProffesionDescription = userWork?.ProffesionDescription;
+                ProffesionSince = userWork.ProffesionSince;
+                Industry = userWork.Industry;
+                CompanyName = userWork.CompanyName;
+            }
+            else
+            {
+                CurrentlyWorking = false;
+                CurrentlyUnemployed = true;
+            }
+
+            /*SETUP CARRIER INFO*/
+            if (userCarrier != null)
+            {
+                CarrierYes = true;
+                CarrierNo = false;
+                carrierFlag = true;
+                CarrierName = userCarrier.Name;
+                CarrierSince = userCarrier.DateSince;
+            }
+            else
+            {
+                CarrierYes = false;
+                CarrierNo = true;
             }
         }
     }
