@@ -4,6 +4,7 @@ using JobPortal.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206074358_UserEducationMigration")]
+    partial class UserEducationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,22 +24,6 @@ namespace JobPortal.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("JobPortal.Api.Models.Ability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AbilityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ability");
-                });
 
             modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
                 {
@@ -163,25 +150,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("JobOferts");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Language", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("LanguageLevel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LanguageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Language");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -222,21 +190,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserAbility", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AbilityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "AbilityId");
-
-                    b.HasIndex("AbilityId");
-
-                    b.ToTable("UserAbility");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.UserEducation", b =>
                 {
                     b.Property<int>("UserId")
@@ -265,21 +218,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.HasIndex("ExperienceId");
 
                     b.ToTable("UserExperience");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "LanguageId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("UserLanguage");
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
@@ -326,25 +264,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserAbility", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.Ability", "Ability")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("AbilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ability");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.UserEducation", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.Education", "Education")
@@ -383,25 +302,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.Language", "Language")
-                        .WithMany("UserLanguages")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("UserLanguages")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.User", "User")
@@ -409,11 +309,6 @@ namespace JobPortal.Api.Data.Migrations
                         .HasForeignKey("JobPortal.Api.Models.Work", "UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.Ability", b =>
-                {
-                    b.Navigation("UserAbilities");
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Education", b =>
@@ -426,22 +321,13 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("UserExperiences");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Language", b =>
-                {
-                    b.Navigation("UserLanguages");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
                     b.Navigation("Carrier");
 
-                    b.Navigation("UserAbilities");
-
                     b.Navigation("UserEducations");
 
                     b.Navigation("UserExperiences");
-
-                    b.Navigation("UserLanguages");
 
                     b.Navigation("Work");
                 });

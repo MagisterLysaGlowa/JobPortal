@@ -1,3 +1,4 @@
+using JobPortal.Maui.Model;
 using JobPortal.Maui.ViewModels;
 using System.ComponentModel;
 
@@ -11,8 +12,12 @@ public partial class ProfilePage : ContentPage
 		InitializeComponent();
 		BindingContext = profilePageViewModel;
         vm = profilePageViewModel;
+
+        /*RESTART PROPERTIES GRID*/
         vm.PropertyChanged += OnViewModelPropertyChanged;
         experienceLayout.Children.Remove(experienceGrid);
+        educationLayout.Children.Remove(educationGrid);
+        languageLayout.Children.Remove(languageGrid);
 
         /*UI CHANGES RELATED WITH VIEWMODEL*/
 
@@ -55,6 +60,25 @@ public partial class ProfilePage : ContentPage
                 carrierLayout.Children.Remove(carrierGrid);
             }
         }
+
+        if(e.PropertyName == nameof(vm.ExperiencesList))
+        {
+            experienceListLayout.HeightRequest = vm.ExperiencesList.Count * 200;
+            experienceListLayout.Remove(experienceListControll);
+            experienceListLayout.Add(experienceListControll);
+        }
+        if (e.PropertyName == nameof(vm.EducationsList))
+        {
+            educationListLayout.HeightRequest = vm.EducationsList.Count * 200;
+            educationListLayout.Remove(educationListControll);
+            educationListLayout.Add(educationListControll);
+        }
+        if (e.PropertyName == nameof(vm.LanguagesList))
+        {
+            languageListLayout.HeightRequest = vm.LanguagesList.Count * 200;
+            languageListLayout.Remove(languageListControll);
+            languageListLayout.Add(languageListControll);
+        }
     }
 
     private void CurrentWork_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -87,5 +111,42 @@ public partial class ProfilePage : ContentPage
     private void HideExperienceGrid_Clicked(object sender, EventArgs e)
     {
         experienceLayout.Children.Remove(experienceGrid);
+    }
+
+    private async void DeleteExperience_Click(object sender, EventArgs e)
+    {
+        int experienceId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteExperience(experienceId);
+    }
+
+    private void DisplayEducationGrid_Clicked(object sender, EventArgs e)
+    {
+        educationLayout.Children.Add(educationGrid);
+    }
+    private void HideEducationGrid_Clicked(object sender, EventArgs e)
+    {
+        educationLayout.Children.Remove(educationGrid);
+    }
+
+    private async void DeleteEducation_Click(object sender, EventArgs e)
+    {
+        int educationId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteEducation(educationId);
+    }
+
+    private async void DeleteLanguage_Click(object sender, EventArgs e)
+    {
+        int languageId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteLanguage(languageId);
+    }
+
+    private void HideLanguagesGrid_Clicked(object sender, EventArgs e)
+    {
+        languageLayout.Children.Remove(languageGrid);
+    }
+
+    private void DisplayLanguageGrid_Clicked(object sender, EventArgs e)
+    {
+        languageLayout.Children.Add(languageGrid);
     }
 }

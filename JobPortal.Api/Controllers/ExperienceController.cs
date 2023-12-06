@@ -50,6 +50,23 @@ namespace JobPortal.Api.Controllers
             return experience;
         }
 
+        [HttpGet("GetExperiencesForUser/{id}")]
+        public async Task<ActionResult<IEnumerable<Experience>>> GetExperiencesForUser(int id)
+        {
+            if (_context.Experience == null)
+            {
+                return NotFound();
+            }
+            var experience = await _context.UserExperience.Where(ur => ur.UserId == id).Select(ur => ur.Experience).ToListAsync();
+
+            if (experience == null)
+            {
+                return NotFound();
+            }
+
+            return experience!;
+        }
+
         // PUT: api/Experience/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

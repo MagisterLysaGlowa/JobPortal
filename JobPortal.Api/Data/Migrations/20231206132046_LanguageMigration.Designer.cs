@@ -4,6 +4,7 @@ using JobPortal.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206132046_LanguageMigration")]
+    partial class LanguageMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,22 +24,6 @@ namespace JobPortal.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("JobPortal.Api.Models.Ability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AbilityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ability");
-                });
 
             modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
                 {
@@ -222,21 +209,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserAbility", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AbilityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "AbilityId");
-
-                    b.HasIndex("AbilityId");
-
-                    b.ToTable("UserAbility");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.UserEducation", b =>
                 {
                     b.Property<int>("UserId")
@@ -326,25 +298,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserAbility", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.Ability", "Ability")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("AbilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ability");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.UserEducation", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.Education", "Education")
@@ -411,11 +364,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Ability", b =>
-                {
-                    b.Navigation("UserAbilities");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.Education", b =>
                 {
                     b.Navigation("UserEducations");
@@ -434,8 +382,6 @@ namespace JobPortal.Api.Data.Migrations
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
                     b.Navigation("Carrier");
-
-                    b.Navigation("UserAbilities");
 
                     b.Navigation("UserEducations");
 

@@ -10,5 +10,7 @@ namespace JobPortal.Maui.Repository
     public interface IExperienceRepository
     {
         Task<Experience> AddExperience(int userId, Experience experience);
+        Task<List<Experience>> GetExperiences(int userId);
+        Task DeleteExperience(int experienceId);
     }
 }

@@ -14,19 +14,29 @@ namespace JobPortal.Api.Data
         public DbSet<JobOfert> JobOferts { get; set; } = default!;
         public DbSet<Work> Work { get; set; } = default!;
         public DbSet<Carrier> Carrier { get; set; } = default!;
+        public DbSet<UserExperience> UserExperience { get; set; } = default!;
+        public DbSet<UserEducation> UserEducation { get; set; } = default!;
+        public DbSet<Experience> Experience { get; set; } = default!;
+        public DbSet<Education> Education { get; set; } = default!;
+        public DbSet<UserLanguage> UserLanguage { get; set; } = default!;
+        public DbSet<Ability> Ability { get; set; } = default!;
+        public DbSet<UserAbility> UserAbility { get; set; } = default!;
+        public DbSet<Language> Language { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*SETUP ONE TO ONE USER TO WORK RELATION*/
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Work)
                 .WithOne(a => a.User)
                 .HasForeignKey<Work>(a => a.UserId);
 
+            /*SETUP ONE TO ONE USER TO CARRIER RELATION*/
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Carrier)
                 .WithOne(a => a.User)
                 .HasForeignKey<Carrier>(a => a.UserId);
 
-
+            /*SETUP MANY TO MANY USER TO EXPERIENCE RELATION*/
             modelBuilder.Entity<UserExperience>()
                 .HasKey(ue => new { ue.UserId, ue.ExperienceId });
 
@@ -39,7 +49,48 @@ namespace JobPortal.Api.Data
                 .HasOne(ue => ue.Experience)
                 .WithMany(e => e.UserExperiences)
                 .HasForeignKey(ue => ue.ExperienceId);
+
+            /*SETUP MANY TO MANY USER TO EDUCATION RELATION*/
+            modelBuilder.Entity<UserEducation>()
+                .HasKey(ue => new { ue.UserId, ue.EducationId });
+
+            modelBuilder.Entity<UserEducation>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserEducations)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserEducation>()
+                .HasOne(ue => ue.Education)
+                .WithMany(e => e.UserEducations)
+                .HasForeignKey(ue => ue.EducationId);
+
+            /*SETUP MANY TO MANY USER TO LANGUAGE RELATION*/
+            modelBuilder.Entity<UserLanguage>()
+                .HasKey(ue => new { ue.UserId, ue.LanguageId });
+
+            modelBuilder.Entity<UserLanguage>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserLanguages)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserLanguage>()
+                .HasOne(ue => ue.Language)
+                .WithMany(e => e.UserLanguages)
+                .HasForeignKey(ue => ue.LanguageId);
+
+            /*SETUP MANY TO MANY USER TO ABILITY RELATION*/
+            modelBuilder.Entity<UserAbility>()
+                .HasKey(ue => new { ue.UserId, ue.AbilityId });
+
+            modelBuilder.Entity<UserAbility>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserAbilities)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserAbility>()
+                .HasOne(ue => ue.Ability)
+                .WithMany(e => e.UserAbilities)
+                .HasForeignKey(ue => ue.AbilityId);
         }
-        public DbSet<JobPortal.Api.Models.Experience> Experience { get; set; } = default!;
     }
 }

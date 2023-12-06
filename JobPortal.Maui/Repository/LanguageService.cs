@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Maui.Repository
 {
-    public class ExperienceService : IExperienceRepository
+    public class LanguageService : ILanguageRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Experience";
-        public async Task<Experience> AddExperience(int userId, Experience experience)
+        private string apiUrl = "https://localhost:7260/api/Language";
+        public async Task<Language> AddLanguage(int userId, Language language)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(experience);
+                    var json = JsonConvert.SerializeObject(language);
                     var requestContent = new StringContent(json, Encoding.UTF8, "application/json");
 
                     string url = $"{apiUrl}/{userId}";
@@ -27,7 +27,7 @@ namespace JobPortal.Maui.Repository
                     if (response.IsSuccessStatusCode)
                     {
                         string responseContent = response.Content.ReadAsStringAsync().Result;
-                        Experience result = JsonConvert.DeserializeObject<Experience>(responseContent);
+                        Language result = JsonConvert.DeserializeObject<Language>(responseContent);
                         return await Task.FromResult(result);
                     }
                     else
@@ -42,13 +42,13 @@ namespace JobPortal.Maui.Repository
             }
         }
 
-        public async Task DeleteExperience(int experienceId)
+        public async Task DeleteLanguage(int languageId)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string url = $"{apiUrl}/{experienceId}";
+                    string url = $"{apiUrl}/{languageId}";
                     client.BaseAddress = new Uri(url);
 
                     HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
@@ -63,21 +63,21 @@ namespace JobPortal.Maui.Repository
             }
         }
 
-        public async Task<List<Experience>> GetExperiences(int userId)
+        public async Task<List<Language>> GetLanguages(int userId)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string url = $"{apiUrl}/GetExperiencesForUser/{userId}";
+                    string url = $"{apiUrl}/GetLanguagesForUser/{userId}";
                     client.BaseAddress = new Uri(url);
 
                     HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        List<Experience> experiences = JsonConvert.DeserializeObject<List<Experience>>(json);
-                        return experiences;
+                        List<Language> languages = JsonConvert.DeserializeObject<List<Language>>(json);
+                        return languages;
                     }
                     return null;
                 }

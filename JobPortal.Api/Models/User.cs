@@ -15,5 +15,8 @@
         public Work? Work { get; set; } 
         public Carrier? Carrier { get; set; }
         public List<UserExperience> UserExperiences { get; } = new();
+        public List<UserEducation> UserEducations { get; } = new();
+        public List<UserLanguage> UserLanguages { get; set; } = new();
+        public List<UserAbility> UserAbilities { get; set; } = new();
     }
 }

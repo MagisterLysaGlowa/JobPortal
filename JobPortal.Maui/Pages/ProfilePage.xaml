@@ -326,35 +326,35 @@
                                     Grid.ColumnSpan="2">
                                     <Label Text="Nazwa firmy" />
                                     <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding ExperienceCompanyName}" />
+                                        <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding ExperienceCompanyNameLocal}" />
                                     </Border>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Row="1" Grid.Column="0">
                                     <Label Text="Nazwa stanowiska" />
                                     <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding ExperienceProffesion}" />
+                                        <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding ExperienceProffesionLocal}" />
                                     </Border>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Row="1" Grid.Column="1">
                                     <Label Text="Lokalizacja" />
                                     <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding ExperienceLocation}" />
+                                        <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding ExperienceLocationLocal}" />
                                     </Border>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Row="2" Grid.Column="0">
                                     <Label Text="Data rozpoczęcia pracy" />
                                     <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding ExperienceStartDate}" />
+                                        <DatePicker Date="{Binding ExperienceStartDateLocal}" />
                                     </Border>
                                 </VerticalStackLayout>
 
                                 <VerticalStackLayout Grid.Row="2" Grid.Column="1">
                                     <Label Text="Data zakończenia pracy" />
                                     <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding ExperienceEndDate}" />
+                                        <DatePicker Date="{Binding ExperienceEndDateLocal}" />
                                     </Border>
                                 </VerticalStackLayout>
 
@@ -378,6 +378,202 @@
                         </VerticalStackLayout>
                     </Frame>
 
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="experienceListLayout">
+                            <ListView x:Name="experienceListControll" ItemsSource="{Binding ExperiencesList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="Green" HeightRequest="200">
+                                                <Label Text="{Binding CompanyName}" />
+                                                <Label Text="{Binding Proffesion}" />
+                                                <Label Text="{Binding Location}" />
+                                                <Label Text="{Binding StartDate}" />
+                                                <Label Text="{Binding EndDate}" />
+                                                <Button
+                                                    Clicked="DeleteExperience_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń element doświadczenia" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="educationLayout">
+                            <Label Text="Wykształcenie" />
+                            <Button Clicked="DisplayEducationGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="educationGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label Text="Nazwa szkoły/uczelni" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Nazwa szkoły/uczelni" Text="{Binding SchoolNameLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                    <Label Text="Nazwa szkoły/uczelni" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Miejscowość" Text="{Binding SchoolLocationLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                    <Label Text="Poziom wykształcenia" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <Picker ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SchoolLevelLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                    <Label Text="Kierunek" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Kierunek" Text="{Binding SchoolDegreeLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                                    <Label Text="Data rozpoczęcia nauki" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding SchoolStartDateLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                                    <Label Text="Data zakończenia nauki" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding SchoolEndDateLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+
+                                <HorizontalStackLayout
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertEducationCommand}"
+                                        Text="Dodaj do wykształcenia"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideEducationGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="educationListLayout">
+                            <ListView x:Name="educationListControll" ItemsSource="{Binding EducationsList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="red" HeightRequest="200">
+                                                <Label Text="{Binding SchoolName}" />
+                                                <Label Text="{Binding SchoolLocation}" />
+                                                <Label Text="{Binding SchoolLevel}" />
+                                                <Label Text="{Binding SchoolDegree}" />
+                                                <Label Text="{Binding SchoolStartDate}" />
+                                                <Label Text="{Binding SchoolEndDate}" />
+                                                <Button
+                                                    Clicked="DeleteEducation_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń element wykształcenia" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="languageLayout">
+                            <Label Text="Języki obce" />
+                            <Button Clicked="DisplayLanguageGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="languageGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label Text="Język" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Język" Text="{Binding LanguageNameLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                    <Label Text="Poziom języka" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <Picker ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding LanguageLevelLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertLanguageCommand}"
+                                        Text="Dodaj język"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideLanguagesGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="languageListLayout">
+                            <ListView x:Name="languageListControll" ItemsSource="{Binding LanguagesList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="red" HeightRequest="200">
+                                                <Label Text="{Binding LanguageName}" />
+                                                <Label Text="{Binding LanguageLevel}" />
+                                                <Button
+                                                    Clicked="DeleteLanguage_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń język" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>

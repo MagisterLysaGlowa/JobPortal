@@ -5,6 +5,7 @@ using JobPortal.Maui.Repository;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,19 +85,83 @@ namespace JobPortal.Maui.ViewModels
 
         /*EXPERIENCE PROPERTIES*/
         [ObservableProperty]
-        private string experienceProffesion;
+        private string experienceProffesionLocal;
         [ObservableProperty]
-        private string experienceCompanyName;
+        private string experienceCompanyNameLocal;
         [ObservableProperty]
-        private string experienceLocation;
+        private string experienceLocationLocal;
         [ObservableProperty]
-        private DateTime experienceStartDate;
+        private DateTime experienceStartDateLocal;
         [ObservableProperty]
-        private DateTime experienceEndDate;
+        private DateTime experienceEndDateLocal;
+        [ObservableProperty]
+        private List<Experience> experiencesList = new();
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private int id;
+        [ObservableProperty]
+        private DateTime startDate;
+        [ObservableProperty]
+        private DateTime endDate;
+
+        /*EDUCATION PROPERTIES*/
+        [ObservableProperty]
+        private string schoolNameLocal;
+        [ObservableProperty]
+        private string schoolLevelLocal;
+        [ObservableProperty]
+        private string schoolDegreeLocal;
+        [ObservableProperty]
+        private string schoolLocationLocal;
+        [ObservableProperty]
+        private DateTime schoolStartDateLocal;
+        [ObservableProperty]
+        private DateTime schoolEndDateLocal;
+        [ObservableProperty]
+        private List<Education> educationsList = new();
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private string schoolName;
+        [ObservableProperty]
+        private string schoolLevel;
+        [ObservableProperty]
+        private string schoolDegree;
+        [ObservableProperty]
+        private string schoolLocation;
+        [ObservableProperty]
+        private DateTime schoolStartDate;
+        [ObservableProperty]
+        private DateTime schoolEndDate;
+
+        /*LANGUAGE PROPERTIES*/
+        [ObservableProperty]
+        private string languageNameLocal;
+        [ObservableProperty]
+        private string languageLevelLocal;
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private string languageName;
+        [ObservableProperty]
+        private string languageLevel;
+        [ObservableProperty]
+        List<Language> languagesList = new();
 
         /*UTILITY PROPERTIES*/
         public bool workFlag = false;
         public bool carrierFlag = false;
+        [ObservableProperty]
+        List<string> educationLevels = new()
+        {
+            "podstawowe","średnie", "zawodowe","licencjat","wyższe"
+        };
+        [ObservableProperty]
+        List<string> languageLevels = new()
+        {
+            "A1","A2", "B1","B2","C1","C2"
+        };
 
         /*REPOSITORIES INIT*/
         private IFileOperationRepository fileOperationService = new FileOperationsService();
@@ -104,6 +169,9 @@ namespace JobPortal.Maui.ViewModels
         private IWorkRepository workService = new WorkService();
         private ICarrierRepository carrierService = new CarrierService(); 
         private IExperienceRepository experienceService = new ExperienceService();
+        private IEducationRepository educationService = new EducationService();
+        private ILanguageRepository languageService = new LanguageService();
+        private IAbilityRepository abilityService = new AbilityService();
 
         public ProfilePageViewModel()
         {
@@ -212,15 +280,42 @@ namespace JobPortal.Maui.ViewModels
 
         [RelayCommand]
         /*ADD NEW EXPERIENCE ELEMENT COMMAND*/
-        private void InsertExperience()
+        private async Task InsertExperience()
         {
             Experience experience = new Experience();
-            experience.Proffesion = ExperienceProffesion;
-            experience.CompanyName = ExperienceCompanyName;
-            experience.Location = ExperienceLocation;
-            experience.StartDate = ExperienceStartDate;
-            experience.EndDate = ExperienceEndDate;
-            experienceService.AddExperience(User.Id, experience);
+            experience.Proffesion = ExperienceProffesionLocal;
+            experience.CompanyName = ExperienceCompanyNameLocal;
+            experience.Location = ExperienceLocationLocal;
+            experience.StartDate = ExperienceStartDateLocal;
+            experience.EndDate = ExperienceEndDateLocal;
+            await experienceService.AddExperience(User.Id, experience);
+            ReRenderExperienceList();
+        }
+
+        /*ADD NEW EDUCATION ELEMENT COMMAND*/
+        [RelayCommand]
+        private async Task InsertEducation()
+        {
+            Education education = new Education();
+            education.SchoolName = SchoolNameLocal;
+            education.SchoolLocation = SchoolLocationLocal;
+            education.SchoolLevel = SchoolLevelLocal;
+            education.SchoolDegree = SchoolDegreeLocal;
+            education.SchoolStartDate = SchoolStartDateLocal;
+            education.SchoolEndDate = SchoolEndDateLocal;
+            await educationService.AddEducation(education,User.Id);
+            ReRenderEducationList();
+        }
+
+        /*ADD NEW LANGUAGE ELEMENT COMMAND*/
+        [RelayCommand]
+        private async Task InsertLanguage()
+        {
+            Language language = new Language();
+            language.LanguageName = LanguageNameLocal;
+            language.LanguageLevel = LanguageLevelLocal;
+            await languageService.AddLanguage(User.Id,language);
+            ReRenderLanguageList();
         }
 
         /*UTILITY METHODDS*/
@@ -319,6 +414,60 @@ namespace JobPortal.Maui.ViewModels
             {
                 CarrierYes = false;
                 CarrierNo = true;
+            }
+
+            /*SETUP EXPERIENCE INFO*/
+            ReRenderExperienceList();
+            /*SETUP EDUCATION INFO*/
+            ReRenderEducationList();
+            /*SETUP LANGUAGE INFO*/
+            ReRenderLanguageList();
+        }
+
+        private async void ReRenderExperienceList()
+        {
+            ExperiencesList = await experienceService.GetExperiences(User.Id);
+        }
+        private async void ReRenderEducationList()
+        {
+            EducationsList = await educationService.GetEducations(User.Id);
+        }
+        private async void ReRenderLanguageList()
+        {
+            LanguagesList = await languageService.GetLanguages(User.Id);
+        }
+
+        /*DELETE EXPERIENCE ELEMENT COMMAND*/
+        public async Task DeleteExperience(int experienceId)
+        {
+
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await experienceService.DeleteExperience(experienceId);
+                ReRenderExperienceList();
+            }
+        }
+
+        /*DELETE EDUCATION ELEMENT COMMAND*/
+        public async Task DeleteEducation(int educationId)
+        {
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await educationService.DeleteEducation(educationId);
+                ReRenderEducationList();
+            }
+        }
+
+        /*DELETE LANGUAGE ELEMENT COMMAND*/
+        public async Task DeleteLanguage(int languageId)
+        {
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await languageService.DeleteLanguage(languageId);
+                ReRenderLanguageList();
             }
         }
     }
