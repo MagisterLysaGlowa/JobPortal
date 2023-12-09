@@ -22,6 +22,10 @@ namespace JobPortal.Api.Data
         public DbSet<Ability> Ability { get; set; } = default!;
         public DbSet<UserAbility> UserAbility { get; set; } = default!;
         public DbSet<Language> Language { get; set; } = default!;
+        public DbSet<Course> Course { get; set; } = default!;
+        public DbSet<UserCourse> UserCourse { get; set; } = default!;
+        public DbSet<Link> Link { get; set; } = default!;
+        public DbSet<UserLink> UserLink { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /*SETUP ONE TO ONE USER TO WORK RELATION*/
@@ -91,6 +95,34 @@ namespace JobPortal.Api.Data
                 .HasOne(ue => ue.Ability)
                 .WithMany(e => e.UserAbilities)
                 .HasForeignKey(ue => ue.AbilityId);
+
+            /*SETUP MANY TO MANY USER TO COURSE RELATION*/
+            modelBuilder.Entity<UserCourse>()
+                .HasKey(ue => new { ue.UserId, ue.CourseId });
+
+            modelBuilder.Entity<UserCourse>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserCourses)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserCourse>()
+                .HasOne(ue => ue.Course)
+                .WithMany(e => e.UserCourses)
+                .HasForeignKey(ue => ue.CourseId);
+
+            /*SETUP MANY TO MANY USER TO LINK RELATION*/
+            modelBuilder.Entity<UserLink>()
+                .HasKey(ue => new { ue.UserId, ue.LinkId });
+
+            modelBuilder.Entity<UserLink>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserLinks)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserLink>()
+                .HasOne(ue => ue.Link)
+                .WithMany(e => e.UserLinks)
+                .HasForeignKey(ue => ue.LinkId);
         }
     }
 }

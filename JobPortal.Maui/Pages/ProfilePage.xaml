@@ -574,6 +574,214 @@
                             </ListView>
                         </VerticalStackLayout>
                     </Frame>
+
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="abilityLayout">
+                            <Label Text="Umiejętności / Uprawnienia" />
+                            <Button Clicked="DisplayAbilityGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="abilityGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label Text="Umiejętności / Uprawnienia" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Umiejętności / Uprawnienia" Text="{Binding AbilityNameLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertAbilityCommand}"
+                                        Text="Dodaj umiejętność"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideAbilityGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="abilityListLayout">
+                            <ListView x:Name="abilityListControll" ItemsSource="{Binding AbilitiesList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
+                                                <Label Text="{Binding AbilityName}" />
+                                                <Button
+                                                    Clicked="DeleteAbility_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń umiejętność" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="courseLayout">
+                            <Label Text="Kursy / Szkolenia / Certyfikaty" />
+                            <Button Clicked="DisplayCourseGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="courseGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label Text="Nazwa kursu" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Nazwa kursu" Text="{Binding CourseNameLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                    <Label Text="Nazwa organizatora" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Nazwa organizatora" Text="{Binding CourseOrganizerLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                    <Label Text="Data rozpoczęcia kursu" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding CourseStartDateLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                    <Label Text="Data zakończenia kursu" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <DatePicker Date="{Binding CourseEndDateLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertCourseCommand}"
+                                        Text="Dodaj kurs"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideCourseGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="courseListLayout">
+                            <ListView x:Name="courseListControll" ItemsSource="{Binding CoursesList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
+                                                <Label Text="{Binding CourseName}" />
+                                                <Label Text="{Binding CourseOrganizer}" />
+                                                <Label Text="{Binding CourseStartDate}" />
+                                                <Label Text="{Binding CourseEndDate}" />
+                                                <Button
+                                                    Clicked="DeleteCourse_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń kurs" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="black">
+                        <VerticalStackLayout x:Name="linkLayout">
+                            <Label Text="linki do innych portali" />
+                            <Button Clicked="DisplayLinkGrid_Clicked" Text="Dodaj" />
+                            <Grid x:Name="linkGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label Text="Link" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry Placeholder="Link" Text="{Binding LinkContentLocal}" />
+                                    </Border>
+                                </VerticalStackLayout>
+
+                                <HorizontalStackLayout
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="End">
+                                    <Button
+                                        Command="{Binding InsertLinkCommand}"
+                                        Text="Dodaj kurs"
+                                        WidthRequest="250" />
+                                    <Button
+                                        Clicked="HideLinkGrid_Clicked"
+                                        Text="Zamknij okno"
+                                        WidthRequest="250" />
+
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame Padding="20" BorderColor="Black">
+                        <VerticalStackLayout x:Name="linkListLayout">
+                            <ListView x:Name="linkListControll" ItemsSource="{Binding LinksList}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
+                                                <Label Text="{Binding LinkContent}" />
+                                                <Button
+                                                    Clicked="DeleteLink_Click"
+                                                    CommandParameter="{Binding Id}"
+                                                    Text="Usuń link" />
+                                            </VerticalStackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </VerticalStackLayout>
+                    </Frame>
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>

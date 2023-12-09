@@ -79,6 +79,24 @@ public partial class ProfilePage : ContentPage
             languageListLayout.Remove(languageListControll);
             languageListLayout.Add(languageListControll);
         }
+        if (e.PropertyName == nameof(vm.AbilitiesList))
+        {
+            abilityListLayout.HeightRequest = vm.AbilitiesList.Count * 200;
+            abilityListLayout.Remove(abilityListControll);
+            abilityListLayout.Add(abilityListControll);
+        }
+        if (e.PropertyName == nameof(vm.CoursesList))
+        {
+            courseListLayout.HeightRequest = vm.CoursesList.Count * 200;
+            courseListLayout.Remove(courseListControll);
+            courseListLayout.Add(courseListControll);
+        }
+        if (e.PropertyName == nameof(vm.LinksList))
+        {
+            linkListLayout.HeightRequest = vm.LinksList.Count * 200;
+            linkListLayout.Remove(linkListControll);
+            linkListLayout.Add(linkListControll);
+        }
     }
 
     private void CurrentWork_CheckedChanged(object sender, CheckedChangedEventArgs e)
@@ -148,5 +166,53 @@ public partial class ProfilePage : ContentPage
     private void DisplayLanguageGrid_Clicked(object sender, EventArgs e)
     {
         languageLayout.Children.Add(languageGrid);
+    }
+
+    private void DisplayAbilityGrid_Clicked(object sender, EventArgs e)
+    {
+        abilityLayout.Children.Add(abilityGrid);
+    }
+
+    private void HideAbilityGrid_Clicked(object sender, EventArgs e)
+    {
+        abilityLayout.Children.Remove(abilityGrid);
+    }
+
+    private async void DeleteAbility_Click(object sender, EventArgs e)
+    {
+        int abilityId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteAbility(abilityId);
+    }
+
+    private async void DeleteCourse_Click(object sender, EventArgs e)
+    {
+        int couseId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteCourse(couseId);
+    }
+
+    private void HideCourseGrid_Clicked(object sender, EventArgs e)
+    {
+        courseLayout.Children.Remove(courseGrid);
+    }
+
+    private void DisplayCourseGrid_Clicked(object sender, EventArgs e)
+    {
+        courseLayout.Children.Add(courseGrid);
+    }
+
+    private async void DeleteLink_Click(object sender, EventArgs e)
+    {
+        int linkId = (int)(sender as Button).CommandParameter;
+        await vm.DeleteLink(linkId);
+    }
+
+    private void HideLinkGrid_Clicked(object sender, EventArgs e)
+    {
+        linkLayout.Children.Remove(linkGrid);
+    }
+
+    private void DisplayLinkGrid_Clicked(object sender, EventArgs e)
+    {
+        linkLayout.Children.Add(linkGrid);
     }
 }

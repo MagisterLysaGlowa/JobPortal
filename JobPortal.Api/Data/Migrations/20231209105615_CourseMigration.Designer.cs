@@ -4,6 +4,7 @@ using JobPortal.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231209105615_CourseMigration")]
+    partial class CourseMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,22 +210,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("Language");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Link", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("LinkContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Link");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -336,21 +323,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("UserLanguage");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.UserLink", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LinkId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "LinkId");
-
-                    b.HasIndex("LinkId");
-
-                    b.ToTable("UserLink");
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
@@ -492,25 +464,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserLink", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.Link", "Link")
-                        .WithMany("UserLinks")
-                        .HasForeignKey("LinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("UserLinks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Link");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.User", "User")
@@ -545,11 +498,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("UserLanguages");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.Link", b =>
-                {
-                    b.Navigation("UserLinks");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
                 {
                     b.Navigation("Carrier");
@@ -563,8 +511,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("UserExperiences");
 
                     b.Navigation("UserLanguages");
-
-                    b.Navigation("UserLinks");
 
                     b.Navigation("Work");
                 });

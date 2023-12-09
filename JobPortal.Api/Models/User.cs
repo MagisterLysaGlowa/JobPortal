@@ -18,5 +18,7 @@
         public List<UserEducation> UserEducations { get; } = new();
         public List<UserLanguage> UserLanguages { get; set; } = new();
         public List<UserAbility> UserAbilities { get; set; } = new();
+        public List<UserCourse> UserCourses { get; set; } = new();
+        public List<UserLink> UserLinks { get; set; } = new();
     }
 }

@@ -149,6 +149,48 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         List<Language> languagesList = new();
 
+        /*ABILITY PROPERTIES*/
+        [ObservableProperty]
+        private string abilityNameLocal;
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private string abilityName;
+        [ObservableProperty]
+        List<Ability> abilitiesList = new();
+
+        /*COURSE PROPERTIES*/
+        [ObservableProperty]
+        private string courseNameLocal;
+        [ObservableProperty]
+        private string courseOrganizerLocal;
+        [ObservableProperty]
+        private DateTime courseStartDateLocal;
+        [ObservableProperty]
+        private DateTime courseEndDateLocal;
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private string courseName;
+        [ObservableProperty]
+        private string courseOrganizer;
+        [ObservableProperty]
+        private DateTime courseStartDate;
+        [ObservableProperty]
+        private DateTime courseEndDate;
+        [ObservableProperty]
+        List<Course> coursesList = new();
+
+        /*LINK PROPERTIES*/
+        [ObservableProperty]
+        private string linkContentLocal;
+
+        /*PROPERITES USED FOR CORRECT LIST VIEW DISPLAY*/
+        [ObservableProperty]
+        private string linkContent;
+        [ObservableProperty]
+        private List<Link> linksList = new();
+
         /*UTILITY PROPERTIES*/
         public bool workFlag = false;
         public bool carrierFlag = false;
@@ -172,6 +214,8 @@ namespace JobPortal.Maui.ViewModels
         private IEducationRepository educationService = new EducationService();
         private ILanguageRepository languageService = new LanguageService();
         private IAbilityRepository abilityService = new AbilityService();
+        private ICourseRepository courseService = new CourseService();
+        private ILinkRepository linkService = new LinkService();
 
         public ProfilePageViewModel()
         {
@@ -318,6 +362,39 @@ namespace JobPortal.Maui.ViewModels
             ReRenderLanguageList();
         }
 
+        /*ADD NEW ABILITY ELEMENT COMMAND*/
+        [RelayCommand]
+        private async Task InsertAbility()
+        {
+            Ability ability = new Ability();
+            ability.AbilityName = AbilityNameLocal;
+            await abilityService.AddAbility(User.Id,ability);
+            ReRenderAbilityList();
+        }
+
+        /*ADD NEW COURSE ELEMENT COMMAND*/
+        [RelayCommand]
+        private async Task InsertCourse()
+        {
+            Course course = new Course();
+            course.CourseName = CourseNameLocal;
+            course.CourseOrganizer = CourseOrganizerLocal;
+            course.CourseStartDate = CourseStartDateLocal;
+            course.CourseEndDate = CourseEndDateLocal;
+            await courseService.AddCourse(User.Id, course);
+            ReRenderCourseList();
+        }
+
+        /*ADD NEW LINK ELEMENT COMMAND*/
+        [RelayCommand]
+        private async Task InsertLink()
+        {
+            Link link = new Link();
+            link.LinkContent = LinkContentLocal;
+            await linkService.AddLink(User.Id, link);
+            ReRenderLinkList();
+        }
+
         /*UTILITY METHODDS*/
         private async void SetProfileImage(string filePath)
         {
@@ -422,6 +499,12 @@ namespace JobPortal.Maui.ViewModels
             ReRenderEducationList();
             /*SETUP LANGUAGE INFO*/
             ReRenderLanguageList();
+            /*SETUP ABILITY INFO*/
+            ReRenderAbilityList();
+            /*SETUP COURSE INFO*/
+            ReRenderCourseList();
+            /*SETUP LINK INFO*/
+            ReRenderLinkList();
         }
 
         private async void ReRenderExperienceList()
@@ -435,6 +518,20 @@ namespace JobPortal.Maui.ViewModels
         private async void ReRenderLanguageList()
         {
             LanguagesList = await languageService.GetLanguages(User.Id);
+        }
+
+        private async void ReRenderAbilityList()
+        {
+            AbilitiesList = await abilityService.GetAbilities(User.Id);
+        }
+
+        private async void ReRenderCourseList()
+        {
+            CoursesList = await courseService.GetCourses(User.Id);
+        }
+        private async void ReRenderLinkList()
+        {
+            LinksList = await linkService.GetLinks(User.Id);
         }
 
         /*DELETE EXPERIENCE ELEMENT COMMAND*/
@@ -468,6 +565,39 @@ namespace JobPortal.Maui.ViewModels
             {
                 await languageService.DeleteLanguage(languageId);
                 ReRenderLanguageList();
+            }
+        }
+
+        /*DELETE ABILITY ELEMENT COMMAND*/
+        public async Task DeleteAbility(int abilityId)
+        {
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await abilityService.DeleteAbility(abilityId);
+                ReRenderAbilityList();
+            }
+        }
+
+        /*DELETE COURSE ELEMENT COMMAND*/
+        public async Task DeleteCourse(int courseId)
+        {
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await courseService.DeleteCourse(courseId);
+                ReRenderCourseList();
+            }
+        }
+
+        /*DELETE LINK ELEMENT COMMAND*/
+        public async Task DeleteLink(int linkId)
+        {
+            bool delete = await Shell.Current.DisplayAlert("Czy napewno chcesz usunąć element?", "Czy napewno chcesz usunąć element?", "Tak", "Nie");
+            if (delete)
+            {
+                await linkService.DeleteLink(linkId);
+                ReRenderLinkList();
             }
         }
     }
