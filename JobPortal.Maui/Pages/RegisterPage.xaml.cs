@@ -25,6 +25,7 @@ public partial class RegisterPage : ContentPage
 		frameList.Add(frameBox4);
 		frameList.Add(frameBox5);
 		frameList.Add(frameBox6);
+		frameList.Add(frameBox7);
 
         SlideAnimation1 = new Animation(v => frameList[vm.Step].TranslationX = v,-200,20,Easing.Linear);
         SlideAnimation2 = new Animation(v => frameList[vm.Step].TranslationX = v,20,0,Easing.Linear);

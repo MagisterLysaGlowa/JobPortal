@@ -26,8 +26,10 @@ namespace JobPortal.Maui
             builder.Services.AddSingleton<HomePageViewModel>();
             builder.Services.AddSingleton<ProfilePage>();
             builder.Services.AddSingleton<ProfilePageViewModel>();
+            builder.Services.AddSingleton<JobOfertPage>();
+            builder.Services.AddSingleton<JobOfertPageViewModel>();
 #if DEBUG
-                builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

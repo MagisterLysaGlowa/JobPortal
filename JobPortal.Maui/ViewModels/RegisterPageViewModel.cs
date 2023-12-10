@@ -81,6 +81,12 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         private string dateOfBirthErrorText;
 
+        /*ACCESS PROPERTIES*/
+        [ObservableProperty]
+        private bool isEmployee = true;
+        [ObservableProperty]
+        private bool isEmployer = false;
+
         /*UI PROPERTIES*/
         [ObservableProperty]
         private int step = 0;
@@ -119,7 +125,7 @@ namespace JobPortal.Maui.ViewModels
             Step--;
             await Task.Delay(550);
             IsBusy = false;
-            EntryValidation(frame);
+            await EntryValidation(frame);
         }
 
         /*[COMMAND] BROWSER FILE TO UPLOAD*/
@@ -201,13 +207,15 @@ namespace JobPortal.Maui.ViewModels
             User user = new User();
             user.Name = Name;
             user.Email = Email;
-            user.Access = "user";
             user.Surname = Surname;
             user.Password = Password;
             user.Location = Location;
             user.ImagePath = fileInfo[0];
             user.BirthDate = DateOfBirth;
             user.PhoneNumber = PhoneNumber;
+
+            user.Access = IsEmployee ? "employee" : "employer";
+
             await userRepository.Register(user);
         }
 
@@ -390,6 +398,10 @@ namespace JobPortal.Maui.ViewModels
                 return DateOfBirthError == true || LocationError == true ? false : true;
             }
             else if (frame == "fifth")
+            {
+                return true;
+            }
+            else if (frame == "sixth")
             {
                 return true;
             }

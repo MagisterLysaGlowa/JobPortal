@@ -204,6 +204,8 @@ namespace JobPortal.Maui.ViewModels
         {
             "A1","A2", "B1","B2","C1","C2"
         };
+        [ObservableProperty]
+        private bool isEmployee;
 
         /*REPOSITORIES INIT*/
         private IFileOperationRepository fileOperationService = new FileOperationsService();
@@ -223,6 +225,7 @@ namespace JobPortal.Maui.ViewModels
             User = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
 
             SetUpUserInfo();
+            IsEmployee = User.Access == "employer" ? false : true;
         }
 
         /*---COMMANDS---*/

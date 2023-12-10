@@ -4,6 +4,7 @@ using JobPortal.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobPortal.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210124246_JobOfertOperationsMigration")]
+    partial class JobOfertOperationsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,38 +219,8 @@ namespace JobPortal.Api.Data.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmploymentContract")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmploymentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("JobType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PositionLevel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PositionName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("RecruitmentEndDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("SalaryMaximum")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("SalaryMinimum")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("WorkDays")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkEndHour")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkStartHour")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -463,21 +436,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.HasIndex("ExperienceId");
 
                     b.ToTable("UserExperience");
-                });
-
-            modelBuilder.Entity("JobPortal.Api.Models.UserJobOfert", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobOfertId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "JobOfertId");
-
-                    b.HasIndex("JobOfertId");
-
-                    b.ToTable("UserJobOfert");
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
@@ -706,25 +664,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("JobPortal.Api.Models.UserJobOfert", b =>
-                {
-                    b.HasOne("JobPortal.Api.Models.JobOfert", "JobOfert")
-                        .WithMany("userJobOferts")
-                        .HasForeignKey("JobOfertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobPortal.Api.Models.User", "User")
-                        .WithMany("userJobOferts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobOfert");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.Language", "Language")
@@ -816,8 +755,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("JobOfertDuties");
 
                     b.Navigation("JobOfertRequirements");
-
-                    b.Navigation("userJobOferts");
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Language", b =>
@@ -852,8 +789,6 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("UserLinks");
 
                     b.Navigation("Work");
-
-                    b.Navigation("userJobOferts");
                 });
 #pragma warning restore 612, 618
         }

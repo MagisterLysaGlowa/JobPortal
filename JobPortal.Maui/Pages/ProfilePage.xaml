@@ -152,7 +152,10 @@
 
                     <!--  PROFILE CURRENT WORKPLACE  -->
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="workLayout">
                             <Label Text="Opis aktualnego stanowiska" />
                             <VerticalStackLayout>
@@ -245,7 +248,10 @@
 
                     <!--  PROFILE CARRIER  -->
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="carrierLayout">
                             <Label Text="Podsumowanie zawodowe" />
                             <HorizontalStackLayout>
@@ -303,7 +309,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="experienceLayout">
                             <Label Text="Doświadczenie zawodowe" />
                             <Button Clicked="DisplayExperienceGrid_Clicked" Text="Dodaj" />
@@ -378,7 +387,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="experienceListLayout">
                             <ListView x:Name="experienceListControll" ItemsSource="{Binding ExperiencesList}">
                                 <ListView.ItemTemplate>
@@ -402,7 +414,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="educationLayout">
                             <Label Text="Wykształcenie" />
                             <Button Clicked="DisplayEducationGrid_Clicked" Text="Dodaj" />
@@ -481,7 +496,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="educationListLayout">
                             <ListView x:Name="educationListControll" ItemsSource="{Binding EducationsList}">
                                 <ListView.ItemTemplate>
@@ -506,7 +524,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="languageLayout">
                             <Label Text="Języki obce" />
                             <Button Clicked="DisplayLanguageGrid_Clicked" Text="Dodaj" />
@@ -554,7 +575,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="languageListLayout">
                             <ListView x:Name="languageListControll" ItemsSource="{Binding LanguagesList}">
                                 <ListView.ItemTemplate>
@@ -575,7 +599,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="abilityLayout">
                             <Label Text="Umiejętności / Uprawnienia" />
                             <Button Clicked="DisplayAbilityGrid_Clicked" Text="Dodaj" />
@@ -616,7 +643,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="abilityListLayout">
                             <ListView x:Name="abilityListControll" ItemsSource="{Binding AbilitiesList}">
                                 <ListView.ItemTemplate>
@@ -636,7 +666,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="courseLayout">
                             <Label Text="Kursy / Szkolenia / Certyfikaty" />
                             <Button Clicked="DisplayCourseGrid_Clicked" Text="Dodaj" />
@@ -699,7 +732,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="courseListLayout">
                             <ListView x:Name="courseListControll" ItemsSource="{Binding CoursesList}">
                                 <ListView.ItemTemplate>
@@ -722,7 +758,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="linkLayout">
                             <Label Text="linki do innych portali" />
                             <Button Clicked="DisplayLinkGrid_Clicked" Text="Dodaj" />
@@ -763,7 +802,10 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Padding="20" BorderColor="Black">
+                    <Frame
+                        Padding="20"
+                        BorderColor="Black"
+                        IsVisible="{Binding IsEmployee}">
                         <VerticalStackLayout x:Name="linkListLayout">
                             <ListView x:Name="linkListControll" ItemsSource="{Binding LinksList}">
                                 <ListView.ItemTemplate>

@@ -62,4 +62,9 @@
         Title="Profile"
         ContentTemplate="{DataTemplate pages:ProfilePage}"
         Route="profilePage" />
+    <ShellContent
+        x:Name="jobOfertShellContentControll"
+        Title="Job Ofert"
+        ContentTemplate="{DataTemplate pages:JobOfertPage}"
+        Route="jobOfertPage" />
 </Shell>

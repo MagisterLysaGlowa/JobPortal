@@ -18,6 +18,9 @@ public partial class ProfilePage : ContentPage
         experienceLayout.Children.Remove(experienceGrid);
         educationLayout.Children.Remove(educationGrid);
         languageLayout.Children.Remove(languageGrid);
+        abilityLayout.Children.Remove(abilityGrid);
+        courseLayout.Children.Remove(courseGrid);
+        linkLayout.Children.Remove(linkGrid);
 
         /*UI CHANGES RELATED WITH VIEWMODEL*/
 

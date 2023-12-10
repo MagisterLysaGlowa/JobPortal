@@ -20,5 +20,6 @@
         public List<UserAbility> UserAbilities { get; set; } = new();
         public List<UserCourse> UserCourses { get; set; } = new();
         public List<UserLink> UserLinks { get; set; } = new();
+        public List<UserJobOfert> userJobOferts { get; set; } = new();
     }
 }

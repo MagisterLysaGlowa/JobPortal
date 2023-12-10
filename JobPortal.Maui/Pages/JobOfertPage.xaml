@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.JobOfertPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="JobOfertPage"
+    x:DataType="viewmodels:JobOfertPageViewModel">
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="Stroke" Value="black" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <ScrollView>
+            <Grid HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1000" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="20"
+                    BorderColor="black">
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Text="Informacje o firmie" />
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                <Label Text="Nazwa firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding CompanyName}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                <Label Text="Adres firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Adres firmy" Text="{Binding CompanyAddress}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Lokalizacja" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding CompanyLocation}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Opis firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Editor Placeholder="Opis firmy" Text="{Binding CompanyDescription}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Text="Opis stanowiska" />
+
+                            <VerticalStackLayout Grid.Row="5" Grid.Column="0">
+                                <Label Text="Nazwa stanowiska" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding PositionName}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="5" Grid.Column="1">
+                                <Label Text="Poziom stanowiska" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry Placeholder="Poziom stanowiska" Text="{Binding PositionLevel}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Rodzaj umowy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker ItemsSource="{Binding EmploymentContractOptionsList}" SelectedItem="{Binding EmploymentContract}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="7" Grid.Column="0">
+                                <Label Text="Wymiar zatrudnienia" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker ItemsSource="{Binding EmploymentTypeList}" SelectedItem="{Binding EmploymentType}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="7" Grid.Column="1">
+                                <Label Text="Rodzaj pracy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker ItemsSource="{Binding JobTypeList}" SelectedItem="{Binding JobType}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="0">
+                                <Label Text="Widełki wynagrodzenia" />
+                                <HorizontalStackLayout>
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry
+                                            Keyboard="Numeric"
+                                            Placeholder="od"
+                                            Text="{Binding SalaryMinimum}" />
+                                    </Border>
+                                    <Label Text="-" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry
+                                            Keyboard="Numeric"
+                                            Placeholder="do"
+                                            Text="{Binding SalaryMaximum}" />
+                                    </Border>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="1">
+                                <Label Text="Godziny pracy" />
+                                <HorizontalStackLayout>
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <TimePicker Time="{Binding WorkStartHour}" />
+                                    </Border>
+                                    <Label Text="-" />
+                                    <Border Style="{StaticResource EntryBorder}">
+                                        <TimePicker Time="{Binding WorkEndHour}" />
+                                    </Border>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="9"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Okres rekrutacji do" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <DatePicker Date="{Binding RecruitmentEndDate}" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Grid x:Name="categoryGrid" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Label Text="Kategoria" />
+                        <Border Style="{StaticResource EntryBorder}">
+                            <Picker
+                                ItemsSource="{Binding CategoriesList}"
+                                SelectedIndexChanged="CategoryPicker_Changed"
+                                SelectedItem="{Binding CategoryChoice}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout
+                        x:Name="categoryLayout"
+                        Grid.Row="1"
+                        Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry Placeholder="Nazwa kategorii" Text="{Binding CategoryInput}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Command="{Binding InsertCategoryCommand}"
+                        Text="Dodaj kategorie" />
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="2">
+                    <ListView ItemsSource="{Binding JobOfertCategories}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding CategoryName}" />
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry Placeholder="Dodaj wymaganie" Text="{Binding RequirementNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Command="{Binding InsertRequirementCommand}"
+                        Text="Dodaj wymaganie" />
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="4">
+                    <ListView ItemsSource="{Binding JobOfertRequirements}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding RequirementName}" />
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry Placeholder="Dodaj obowiązek" Text="{Binding DutyNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Command="{Binding InsertDutyCommand}"
+                        Text="Dodaj obowiązek" />
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="6">
+                    <ListView ItemsSource="{Binding JobOfertDuties}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding DutyName}" />
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Button
+                    Grid.Row="7"
+                    Command="{Binding InsertJobOfertCommand}"
+                    Text="Dodaj ofertę pracy" />
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

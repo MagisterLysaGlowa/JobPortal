@@ -511,8 +511,27 @@
                 Padding="0,30,0,30"
                 Spacing="20"
                 VerticalOptions="Center">
-                <Label Text="Czy napewno chcesz założyć konto ?" />
-                <Button Command="{Binding RegisterUserCommand}" Text="Zarejestruj się" />
+                <Label Text="Wybierz jedną z poniższych" />
+                <HorizontalStackLayout>
+                    <RadioButton GroupName="AccessRadioButton" IsChecked="{Binding IsEmployee}" />
+                    <Label Text="Jestem osobą szukającą pracy" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <RadioButton GroupName="AccessRadioButton" IsChecked="{Binding IsEmployer}" />
+                    <Label Text="Jestem pracodawcą / rekruterem i szukam pracownika" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Button
+                        Command="{Binding PreviousStepCommand}"
+                        CommandParameter="sixth"
+                        HeightRequest="60"
+                        Text="Poprzedni krok" />
+                    <Button
+                        Command="{Binding NextStepCommand}"
+                        CommandParameter="sixth"
+                        HeightRequest="60"
+                        Text="Następny krok" />
+                </HorizontalStackLayout>
             </VerticalStackLayout>
             <Frame.Style>
                 <Style TargetType="{x:Type Frame}">
@@ -524,6 +543,39 @@
                             <Setter Property="Opacity" Value="1" />
                             <Setter Property="ZIndex" Value="100" />
                             <Setter Property="TranslationY" Value="-1600" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Style.Setters>
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ZIndex" Value="1" />
+                        <Setter Property="TranslationY" Value="0" />
+                    </Style.Setters>
+                </Style>
+            </Frame.Style>
+        </Frame>
+
+        <Frame
+            x:Name="frameBox7"
+            BorderColor="Black"
+            CornerRadius="20"
+            MaximumWidthRequest="400">
+            <VerticalStackLayout
+                Padding="0,30,0,30"
+                Spacing="20"
+                VerticalOptions="Center">
+                <Label Text="Czy napewno chcesz założyć konto ?" />
+                <Button Command="{Binding RegisterUserCommand}" Text="Zarejestruj się" />
+            </VerticalStackLayout>
+            <Frame.Style>
+                <Style TargetType="{x:Type Frame}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Step}"
+                            TargetType="Frame"
+                            Value="6">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="ZIndex" Value="100" />
+                            <Setter Property="TranslationY" Value="-2000" />
                         </DataTrigger>
                     </Style.Triggers>
                     <Style.Setters>
