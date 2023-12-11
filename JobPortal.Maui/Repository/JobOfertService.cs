@@ -24,8 +24,10 @@ namespace JobPortal.Maui.Repository
                     string url = $"{apiUrl}/{userId}";
                     client.BaseAddress = new Uri(url);
                     var response = await client.PostAsync(client.BaseAddress, requestContent);
+                    await Shell.Current.DisplayAlert("dziala", $"dziala {response.RequestMessage}", "dziala");
                     if (response.IsSuccessStatusCode)
                     {
+                        await Shell.Current.DisplayAlert("esa", "esa", "esa");
                         string responseContent = response.Content.ReadAsStringAsync().Result;
                         JobOfert result = JsonConvert.DeserializeObject<JobOfert>(responseContent);
                         return await Task.FromResult(result);
@@ -34,6 +36,56 @@ namespace JobPortal.Maui.Repository
                     {
                         return null;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<JobOfert>> GetAllJobOferts()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<JobOfert> jobOferts = JsonConvert.DeserializeObject<List<JobOfert>>(json);
+                        return jobOferts;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<JobOfert>> GetAllJobOfertsWithCategories()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetJobOfertWithCategories";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<JobOfert> jobOferts = JsonConvert.DeserializeObject<List<JobOfert>>(json);
+                        return jobOferts;
+                    }
+                    return null;
                 }
             }
             catch (Exception ex)

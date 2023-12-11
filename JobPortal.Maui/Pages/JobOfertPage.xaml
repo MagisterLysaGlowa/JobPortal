@@ -30,6 +30,10 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <Frame
@@ -312,8 +316,45 @@
                     </ListView>
                 </VerticalStackLayout>
 
+                <Grid Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry Placeholder="Dodaj przywilej" Text="{Binding BenefitNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Command="{Binding InsertBenefitCommand}"
+                        Text="Dodaj przywilej" />
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="8">
+                    <ListView ItemsSource="{Binding JobOfertBenefits}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding BenefitName}" />
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
                 <Button
-                    Grid.Row="7"
+                    Grid.Row="9"
                     Command="{Binding InsertJobOfertCommand}"
                     Text="Dodaj ofertę pracy" />
             </Grid>

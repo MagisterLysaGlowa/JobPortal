@@ -56,6 +56,10 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         private string dutyNameLocal;
 
+        /*BENEFIT PROPERTIES*/
+        [ObservableProperty]
+        private string benefitNameLocal;
+
         [ObservableProperty]
         List<string> employmentContractOptionsList = new List<string>()
         {
@@ -89,6 +93,8 @@ namespace JobPortal.Maui.ViewModels
         ObservableCollection<Requirement> jobOfertRequirements = new();
         [ObservableProperty]
         ObservableCollection<Duty> jobOfertDuties = new();
+        [ObservableProperty]
+        ObservableCollection<Benefit> jobOfertBenefits = new();
 
         /*UI PROPERTIES*/
         [ObservableProperty]
@@ -97,12 +103,15 @@ namespace JobPortal.Maui.ViewModels
         private string requirementName;
         [ObservableProperty]
         private string dutyName;
+        [ObservableProperty]
+        private string benefitName;
 
         /*REPOSITORY INITIALIZATION*/
         private IJobOfertRepository jobOfertService = new JobOfertService();
         private ICategoryRepository categoryService = new CategoryService();
         private IRequirementRepository requirementService = new RequirementService();
         private IDutyRepository dutyService = new DutyService();
+        private IBenefitRepository benefitService = new BenefitService();
 
         public JobOfertPageViewModel()
         {
@@ -135,9 +144,12 @@ namespace JobPortal.Maui.ViewModels
             jobOfert.WorkStartHour = $"{WorkStartHour.Hours}:{WorkStartHour.Minutes}";
             jobOfert.WorkEndHour = $"{WorkEndHour.Hours}:{WorkEndHour.Minutes}";
 
+            jobOfert.JobOfertCategories = new();
+
             JobOfert db_result = await jobOfertService.AddJobOfert(User.Id,jobOfert);
             if(db_result != null)
             {
+                await Shell.Current.DisplayAlert("dodano", "dodano", "dodano");
                 foreach (Category category in JobOfertCategories)
                 {
                     await categoryService.AddCategory(db_result.Id, category);
@@ -149,6 +161,10 @@ namespace JobPortal.Maui.ViewModels
                 foreach (Duty duty in JobOfertDuties)
                 {
                     await dutyService.AddDuty(db_result.Id, duty);
+                }
+                foreach (Benefit benefit in JobOfertBenefits)
+                {
+                    await benefitService.AddBenefit(db_result.Id,benefit);
                 }
             }
         }
@@ -185,7 +201,10 @@ namespace JobPortal.Maui.ViewModels
         {
             Requirement requirement = new Requirement();
             requirement.RequirementName = RequirementNameLocal;
-            JobOfertRequirements.Add(requirement);
+            if(!JobOfertRequirements.Any(x => x.RequirementName == requirement.RequirementName))
+            {
+                JobOfertRequirements.Add(requirement);
+            }
         }
 
         /*INSERT DUTY COMMAND*/
@@ -194,8 +213,24 @@ namespace JobPortal.Maui.ViewModels
         {
             Duty duty = new Duty();
             duty.DutyName = DutyNameLocal;
-            JobOfertDuties.Add(duty);
+            if(!JobOfertDuties.Any(x => x.DutyName == duty.DutyName))
+            {
+                JobOfertDuties.Add(duty);
+            }
             
+        }
+
+        /*INSERT BENEFIT COMMAND*/
+        [RelayCommand]
+        private void InsertBenefit()
+        {
+            Benefit benefit = new Benefit();
+            benefit.BenefitName = BenefitNameLocal;
+            if(!JobOfertBenefits.Any(x => x.BenefitName == benefit.BenefitName))
+            {
+                JobOfertBenefits.Add(benefit);
+            }
+
         }
 
         private async void SetUpJobOfertPage()

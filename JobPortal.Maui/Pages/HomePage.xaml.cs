@@ -7,9 +7,12 @@ namespace JobPortal.Maui.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(HomePageViewModel homePageViewModel)
+
+    private HomePageViewModel vm;
+    public HomePage(HomePageViewModel homePageViewModel)
 	{
 		InitializeComponent();
         BindingContext = homePageViewModel;
+        vm = homePageViewModel;
     }
 }

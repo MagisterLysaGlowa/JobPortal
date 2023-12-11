@@ -32,6 +32,18 @@ namespace JobPortal.Api.Controllers
             return await _context.JobOferts.ToListAsync();
         }
 
+        [HttpGet("GetJobOfertWithCategories")]
+        public async Task<IActionResult> GetJobOffersWithCategories()
+        {
+            await Console.Out.WriteLineAsync("tu jest kontroler kategoria");
+            var jobOffersWithCategories = _context.JobOferts
+                .Include(jo => jo.JobOfertCategories)
+                .ThenInclude(joc => joc.Category)
+                .ToList();
+
+            return Ok(jobOffersWithCategories);
+        }
+
         // GET: api/JobOfert/5
         [HttpGet("{id}")]
         public async Task<ActionResult<JobOfert>> GetJobOfert(int id)
@@ -90,6 +102,7 @@ namespace JobPortal.Api.Controllers
           {
               return Problem("Entity set 'AppDbContext.JobOferts'  is null.");
           }
+            await Console.Out.WriteLineAsync("tu jest kontroler");
             _context.JobOferts.Add(jobOfert);
             var user = _context.Users.Find(userId);
             user?.userJobOferts.Add(new UserJobOfert { JobOfert = jobOfert });

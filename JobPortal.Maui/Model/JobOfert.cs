@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,6 @@ namespace JobPortal.Maui.Model
         public string WorkDays { get; set; }
         public string WorkStartHour { get; set; }
         public string WorkEndHour { get; set; }
+        public List<JobOfertCategory> JobOfertCategories { get; set; }
     }
 }

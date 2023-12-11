@@ -3,16 +3,72 @@
     x:Class="JobPortal.Maui.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="HomePage"
     x:DataType="viewmodels:HomePageViewModel">
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="Stroke" Value="black" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </ContentPage.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000" />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Label Text="Home" />
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+            <Button Text="Szukaj" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                    <Label Text="Firma" />
+                    <Border Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry Placeholder="Adres firmy" />
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+            <ListView ItemsSource="{Binding JobOfertsList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding CompanyName}" />
+                                <ListView ItemsSource="{Binding JobOfertCategories}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell BindingContext="{Binding Category}">
+                                                <Label Text="{Binding CategoryName}" />
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
