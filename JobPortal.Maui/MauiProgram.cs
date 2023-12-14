@@ -29,7 +29,6 @@ namespace JobPortal.Maui
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }

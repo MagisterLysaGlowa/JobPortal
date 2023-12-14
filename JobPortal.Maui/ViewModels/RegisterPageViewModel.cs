@@ -99,6 +99,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*UTILITY PROPERTIES*/
         private FileResult FileToUpload { get; set; }
+        public event EventHandler TriggerActionRequested;
 
         /*REPOSITORY PROPERITES*/
         private IFileOperationRepository uploadFileRepository = new FileOperationsService();
@@ -110,10 +111,8 @@ namespace JobPortal.Maui.ViewModels
         {
             bool correct = await EntryValidation(frame);
             if (!correct) return;
-            IsBusy = true;
             Step++;
-            await Task.Delay(550);
-            IsBusy = false;
+            TriggerActionRequested?.Invoke(this, EventArgs.Empty);
         }
 
         [RelayCommand]
@@ -121,11 +120,8 @@ namespace JobPortal.Maui.ViewModels
         {
             bool correct = await EntryValidation(frame);
             if (!correct) return;
-            IsBusy = true;
             Step--;
-            await Task.Delay(550);
-            IsBusy = false;
-            await EntryValidation(frame);
+            TriggerActionRequested?.Invoke(this, EventArgs.Empty);
         }
 
         /*[COMMAND] BROWSER FILE TO UPLOAD*/
@@ -217,8 +213,15 @@ namespace JobPortal.Maui.ViewModels
             user.Access = IsEmployee ? "employee" : "employer";
 
             await userRepository.Register(user);
+            await Shell.Current.DisplayAlert("Informacja dla użytkownika", "Pomyślnie zarejestrowano do serwisu", "Ok");
+            await Shell.Current.GoToAsync("//loginPage");
         }
 
+        [RelayCommand]
+        private async Task NavigateToLoginPage()
+        {
+            await Shell.Current.GoToAsync("//loginPage");
+        }
 
         //REGISTER VALIDATION
         public async Task<bool> EntryValidation(string frame)
@@ -402,6 +405,10 @@ namespace JobPortal.Maui.ViewModels
                 return true;
             }
             else if (frame == "sixth")
+            {
+                return true;
+            }
+            else if (frame == "seventh")
             {
                 return true;
             }

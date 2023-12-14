@@ -49,6 +49,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrow_left.png" />
+	  <None Remove="Resources\Images\arrow_right.png" />
 	  <None Remove="Resources\Images\email_icon.png" />
 	  <None Remove="Resources\Images\esa.png" />
 	  <None Remove="Resources\Images\lock_icon.png" />
@@ -80,6 +82,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\RegisterPageStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
