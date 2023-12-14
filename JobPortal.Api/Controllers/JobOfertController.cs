@@ -102,7 +102,6 @@ namespace JobPortal.Api.Controllers
           {
               return Problem("Entity set 'AppDbContext.JobOferts'  is null.");
           }
-            await Console.Out.WriteLineAsync("tu jest kontroler");
             _context.JobOferts.Add(jobOfert);
             var user = _context.Users.Find(userId);
             user?.userJobOferts.Add(new UserJobOfert { JobOfert = jobOfert });

@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class LinkService : ILinkRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Link";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Link";
         public async Task<Link> AddLink(int userId, Link link)
         {
             try

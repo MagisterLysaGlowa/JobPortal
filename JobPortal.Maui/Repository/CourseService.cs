@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class CourseService : ICourseRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Course";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Course";
         public async Task<Course> AddCourse(int userId, Course course)
         {
             try

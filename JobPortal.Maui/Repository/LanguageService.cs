@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class LanguageService : ILanguageRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Language";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Language";
         public async Task<Language> AddLanguage(int userId, Language language)
         {
             try

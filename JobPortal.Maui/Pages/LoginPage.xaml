@@ -6,49 +6,101 @@
     xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="LoginPage"
-    x:DataType="viewmodels:LoginPageViewModel">
+    x:DataType="viewmodels:LoginPageViewModel"
+    Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style x:Key="EntryBorder" TargetType="Border">
-            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 30,30,30,30" />
             <Setter Property="Stroke" Value="Red" />
             <Setter Property="StrokeThickness" Value="2" />
         </Style>
     </ContentPage.Resources>
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+    <Grid MaximumHeightRequest="600" MaximumWidthRequest="1200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout
-                Grid.Row="0"
-                Padding="0,30,0,30"
-                MaximumWidthRequest="400"
-                Spacing="20"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Column="0"
+            Padding="0"
+            HorizontalOptions="CenterAndExpand"
+            MaximumHeightRequest="500"
+            MaximumWidthRequest="500"
+            StrokeShape="RoundRectangle 300"
+            StrokeThickness="2"
+            VerticalOptions="CenterAndExpand">
+            <Image Aspect="Fill" Source="login_banner.jpeg" />
+        </Border>
+
+        <Border
+            Grid.Column="1"
+            Padding="0,70,0,70"
+            MaximumHeightRequest="500"
+            MaximumWidthRequest="500"
+            StrokeShape="RoundRectangle 30,30,30,30"
+            VerticalOptions="Center">
+            <Grid
+                Grid.Column="1"
+                HorizontalOptions="Center"
                 VerticalOptions="Center">
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    FontSize="60"
+                    HorizontalOptions="Center"
+                    Text="Zaloguj się" />
+
                 <!--  EMAIL ENTRY  -->
-                <Border Style="{StaticResource EntryBorder}">
-                    <controlls:BorderlessEntry
-                        HeightRequest="60"
-                        Placeholder="Email"
-                        Text="{Binding Email}">
-                        <controlls:BorderlessEntry.Triggers>
-                            <DataTrigger
-                                Binding="{Binding EmailError}"
-                                TargetType="Entry"
-                                Value="True">
-                                <Setter Property="TextColor" Value="Red" />
-                            </DataTrigger>
-                        </controlls:BorderlessEntry.Triggers>
-                    </controlls:BorderlessEntry>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,20,0,0"
+                    Background="LightGray"
+                    Style="{StaticResource EntryBorder}">
+                    <HorizontalStackLayout>
+                        <Image
+                            Margin="20,0,0,0"
+                            HeightRequest="28"
+                            Source="email_icon.png"
+                            VerticalOptions="Center"
+                            WidthRequest="28" />
+                        <controlls:BorderlessEntry
+                            Background="LightGray"
+                            HeightRequest="60"
+                            Placeholder="Email"
+                            Text="{Binding Email}"
+                            WidthRequest="300">
+                            <controlls:BorderlessEntry.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding EmailError}"
+                                    TargetType="Entry"
+                                    Value="True">
+                                    <Setter Property="TextColor" Value="Red" />
+                                </DataTrigger>
+                            </controlls:BorderlessEntry.Triggers>
+                        </controlls:BorderlessEntry>
+                    </HorizontalStackLayout>
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding EmailError}"
@@ -60,7 +112,7 @@
                             Binding="{Binding EmailError}"
                             TargetType="Border"
                             Value="False">
-                            <Setter Property="Stroke" Value="Gray" />
+                            <Setter Property="Stroke" Value="LightGray" />
                         </DataTrigger>
                     </Border.Triggers>
                 </Border>
@@ -70,21 +122,36 @@
                     TextColor="Red" />
 
                 <!--  PASSWORD ENTRY  -->
-                <Border Style="{StaticResource EntryBorder}">
-                    <controlls:BorderlessEntry
-                        HeightRequest="60"
-                        IsPassword="True"
-                        Placeholder="Hasło"
-                        Text="{Binding Password}">
-                        <controlls:BorderlessEntry.Triggers>
-                            <DataTrigger
-                                Binding="{Binding PasswordError}"
-                                TargetType="Entry"
-                                Value="True">
-                                <Setter Property="TextColor" Value="Red" />
-                            </DataTrigger>
-                        </controlls:BorderlessEntry.Triggers>
-                    </controlls:BorderlessEntry>
+                <Border
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,15,0,0"
+                    Background="LightGray"
+                    Style="{StaticResource EntryBorder}">
+                    <HorizontalStackLayout>
+                        <Image
+                            Margin="20,0,0,0"
+                            HeightRequest="28"
+                            Source="lock_icon.png"
+                            VerticalOptions="Center"
+                            WidthRequest="28" />
+                        <controlls:BorderlessEntry
+                            Background="LightGray"
+                            HeightRequest="60"
+                            IsPassword="True"
+                            Placeholder="Hasło"
+                            Text="{Binding Password}"
+                            WidthRequest="300">
+                            <controlls:BorderlessEntry.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding PasswordError}"
+                                    TargetType="Entry"
+                                    Value="True">
+                                    <Setter Property="TextColor" Value="Red" />
+                                </DataTrigger>
+                            </controlls:BorderlessEntry.Triggers>
+                        </controlls:BorderlessEntry>
+                    </HorizontalStackLayout>
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding PasswordError}"
@@ -96,7 +163,7 @@
                             Binding="{Binding PasswordError}"
                             TargetType="Border"
                             Value="False">
-                            <Setter Property="Stroke" Value="Gray" />
+                            <Setter Property="Stroke" Value="LightGray" />
                         </DataTrigger>
                     </Border.Triggers>
                 </Border>
@@ -104,41 +171,40 @@
                     IsVisible="{Binding PasswordError}"
                     Text="{Binding PasswordErrorText}"
                     TextColor="Red" />
-            </VerticalStackLayout>
 
-            <VerticalStackLayout
-                Grid.Row="1"
-                Grid.Column="0"
-                MaximumWidthRequest="300">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout
-                        Grid.Column="0"
-                        FlexLayout.Grow="1"
-                        HeightRequest="25"
-                        Orientation="Horizontal">
-                        <CheckBox VerticalOptions="Start" />
-                        <Label Text="Remember me?" />
-                    </StackLayout>
-                    <Label
-                        Grid.Column="1"
-                        Text="Forgot Password"
-                        TextColor="Blue" />
-                </Grid>
-            </VerticalStackLayout>
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="0,30,0,0"
+                    Background="#F27141"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="30"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HeightRequest="70"
+                    Text="Zaloguj się"
+                    TextColor="White" />
+            </Grid>
+        </Border>
+
+        <HorizontalStackLayout
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalOptions="Center">
+            <Image
+                HeightRequest="30"
+                Source="register_icon.png"
+                WidthRequest="30" />
 
             <Button
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="0,20,0,0"
-                Command="{Binding LoginCommand}"
-                FontAttributes="Bold"
+                Margin="-10,0,0,0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                Command="{Binding NavigateToRegisterPageCommand}"
                 FontSize="18"
-                MaximumWidthRequest="300"
-                Text="Zaloguj się" />
-        </Grid>
-    </VerticalStackLayout>
+                HeightRequest="20"
+                Text="dołącz do nas i zarejestruj się"
+                TextColor="Gray" />
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

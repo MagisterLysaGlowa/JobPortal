@@ -11,7 +11,7 @@ namespace JobPortal.Maui.Repository
 {
     public class JobOfertService : IJobOfertRepository
     {
-        private string apiUrl = "https://localhost:7260/api/JobOfert";
+        private string apiUrl = $"{App.apiDevTunnel}/api/JobOfert";
         public async Task<JobOfert> AddJobOfert(int userId,JobOfert jobOfert)
         {
             try

@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class CategoryService : ICategoryRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Category";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Category";
         public async Task<Category> AddCategory(int jobOfertId, Category category)
         {
             try

@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     class DutyService : IDutyRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Duty";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Duty";
         public async Task<Duty> AddDuty(int jobOfertId, Duty duty)
         {
             try

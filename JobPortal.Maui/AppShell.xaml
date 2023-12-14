@@ -37,12 +37,6 @@
         </Grid>
     </Shell.FlyoutHeader>
     <ShellContent
-        Title="Welcome Page"
-        ContentTemplate="{DataTemplate pages:WelcomePage}"
-        Route="welcomePage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False" />
-    <ShellContent
         Title="Login Page"
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="loginPage"

@@ -16,8 +16,6 @@ namespace JobPortal.Maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddSingleton<WelcomePage>();
-            builder.Services.AddSingleton<WelcomePageViewModel>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoginPageViewModel>();
             builder.Services.AddSingleton<RegisterPage>();

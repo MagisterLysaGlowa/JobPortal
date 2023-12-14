@@ -8,7 +8,7 @@ namespace JobPortal.Maui.Repository
 {
     internal class UserService : IUserRepository
     {
-        private string apiUrl = "https://localhost:7260/api/User";
+        private string apiUrl = $"{App.apiDevTunnel}/api/User";
         public async Task<User> Login(string email, string password)
         {
             try

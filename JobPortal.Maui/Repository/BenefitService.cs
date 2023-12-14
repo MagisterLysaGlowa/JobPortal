@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class BenefitService : IBenefitRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Benefit";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Benefit";
         public async Task<Benefit> AddBenefit(int jobOfertId, Benefit benefit)
         {
             try

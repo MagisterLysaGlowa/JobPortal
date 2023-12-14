@@ -49,7 +49,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\email_icon.png" />
 	  <None Remove="Resources\Images\esa.png" />
+	  <None Remove="Resources\Images\lock_icon.png" />
+	  <None Remove="Resources\Images\login_banner.jpeg" />
+	  <None Remove="Resources\Images\register_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,9 +80,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

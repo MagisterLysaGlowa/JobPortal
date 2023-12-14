@@ -11,7 +11,7 @@ namespace JobPortal.Maui.Repository
 {
     public class WorkService : IWorkRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Work";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Work";
         public async Task<Work> AddWork(Work work)
         {
             try

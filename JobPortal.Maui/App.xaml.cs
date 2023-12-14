@@ -6,6 +6,8 @@ namespace JobPortal.Maui
     public partial class App : Application
     {
         public static User user;
+        //public static string apiDevTunnel = "https://3l8lk8z6-7260.euw.devtunnels.ms";
+        public static string apiDevTunnel = "https://localhost:7260";
         public App()
         {
             InitializeComponent();

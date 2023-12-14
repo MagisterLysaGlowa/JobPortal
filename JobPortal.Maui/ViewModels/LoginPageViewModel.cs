@@ -80,5 +80,11 @@ namespace JobPortal.Maui.ViewModels
                 return;
             }
         }
+
+        [RelayCommand]
+        public async Task NavigateToRegisterPage()
+        {
+            await Shell.Current?.GoToAsync("//registerPage");
+        }
     }
 }

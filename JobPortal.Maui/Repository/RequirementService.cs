@@ -6,7 +6,7 @@ namespace JobPortal.Maui.Repository
 {
     public class RequirementService : IRequirementRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Requirement";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Requirement";
         public async Task<Requirement> AddRequirement(int jobOfertId, Requirement requirement)
         {
             try

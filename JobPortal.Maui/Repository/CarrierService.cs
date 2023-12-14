@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class CarrierService : ICarrierRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Carrier";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Carrier";
         public async Task<Carrier> AddCarrier(Carrier carrier)
         {
             try

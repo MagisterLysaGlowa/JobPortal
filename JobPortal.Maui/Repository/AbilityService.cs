@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class AbilityService : IAbilityRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Ability";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Ability";
         public async Task<Ability> AddAbility(int userId, Ability ability)
         {
             try

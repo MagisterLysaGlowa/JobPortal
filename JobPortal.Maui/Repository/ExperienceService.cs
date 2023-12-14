@@ -10,7 +10,7 @@ namespace JobPortal.Maui.Repository
 {
     public class ExperienceService : IExperienceRepository
     {
-        private string apiUrl = "https://localhost:7260/api/Experience";
+        private string apiUrl = $"{App.apiDevTunnel}/api/Experience";
         public async Task<Experience> AddExperience(int userId, Experience experience)
         {
             try

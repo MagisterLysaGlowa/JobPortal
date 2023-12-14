@@ -8,7 +8,7 @@ namespace JobPortal.Maui.Repository
 {
     public class FileOperationsService : IFileOperationRepository
     {
-        private string apiUrl = "https://localhost:7260/api/UlpoadFile";
+        private string apiUrl = $"{App.apiDevTunnel}/api/UlpoadFile";
         public async Task<ImageSource> ImportUserImage(string fileName)
         {
             // Create instance of HttpClient
