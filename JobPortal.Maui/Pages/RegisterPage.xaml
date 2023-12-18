@@ -340,8 +340,8 @@
                     StrokeThickness="6"
                     WidthRequest="200">
                     <Image
+                        x:Name="UserBrowsedImage"
                         Aspect="Fill"
-                        BackgroundColor="Pink"
                         Source="{Binding UserImageSource}" />
                 </Border>
                 <Button

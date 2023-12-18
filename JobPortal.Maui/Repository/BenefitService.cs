@@ -41,5 +41,30 @@ namespace JobPortal.Maui.Repository
                 return null;
             }
         }
+
+        public async Task<List<Benefit>> GetBenefits(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetBenefitsForUser/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<Benefit> benefits = JsonConvert.DeserializeObject<List<Benefit>>(json);
+                        return benefits;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

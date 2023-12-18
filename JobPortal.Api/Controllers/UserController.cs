@@ -50,6 +50,25 @@ namespace JobPortal.Api.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetUserJobOfertApplications/{userId}")]
+        public async Task<ActionResult<UserJobOfertApplication>> GetUserJobOfertApplications(int userId)
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var userJobOfertApplications = await _context.UserJobOfertApplication.Where(x => x.UserId == userId).ToListAsync();
+
+
+
+            if (userJobOfertApplications == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userJobOfertApplications);
+        }
+
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -92,6 +111,27 @@ namespace JobPortal.Api.Controllers
             }
             user.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(user.Password,13);
             _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+
+        [HttpPost("PostUserJobOfertApplication/{userId}")]
+        public async Task<ActionResult<User>> PostUserJobOfertApplication(int userId, JobOfert jobOfert)
+        {
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'AppDbContext.JobOferts'  is null.");
+            }
+
+            if(_context.UserJobOfertApplication.Any(x => x.UserId == userId && x.JobOfertId == jobOfert.Id))
+            {
+                return NoContent();
+            }
+
+            jobOfert.JobOfertCategories = new();
+            var user = _context.Users.Find(userId);
+            user?.UserJobOfertsApplications.Add(new UserJobOfertApplication { JobOfert = jobOfert , CreatedAt = DateTime.Now});
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
@@ -164,6 +204,21 @@ namespace JobPortal.Api.Controllers
 
             }
             return BadRequest("Invalid Request");
+        }
+
+        [HttpDelete("deleteUserJobOfertApplication/{userId}/{jobOfertId}")]
+        public IActionResult RemoveUserJobOfertApplication(int userId, int jobOfertId)
+        {
+            var userJobOfert = _context.UserJobOfertApplication
+                .FirstOrDefault(sc => sc.UserId == userId && sc.JobOfertId == jobOfertId);
+
+            if (userJobOfert != null)
+            {
+                _context.UserJobOfertApplication.Remove(userJobOfert);
+                _context.SaveChanges();
+            }
+
+            return Ok();
         }
     }
 }

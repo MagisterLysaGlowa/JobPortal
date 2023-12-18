@@ -50,6 +50,23 @@ namespace JobPortal.Api.Controllers
             return requirement;
         }
 
+        [HttpGet("GetRequirementsForUser/{id}")]
+        public async Task<ActionResult<IEnumerable<Requirement>>> GetRequirementsForUser(int id)
+        {
+            if (_context.Requirement == null)
+            {
+                return NotFound();
+            }
+            var requirements = await _context.JobOfertRequirement.Where(entity => entity.JobOfertId == id).Select(entity => entity.Requirement).ToListAsync();
+
+            if (requirements == null)
+            {
+                return NotFound();
+            }
+
+            return requirements!;
+        }
+
         // PUT: api/Requirement/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

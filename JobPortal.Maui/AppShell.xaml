@@ -49,16 +49,30 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
-        Title="Home"
+        Title="Strona główna"
         ContentTemplate="{DataTemplate pages:HomePage}"
         Route="homePage" />
     <ShellContent
-        Title="Profile"
+        Title="Twój profil"
         ContentTemplate="{DataTemplate pages:ProfilePage}"
         Route="profilePage" />
     <ShellContent
+        Title="Ofert Job Ofert"
+        ContentTemplate="{DataTemplate pages:OfertDetailsPage}"
+        Route="ofertDetailsPage"
+        Shell.FlyoutItemIsVisible="False" />
+    <ShellContent
+        Title="Ofert Job Application Details Ofert"
+        ContentTemplate="{DataTemplate pages:JobOfertApplicationDetailsPage}"
+        Route="jobOfertApplicationDetailsPage"
+        Shell.FlyoutItemIsVisible="False" />
+    <ShellContent
+        Title="Aktualne aplikacje"
+        ContentTemplate="{DataTemplate pages:CurrentApplicationsPage}"
+        Route="currentApplicationsPage" />
+    <ShellContent
         x:Name="jobOfertShellContentControll"
-        Title="Job Ofert"
+        Title="Dodaj ofertę"
         ContentTemplate="{DataTemplate pages:JobOfertPage}"
         Route="jobOfertPage" />
 </Shell>

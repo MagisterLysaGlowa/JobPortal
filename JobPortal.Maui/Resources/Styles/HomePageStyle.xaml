@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="JobPortal.Maui.Resources.Styles.HomePageStyle"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="JobOfertBorder" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,20" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Padding" Value="20,10,20,10" />
+        <Setter Property="Margin" Value="0,10,0,10" />
+    </Style>
+
+    <Style x:Key="JobOfertHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="#F27141" />
+        <Setter Property="TextTransform" Value="Uppercase" />
+    </Style>
+</ResourceDictionary>

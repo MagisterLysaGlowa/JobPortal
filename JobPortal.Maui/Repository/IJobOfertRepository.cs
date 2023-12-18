@@ -6,6 +6,7 @@ namespace JobPortal.Maui.ViewModels
     {
         Task<JobOfert> AddJobOfert(int userId,JobOfert jobOfert);
         Task<List<JobOfert>> GetAllJobOferts();
+        Task<JobOfert> GetJobOfert(int jobOfertId);
         Task<List<JobOfert>> GetAllJobOfertsWithCategories();
     }
 }

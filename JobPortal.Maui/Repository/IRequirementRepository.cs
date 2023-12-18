@@ -10,5 +10,6 @@ namespace JobPortal.Maui.Repository
     public interface IRequirementRepository
     {
         Task<Requirement> AddRequirement(int jobOfertId, Requirement requirement);
+        Task<List<Requirement>> GetRequirements(int jobOfertId);
     }
 }

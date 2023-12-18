@@ -50,6 +50,23 @@ namespace JobPortal.Api.Controllers
             return benefit;
         }
 
+        [HttpGet("GetBenefitsForUser/{id}")]
+        public async Task<ActionResult<IEnumerable<Benefit>>> GetBenefitsForUser(int id)
+        {
+            if (_context.Benefit == null)
+            {
+                return NotFound();
+            }
+            var benefits = await _context.JobOfertBenefit.Where(entity => entity.JobOfertId == id).Select(entity => entity.Benefit).ToListAsync();
+
+            if (benefits == null)
+            {
+                return NotFound();
+            }
+
+            return benefits!;
+        }
+
         // PUT: api/Benefit/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

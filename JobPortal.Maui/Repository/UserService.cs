@@ -3,6 +3,7 @@ using Microsoft.Maui.ApplicationModel.Communication;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace JobPortal.Maui.Repository
 {
@@ -140,6 +141,110 @@ namespace JobPortal.Maui.Repository
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public async Task<User> GetUser(int userId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/{userId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        var user = JsonConvert.DeserializeObject<User>(json);
+                        return user;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> PostUserJobOfertApplication(int userId, JobOfert jobOfert)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var json = JsonConvert.SerializeObject(jobOfert);
+                    var requestContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    string url = $"{apiUrl}/PostUserJobOfertApplication/{userId}";
+                    client.BaseAddress = new Uri(url);
+                    var response = await client.PostAsync(client.BaseAddress, requestContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = response.Content.ReadAsStringAsync().Result;
+                        User fetchedUser = JsonConvert.DeserializeObject<User>(responseContent);
+                        return await Task.FromResult(fetchedUser);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<UserJobOfertApplication>> GetUserJobOfertApplications(int userId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetUserJobOfertApplications/{userId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<UserJobOfertApplication> userJobOfertApplication = JsonConvert.DeserializeObject<List<UserJobOfertApplication>>(json);
+                        return userJobOfertApplication;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task RemoveUserJobOfertApplication(int userId, int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/deleteUserJobOfertApplication/{userId}/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await Shell.Current.DisplayAlert("delete", "delete", "delete");
+                    }
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
     }

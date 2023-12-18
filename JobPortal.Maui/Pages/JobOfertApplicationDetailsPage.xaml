@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.JobOfertApplicationDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="JobOfertApplicationDetailsPage"
+    BackgroundColor="#f5f5f5"
+    Shell.NavBarIsVisible="False">
+    <ScrollView>
+
+        <Grid MaximumWidthRequest="1200" MinimumWidthRequest="800">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                BackgroundColor="#f27f62"
+                StrokeThickness="0">
+                <Grid RowDefinitions="auto,auto" VerticalOptions="Center">
+                    <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center"
+                        Text="Aplikuj na stanowisko"
+                        TextColor="White" />
+                    <Label
+                        Grid.Row="1"
+                        FontAttributes="Italic"
+                        FontSize="25"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding JobOfert.PositionName}"
+                        TextColor="White" />
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Padding="20"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 0,0,20,20"
+                StrokeThickness="0">
+                <Grid ColumnDefinitions="auto,auto" RowDefinitions="auto,auto,auto,auto,auto,auto,auto">
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,5"
+                        Style="{StaticResource InfoBoxHeader}"
+                        Text="Podstawowe informacje" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Imię" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Nazwisko" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="E-mail" />
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Numer telefonu" />
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Text="Data urodzenia" />
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Text="Miejscowość" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding Name}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="{Binding Surname}" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding Email}" />
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="{Binding Phone}" />
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Text="{Binding DateOfBirth}" />
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Text="{Binding Location}" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Umiejętności" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Abilities}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="40,auto">
+                                        <Label
+                                            Grid.Column="0"
+                                            FontSize="30"
+                                            Text="+"
+                                            TextColor="LawnGreen"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontSize="18"
+                                            Text="{Binding AbilityName}"
+                                            VerticalTextAlignment="Center" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="3" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Doświadczenie zawodowe" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Experiences}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Style="{StaticResource SingleInfoBorderBox}">
+                                        <Grid
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="40"
+                                            RowDefinitions="auto,auto,auto,auto">
+                                            <VerticalStackLayout
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2">
+                                                <Label Text="Nazwa stanowiska" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding Proffesion}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                                                <Label Text="Nazwa firmy" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding CompanyName}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                                                <Label Text="Miejscowość" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding Location}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="3" Grid.Column="0">
+                                                <Label Text="Data rozpoczęcia pracy" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding StartDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+
+                                            <VerticalStackLayout Grid.Row="3" Grid.Column="1">
+                                                <Label Text="Data zakończenia pracy" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding EndDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="4" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Wykształcenie" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Educations}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Style="{StaticResource SingleInfoBorderBox}">
+                                        <Grid
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="40"
+                                            RowDefinitions="auto,auto,auto,auto">
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                                <Label Text="Nazwa szkoły" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolName}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                                <Label Text="Poziom wykształcenia" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolLevel}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                                                <Label Text="Kierunek" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolDegree}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                                                <Label Text="Miejscowość" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolLocation}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="3" Grid.Column="0">
+                                                <Label Text="Data rozpoczęcia nauki" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolStartDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+
+                                            <VerticalStackLayout Grid.Row="3" Grid.Column="1">
+                                                <Label Text="Data zakończenia nauki" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding SchoolEndDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="5" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Kursy / szkolenia" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Courses}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Style="{StaticResource SingleInfoBorderBox}">
+                                        <Grid
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="40"
+                                            RowDefinitions="auto,auto,auto,auto">
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                                <Label Text="Nazwa kursu" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding CourseName}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                                <Label Text="Organizator kursu" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding CourseOrganizer}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                                                <Label Text="Data rozpoczęcia kursu" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding CourseStartDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                                                <Label Text="Data zakończenia kursu" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding CourseEndDate}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="6" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Języki obce" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Languages}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Style="{StaticResource SingleInfoBorderBox}">
+                                        <Grid
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="40"
+                                            RowDefinitions="auto,auto">
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                                <Label Text="Język" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding LanguageName}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                                <Label Text="Poziom języka" />
+                                                <Border Style="{StaticResource InfoBorderEntry}">
+                                                    <Entry Text="{Binding LanguageLevel}" />
+                                                </Border>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="7" Style="{StaticResource InfoBorderBox}">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Linki do innych portali" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Links}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border Margin="0,3,0,3" Style="{StaticResource InfoBorderEntry}">
+                                        <Entry Text="{Binding LinkContent}" />
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Grid.Row="8"
+                Margin="0,0,0,80"
+                BackgroundColor="#f27f62"
+                Command="{Binding MakeApplicationCommand}"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                FontSize="18"
+                HeightRequest="60"
+                HorizontalOptions="End"
+                Text="Aplikuj na stanowisko"
+                TextColor="White"
+                WidthRequest="300" />
+        </Grid>
+    </ScrollView>
+</ContentPage>

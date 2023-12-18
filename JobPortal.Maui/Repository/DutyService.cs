@@ -41,5 +41,30 @@ namespace JobPortal.Maui.Repository
                 return null;
             }
         }
+
+        public async Task<List<Duty>> GetDuties(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetDutiesForUser/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<Duty> duties = JsonConvert.DeserializeObject<List<Duty>>(json);
+                        return duties;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -25,6 +25,7 @@
         public List<JobOfertRequirement> JobOfertRequirements { get; set; } = new();
         public List<JobOfertBenefit> JobOfertBenefits { get; set; } = new();
         public List<UserJobOfert> userJobOferts { get; set; } = new();
+        public List<UserJobOfertApplication> UserJobOfertsApplications { get; set; } = new();
 
     }
 }

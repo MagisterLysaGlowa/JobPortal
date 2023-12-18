@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="JobPortal.Maui.Resources.Styles.JobOfertApplicationStyle"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="InfoBorderBox" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 20,20,20,20" />
+        <Setter Property="Padding" Value="25,30,25,30" />
+        <Setter Property="Margin" Value="0,20,0,20" />
+        <Setter Property="StrokeThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="SingleInfoBorderBox" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+        <Setter Property="Padding" Value="15,20,15,20" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Stroke" Value="Black" />
+    </Style>
+
+    <Style x:Key="InfoBorderEntry" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+    </Style>
+
+    <Style x:Key="InfoBoxHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="TextColor" Value="Gray" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+</ResourceDictionary>

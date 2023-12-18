@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.OfertDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="OfertDetailsPage"
+    x:DataType="viewmodel:OfertDetailsPageViewModel"
+    BackgroundColor="#fafafa"
+    Shell.NavBarIsVisible="False">
+    <ScrollView>
+
+        <Grid ColumnDefinitions="*" HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Border
+                x:Name="measureBorderFix"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,0,0"
+                Padding="0"
+                BackgroundColor="#f27f62"
+                MaximumWidthRequest="1200"
+                MinimumWidthRequest="1000"
+                StrokeShape="RoundRectangle 0,0,0,0"
+                StrokeThickness="0">
+                <Grid x:Name="measureGridFix" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border
+                        Grid.Column="0"
+                        Padding="0"
+                        HeightRequest="140"
+                        StrokeShape="RoundRectangle 100"
+                        StrokeThickness="0"
+                        WidthRequest="140">
+                        <Image Aspect="Fill" Source="microsoft_icon.jpg" />
+                    </Border>
+
+                    <Grid Grid.Column="1" VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            Text="{Binding JobOfert.PositionName}"
+                            TextColor="White" />
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,5,0,5">
+                            <Image
+                                HeightRequest="25"
+                                Source="company_icon.png"
+                                WidthRequest="25" />
+                            <Label
+                                Text="{Binding JobOfert.CompanyName}"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,5,0,5">
+                            <Image
+                                HeightRequest="25"
+                                Source="location_icon.png"
+                                WidthRequest="25" />
+                            <Label
+                                Text="{Binding JobOfert.CompanyLocation}"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="Start"
+                            StrokeShape="RoundRectangle 15,15,15,15"
+                            StrokeThickness="0"
+                            WidthRequest="280">
+                            <HorizontalStackLayout BackgroundColor="#c96249" HeightRequest="60">
+                                <Image
+                                    Margin="20,0,10,0"
+                                    HeightRequest="30"
+                                    Source="credit_card_icon.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30" />
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text="{Binding JobOfert.SalaryMinimum}"
+                                            TextColor="White" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text=" - "
+                                            TextColor="White" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text="{Binding JobOfert.SalaryMaximum}"
+                                            TextColor="White" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            Text=" PLN"
+                                            TextColor="White" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </Grid>
+
+
+                    <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                        <Button
+                            Command="{Binding NavigateToJobOfertApplicationCommand}"
+                            Style="{StaticResource DetailButton}"
+                            Text="Aplikuj" />
+                        <Button Style="{StaticResource DetailButton}" Text="Zapisz" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Padding="20"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 0,0,15,15"
+                StrokeThickness="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <HorizontalStackLayout Grid.Column="0" VerticalOptions="Center">
+                        <Image
+                            Margin="0,0,10,0"
+                            HeightRequest="60"
+                            Source="job_type_icon.png"
+                            WidthRequest="60" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Zatrudnienie"
+                                TextColor="Gray" />
+                            <Label Text="{Binding JobOfert.EmploymentType}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Image
+                            Margin="0,0,10,0"
+                            HeightRequest="60"
+                            Source="star_icon.png"
+                            WidthRequest="60" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Doświadczenie"
+                                TextColor="Gray" />
+                            <Label Text="{Binding JobOfert.PositionLevel}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
+                        <Image
+                            Margin="0,0,10,0"
+                            HeightRequest="60"
+                            Source="employment_type_icon.png"
+                            WidthRequest="60" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Umowa"
+                                TextColor="Gray" />
+                            <Label Text="{Binding JobOfert.EmploymentContract}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="3" VerticalOptions="Center">
+                        <Image
+                            Margin="0,0,10,0"
+                            HeightRequest="60"
+                            Source="operating_mode_icon.png"
+                            WidthRequest="60" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Tryb pracy"
+                                TextColor="Gray" />
+                            <Label Text="{Binding JobOfert.JobType}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Style="{StaticResource BorderBox}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Text="{Binding JobOfert.CompanyName}" />
+                    <Label Grid.Row="1" Text="{Binding JobOfert.CompanyDescription}" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Style="{StaticResource BorderBox}">
+                <VerticalStackLayout>
+                    <Label FontSize="20" Text="Wymagania na stanowisko" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Requirements}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Style="{StaticResource IconLabel}" />
+                                        <Label Style="{StaticResource ContentLabel}" Text="{Binding RequirementName}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Grid.Row="4" Style="{StaticResource BorderBox}">
+                <VerticalStackLayout>
+                    <Label FontSize="20" Text="Obowiązki na stanowisku" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Duties}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Style="{StaticResource IconLabel}" />
+                                        <Label Style="{StaticResource ContentLabel}" Text="{Binding DutyName}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="5"
+                Margin="0,40,0,100"
+                Style="{StaticResource BorderBox}">
+                <VerticalStackLayout>
+                    <Label FontSize="20" Text="Co oferujemy" />
+                    <ListView IsEnabled="False" ItemsSource="{Binding Benefits}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Style="{StaticResource IconLabel}" />
+                                        <Label Style="{StaticResource ContentLabel}" Text="{Binding BenefitName}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

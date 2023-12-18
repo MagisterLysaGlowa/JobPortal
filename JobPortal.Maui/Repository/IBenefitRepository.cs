@@ -10,5 +10,6 @@ namespace JobPortal.Maui.Repository
     public interface IBenefitRepository
     {
         Task<Benefit> AddBenefit(int jobOfertId,Benefit benefit);
+        Task<List<Benefit>> GetBenefits(int jobOfertId);
     }
 }

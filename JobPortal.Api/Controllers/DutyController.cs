@@ -50,6 +50,23 @@ namespace JobPortal.Api.Controllers
             return duty;
         }
 
+        [HttpGet("GetDutiesForUser/{id}")]
+        public async Task<ActionResult<IEnumerable<Duty>>> GetDutiesForUser(int id)
+        {
+            if (_context.Duty == null)
+            {
+                return NotFound();
+            }
+            var duties = await _context.JobOfertDuty.Where(entity => entity.JobOfertId == id).Select(entity => entity.Duty).ToListAsync();
+
+            if (duties == null)
+            {
+                return NotFound();
+            }
+
+            return duties!;
+        }
+
         // PUT: api/Duty/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

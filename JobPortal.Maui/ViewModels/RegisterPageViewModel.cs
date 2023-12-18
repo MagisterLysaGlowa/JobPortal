@@ -98,7 +98,7 @@ namespace JobPortal.Maui.ViewModels
         private ImageSource userImageSource = "user_icon.jpg";
 
         /*UTILITY PROPERTIES*/
-        private FileResult FileToUpload { get; set; }
+        public FileResult FileToUpload { get; set; }
         public event EventHandler TriggerActionRequested;
 
         /*REPOSITORY PROPERITES*/
@@ -112,7 +112,6 @@ namespace JobPortal.Maui.ViewModels
             bool correct = await EntryValidation(frame);
             if (!correct) return;
             Step++;
-            TriggerActionRequested?.Invoke(this, EventArgs.Empty);
         }
 
         [RelayCommand]

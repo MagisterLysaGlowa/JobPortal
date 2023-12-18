@@ -6,7 +6,9 @@
     xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="HomePage"
-    x:DataType="viewmodels:HomePageViewModel">
+    x:DataType="viewmodels:HomePageViewModel"
+    Background="#f5f5f5"
+    Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style x:Key="EntryBorder" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
@@ -14,9 +16,12 @@
             <Setter Property="StrokeThickness" Value="2" />
         </Style>
     </ContentPage.Resources>
-    <Grid>
+    <Grid
+        MaximumWidthRequest="1200"
+        MinimumWidthRequest="1000"
+        VerticalOptions="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -25,50 +30,188 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-            <Button Text="Szukaj" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            ColumnDefinitions="*,auto"
+            RowDefinitions="auto,auto">
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Background="White"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                StrokeThickness="1">
+                <Grid ColumnDefinitions="40,200">
+                    <Image
+                        Grid.Column="0"
+                        HeightRequest="40"
+                        Source="filter_on_icon_black.png"
+                        VerticalOptions="Center"
+                        WidthRequest="40" />
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        BorderWidth="0"
+                        HeightRequest="50"
+                        Text="Filtruj oferty"
+                        TextColor="Black" />
+                </Grid>
+            </Border>
 
-                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                    <Label Text="Firma" />
-                    <Border Style="{StaticResource EntryBorder}">
-                        <controlls:BorderlessEntry Placeholder="Adres firmy" />
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2">
+                        <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding PositionFilterName}" />
                     </Border>
-                </VerticalStackLayout>
-            </Grid>
-        </VerticalStackLayout>
 
-        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-            <ListView ItemsSource="{Binding JobOfertsList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <VerticalStackLayout>
-                                <Label Text="{Binding CompanyName}" />
-                                <ListView ItemsSource="{Binding JobOfertCategories}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <ViewCell BindingContext="{Binding Category}">
-                                                <Label Text="{Binding CategoryName}" />
-                                            </ViewCell>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </VerticalStackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </VerticalStackLayout>
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2">
+                        <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding CompanyFilterName}" />
+                    </Border>
+
+
+                    <Picker
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        ItemsSource="{Binding CategoriesFilterList}"
+                        SelectedIndex="1"
+                        SelectedItem="{Binding CategoryFilter}" />
+                    <Picker
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        ItemsSource="{Binding PositionLevelFilterList}"
+                        SelectedItem="{Binding PositionLevelFilter}" />
+
+                    <HorizontalStackLayout
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="CenterAndExpand">
+                        <Picker ItemsSource="{Binding EmploymentContractOptionsFilterList}" SelectedItem="{Binding EmploymentContractOptionFilter}" />
+                        <Picker ItemsSource="{Binding EmploymentTypeFilterList}" SelectedItem="{Binding EmploymentTypeFilter}" />
+                        <Picker ItemsSource="{Binding JobTypeFilterList}" SelectedItem="{Binding JobTypeFilter}" />
+                    </HorizontalStackLayout>
+
+                    <Button
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Command="{Binding FilterJobOfertsCommand}"
+                        HeightRequest="60"
+                        Text="Filtruj"
+                        WidthRequest="250" />
+
+                </Grid>
+            </Border>
+        </Grid>
+
+        <ListView
+            Grid.Row="1"
+            Grid.Column="0"
+            ItemTapped="OnItemTapped"
+            ItemsSource="{Binding JobOfertsList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Style="{StaticResource JobOfertBorder}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image
+                                    Aspect="Fill"
+                                    HeightRequest="80"
+                                    Source="microsoft_icon.jpg"
+                                    WidthRequest="80" />
+
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Style="{StaticResource JobOfertHeader}"
+                                        Text="{Binding PositionName}" />
+                                    <HorizontalStackLayout Grid.Row="1">
+                                        <Image
+                                            HeightRequest="25"
+                                            Source="company_icon_black.png"
+                                            WidthRequest="25" />
+                                        <Label Text="{Binding CompanyName}" VerticalTextAlignment="Center" />
+                                        <Image
+                                            HeightRequest="25"
+                                            Source="location_icon_black.png"
+                                            WidthRequest="25" />
+                                        <Label Text="{Binding CompanyLocation}" VerticalTextAlignment="Center" />
+                                        <Image
+                                            HeightRequest="25"
+                                            Source="job_type_icon_black.png"
+                                            WidthRequest="25" />
+                                        <Label Text="{Binding JobType}" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+
+                                <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding SalaryMinimum}"
+                                        TextColor="Green" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text=" - "
+                                        TextColor="Green" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding SalaryMaximum}"
+                                        TextColor="Green" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text=" PLN"
+                                        TextColor="Green" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ContentPage>

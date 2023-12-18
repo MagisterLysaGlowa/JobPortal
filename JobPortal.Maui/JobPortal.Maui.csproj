@@ -51,11 +51,23 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\arrow_left.png" />
 	  <None Remove="Resources\Images\arrow_right.png" />
+	  <None Remove="Resources\Images\company_icon.png" />
+	  <None Remove="Resources\Images\company_icon_black.png" />
+	  <None Remove="Resources\Images\credit_card_icon.png" />
 	  <None Remove="Resources\Images\email_icon.png" />
+	  <None Remove="Resources\Images\employment_type_icon.png" />
 	  <None Remove="Resources\Images\esa.png" />
+	  <None Remove="Resources\Images\filter_off_icon_black.png" />
+	  <None Remove="Resources\Images\filter_on_icon_black.png" />
+	  <None Remove="Resources\Images\job_type_icon.png" />
+	  <None Remove="Resources\Images\job_type_icon_black.png" />
+	  <None Remove="Resources\Images\location_icon.png" />
+	  <None Remove="Resources\Images\location_icon_black.png" />
 	  <None Remove="Resources\Images\lock_icon.png" />
 	  <None Remove="Resources\Images\login_banner.jpeg" />
+	  <None Remove="Resources\Images\operating_mode_icon.png" />
 	  <None Remove="Resources\Images\register_icon.png" />
+	  <None Remove="Resources\Images\star_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,7 +81,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\CurrentApplicationsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\JobOfertApplicationDetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\JobOfertPage.xaml">
@@ -78,10 +96,25 @@
 	  <MauiXaml Update="Pages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\OfertDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\HomePageStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\JobOfertApplicationStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\OfertDetailsPageStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\ProfilePageStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\RegisterPageStyle.xaml">

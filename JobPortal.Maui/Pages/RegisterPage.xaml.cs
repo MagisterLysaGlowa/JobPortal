@@ -1,5 +1,6 @@
 using JobPortal.Maui.ViewModels;
 using System.ComponentModel;
+using System.IO;
 using System.Net.Http;
 
 namespace JobPortal.Maui.Pages;
@@ -40,6 +41,14 @@ public partial class RegisterPage : ContentPage
     }
     private async void OnTriggerActionRequested(object sender, EventArgs e)
     {
+        if (vm.Step == 4)
+        {
+            if (vm.FileToUpload != null)
+            {
+                var stream = await vm.FileToUpload.OpenReadAsync();
+                vm.UserImageSource = ImageSource.FromStream(() => stream);
+            }
+        }
         await Task.Delay(100);
         ClearRegisterGridUI();
         mainRegisterGrid.Children.Add(boxList[vm.Step]);
