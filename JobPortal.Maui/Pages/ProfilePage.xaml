@@ -6,7 +6,9 @@
     xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="ProfilePage"
-    x:DataType="viewmodels:ProfilePageViewModel">
+    x:DataType="viewmodels:ProfilePageViewModel"
+    BackgroundColor="#F5F5F5"
+    Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style x:Key="EntryBorder" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
@@ -14,818 +16,1115 @@
             <Setter Property="StrokeThickness" Value="2" />
         </Style>
     </ContentPage.Resources>
-    <Grid>
-        <ScrollView>
-            <Grid HorizontalOptions="Center">
+    <ScrollView x:Name="scrollViewControll">
+        <Grid
+            HorizontalOptions="Center"
+            MaximumWidthRequest="1200"
+            MinimumWidthRequest="800">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1000" />
-                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
 
-                <VerticalStackLayout>
-                    <!--  PROFILE PHOTO AND NAME  -->
-                    <Grid>
+            <Border
+                Grid.Row="0"
+                BackgroundColor="#f27f62"
+                StrokeShape="RoundRectangle 0,0,30,30"
+                StrokeThickness="0">
+                <Grid Margin="30,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border
+                        Grid.Column="0"
+                        Padding="0"
+                        Background="#2B0B98"
+                        HeightRequest="150"
+                        Stroke="White"
+                        StrokeShape="RoundRectangle 100"
+                        StrokeThickness="6"
+                        WidthRequest="150">
+                        <Image
+                            Aspect="Fill"
+                            BackgroundColor="Pink"
+                            Source="{Binding ProfileImage}" />
+                    </Border>
+
+                    <HorizontalStackLayout
+                        Grid.Column="1"
+                        Margin="30,0,0,0"
+                        VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            Text="{Binding CurrentHeaderName}"
+                            TextColor="White" />
+                        <Label
+                            Margin="5,0,0,0"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            Text="{Binding CurrentHeaderSurname}"
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+            <!--  PROFILE BASIC INFORMATION  -->
+
+            <Border
+                x:Name="basicInfoGrid"
+                Grid.Row="1"
+                Padding="20"
+                HorizontalOptions="FillAndExpand"
+                MaximumWidthRequest="1200"
+                MinimumWidthRequest="800"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <Grid ColumnSpacing="40" RowSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry
+                            IsEnabled="{Binding BasicInfoEdit}"
+                            Placeholder="Imię"
+                            Text="{Binding Name}" />
+                    </Border>
+
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry
+                            IsEnabled="{Binding BasicInfoEdit}"
+                            Placeholder="Nazwisko"
+                            Text="{Binding Surname}" />
+                    </Border>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry
+                            IsEnabled="{Binding BasicInfoEdit}"
+                            Placeholder="Email"
+                            Text="{Binding Email}" />
+                    </Border>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry
+                            IsEnabled="{Binding BasicInfoEdit}"
+                            Placeholder="Numer telefonu"
+                            Text="{Binding PhoneNumber}" />
+                    </Border>
+
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource EntryBorder}">
+                        <controlls:BorderlessEntry
+                            IsEnabled="{Binding BasicInfoEdit}"
+                            Placeholder="Miejscowość"
+                            Text="{Binding Location}" />
+                    </Border>
+
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{StaticResource EntryBorder}">
+                        <DatePicker Date="{Binding BirthDate}" IsEnabled="{Binding BasicInfoEdit}">
+                            <DatePicker.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding BasicInfoEdit}"
+                                    TargetType="DatePicker"
+                                    Value="False">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding BasicInfoEdit}"
+                                    TargetType="DatePicker"
+                                    Value="True">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </DatePicker.Triggers>
+                        </DatePicker>
+                    </Border>
+
+                    <Button
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Command="{Binding SetBasicInfoEditModeCommand}"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="{Binding BasicInfoEditButtonText}" />
+                </Grid>
+            </Border>
+
+            <!--  PROFILE CURRENT WORKPLACE  -->
+
+            <Border
+                Grid.Row="2"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="workLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Opis aktualnego stanowiska" />
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <RadioButton
+                                CheckedChanged="CurrentWork_CheckedChanged"
+                                GroupName="CurrentWorkplaceGroup"
+                                IsChecked="{Binding CurrentlyWorking}" />
+                            <Label Text="Jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout>
+                            <RadioButton
+                                CheckedChanged="CurrentWork_CheckedChanged"
+                                GroupName="CurrentWorkplaceGroup"
+                                IsChecked="{Binding CurrentlyUnemployed}" />
+                            <Label Text="Nie jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <Grid
+                        x:Name="workGrid"
+                        ColumnSpacing="40"
+                        RowSpacing="20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
                         <Border
+                            Grid.Row="0"
                             Grid.Column="0"
-                            Padding="0"
-                            Background="#2B0B98"
-                            HeightRequest="150"
-                            Stroke="#C49B33"
-                            StrokeShape="RoundRectangle 100"
-                            StrokeThickness="6"
-                            WidthRequest="150">
-                            <Image
-                                Aspect="Fill"
-                                BackgroundColor="Pink"
-                                Source="{Binding ProfileImage}" />
+                            Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                IsEnabled="{Binding WorkplaceInfoEdit}"
+                                Placeholder="Nazwa firmy"
+                                Text="{Binding CompanyName}" />
                         </Border>
 
-                        <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
-                            <Label Text="{Binding CurrentHeaderName}" />
-                            <Label Margin="5,0,0,0" Text="{Binding CurrentHeaderSurname}" />
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                IsEnabled="{Binding WorkplaceInfoEdit}"
+                                Placeholder="Branża"
+                                Text="{Binding Industry}" />
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                IsEnabled="{Binding WorkplaceInfoEdit}"
+                                Placeholder="Nazwa stanowiska"
+                                Text="{Binding Proffesion}" />
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                IsEnabled="{Binding WorkplaceInfoEdit}"
+                                Placeholder="Staż pracy w firmie"
+                                Text="{Binding ProffesionSince}" />
+                        </Border>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource EntryBorder}">
+                            <Editor Placeholder="Opis stanowiska" Text="{Binding ProffesionDescription}" />
+                        </Border>
+
+                        <Button
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Command="{Binding SetWorkplaceInfoEditModeCommand}"
+                            Style="{StaticResource ProfilePageButton}"
+                            Text="{Binding WorkplaceInfoEditButtonText}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!--  PROFILE CARRIER  -->
+
+            <Border
+                Grid.Row="3"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="carrierLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Podsumowanie zawodowe" />
+                    <HorizontalStackLayout>
+                        <RadioButton
+                            CheckedChanged="Carrier_CheckedChanged"
+                            GroupName="CarrierGroup"
+                            IsChecked="{Binding CarrierYes}" />
+                        <Label Text="Posiadam doświadczenie zawodowe" VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <RadioButton
+                            CheckedChanged="Carrier_CheckedChanged"
+                            GroupName="CarrierGroup"
+                            IsChecked="{Binding CarrierNo}" />
+                        <Label Text="Nie posiadam doświadczenia zawodowego" VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+
+                    <Grid x:Name="carrierGrid" ColumnSpacing="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+
+
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding CarrierName}" />
+                        </Border>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="od"
+                            VerticalTextAlignment="Center" />
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Style="{StaticResource EntryBorder}">
+                            <DatePicker Date="{Binding CarrierSince}" />
+                        </Border>
+
+                        <Button
+                            Grid.Row="2"
+                            Command="{Binding SetCarrierInfoEditModeCommand}"
+                            Style="{StaticResource ProfilePageButton}"
+                            Text="{Binding CarrierInfoEditButtonText}"
+                            WidthRequest="250" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="4"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="experienceLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Doświadczenie zawodowe" />
+                    <Button
+                        x:Name="experienceGridButton"
+                        Clicked="DisplayExperienceGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="experienceGrid" ColumnSpacing="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <VerticalStackLayout
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                            <Label Text="Nazwa firmy" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding ExperienceCompanyNameLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="Nazwa stanowiska" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding ExperienceProffesionLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="Lokalizacja" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding ExperienceLocationLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                            <Label Text="Data rozpoczęcia pracy" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding ExperienceStartDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                            <Label Text="Data zakończenia pracy" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding ExperienceEndDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+
+                        <HorizontalStackLayout
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertExperienceCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj do opisu"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideExperienceGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
                         </HorizontalStackLayout>
                     </Grid>
+                </VerticalStackLayout>
+            </Border>
 
-                    <!--  PROFILE BASIC INFORMATION  -->
+            <Border
+                Grid.Row="5"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="experienceListLayout">
+                    <ListView x:Name="experienceListControll" ItemsSource="{Binding ExperiencesList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame Padding="15" CornerRadius="10">
+                                        <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto,auto">
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Text="Nazwa firmy: " />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Text="Nazwa stanowiska: " />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="Miejscowość: " />
+                                            <Label
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Text="Data rozpoczęcia pracy: " />
+                                            <Label
+                                                Grid.Row="4"
+                                                Grid.Column="0"
+                                                Text="Data zakończenia pracy: " />
 
-                    <Frame Padding="20" BorderColor="Black">
-                        <VerticalStackLayout>
-                            <Label Text="Podstawowe dane" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding CompanyName}" />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Proffesion}" />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Location}" />
+                                            <Label
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding StartDate}" />
+                                            <Label
+                                                Grid.Row="4"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding EndDate}" />
+                                            <Button
+                                                Grid.Row="0"
+                                                Grid.RowSpan="5"
+                                                Grid.Column="2"
+                                                Clicked="DeleteExperience_Click"
+                                                CommandParameter="{Binding Id}"
+                                                Style="{StaticResource ProfilePageButton}"
+                                                Text="Usuń element doświadczenia"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
+            <Border
+                Grid.Row="6"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="educationLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Wykształcenie" />
+                    <Button
+                        x:Name="educationGridButton"
+                        Clicked="DisplayEducationGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="educationGrid" ColumnSpacing="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding BasicInfoEdit}"
-                                        Placeholder="Imię"
-                                        Text="{Binding Name}" />
-                                </Border>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding BasicInfoEdit}"
-                                        Placeholder="Nazwisko"
-                                        Text="{Binding Surname}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding BasicInfoEdit}"
-                                        Placeholder="Email"
-                                        Text="{Binding Email}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding BasicInfoEdit}"
-                                        Placeholder="Numer telefonu"
-                                        Text="{Binding PhoneNumber}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding BasicInfoEdit}"
-                                        Placeholder="Miejscowość"
-                                        Text="{Binding Location}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    Style="{StaticResource EntryBorder}">
-                                    <DatePicker Date="{Binding BirthDate}" IsEnabled="{Binding BasicInfoEdit}">
-                                        <DatePicker.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding BasicInfoEdit}"
-                                                TargetType="DatePicker"
-                                                Value="False">
-                                                <Setter Property="IsEnabled" Value="True" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding BasicInfoEdit}"
-                                                TargetType="DatePicker"
-                                                Value="True">
-                                                <Setter Property="IsEnabled" Value="False" />
-                                            </DataTrigger>
-                                        </DatePicker.Triggers>
-                                    </DatePicker>
-                                </Border>
-
-                                <Button
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    Command="{Binding SetBasicInfoEditModeCommand}"
-                                    Text="{Binding BasicInfoEditButtonText}" />
-                            </Grid>
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Nazwa szkoły/uczelni" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Nazwa szkoły/uczelni" Text="{Binding SchoolNameLocal}" />
+                            </Border>
                         </VerticalStackLayout>
-                    </Frame>
 
-                    <!--  PROFILE CURRENT WORKPLACE  -->
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="workLayout">
-                            <Label Text="Opis aktualnego stanowiska" />
-                            <VerticalStackLayout>
-                                <HorizontalStackLayout>
-                                    <RadioButton
-                                        CheckedChanged="CurrentWork_CheckedChanged"
-                                        GroupName="CurrentWorkplaceGroup"
-                                        IsChecked="{Binding CurrentlyWorking}" />
-                                    <Label Text="Jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
-                                </HorizontalStackLayout>
-
-                                <HorizontalStackLayout>
-                                    <RadioButton
-                                        CheckedChanged="CurrentWork_CheckedChanged"
-                                        GroupName="CurrentWorkplaceGroup"
-                                        IsChecked="{Binding CurrentlyUnemployed}" />
-                                    <Label Text="Nie jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                            <Grid x:Name="workGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding WorkplaceInfoEdit}"
-                                        Placeholder="Nazwa firmy"
-                                        Text="{Binding CompanyName}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding WorkplaceInfoEdit}"
-                                        Placeholder="Branża"
-                                        Text="{Binding Industry}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding WorkplaceInfoEdit}"
-                                        Placeholder="Nazwa stanowiska"
-                                        Text="{Binding Proffesion}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry
-                                        IsEnabled="{Binding WorkplaceInfoEdit}"
-                                        Placeholder="Staż pracy w firmie"
-                                        Text="{Binding ProffesionSince}" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    Style="{StaticResource EntryBorder}">
-                                    <Editor Placeholder="Opis stanowiska" Text="{Binding ProffesionDescription}" />
-                                </Border>
-
-                                <Button
-                                    Grid.Row="4"
-                                    Grid.Column="1"
-                                    Command="{Binding SetWorkplaceInfoEditModeCommand}"
-                                    Text="{Binding WorkplaceInfoEditButtonText}" />
-                            </Grid>
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="Nazwa szkoły/uczelni" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Miejscowość" Text="{Binding SchoolLocationLocal}" />
+                            </Border>
                         </VerticalStackLayout>
-                    </Frame>
 
-                    <!--  PROFILE CARRIER  -->
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="carrierLayout">
-                            <Label Text="Podsumowanie zawodowe" />
-                            <HorizontalStackLayout>
-                                <RadioButton
-                                    CheckedChanged="Carrier_CheckedChanged"
-                                    GroupName="CarrierGroup"
-                                    IsChecked="{Binding CarrierYes}" />
-                                <Label Text="Posiadam doświadczenie zawodowe" VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-
-                            <HorizontalStackLayout>
-                                <RadioButton
-                                    CheckedChanged="Carrier_CheckedChanged"
-                                    GroupName="CarrierGroup"
-                                    IsChecked="{Binding CarrierNo}" />
-                                <Label Text="Nie posiadam doświadczenia zawodowego" VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-
-                            <Grid x:Name="carrierGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-
-
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource EntryBorder}">
-                                    <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding CarrierName}" />
-                                </Border>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Text="od" />
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="2"
-                                    Style="{StaticResource EntryBorder}">
-                                    <DatePicker Date="{Binding CarrierSince}" />
-                                </Border>
-
-                                <Button
-                                    Grid.Row="2"
-                                    Command="{Binding SetCarrierInfoEditModeCommand}"
-                                    Text="{Binding CarrierInfoEditButtonText}"
-                                    WidthRequest="250" />
-                            </Grid>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="Poziom wykształcenia" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <Picker ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SchoolLevelLocal}" />
+                            </Border>
                         </VerticalStackLayout>
-                    </Frame>
 
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="experienceLayout">
-                            <Label Text="Doświadczenie zawodowe" />
-                            <Button Clicked="DisplayExperienceGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="experienceGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2">
-                                    <Label Text="Nazwa firmy" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa firmy" Text="{Binding ExperienceCompanyNameLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-                                    <Label Text="Nazwa stanowiska" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding ExperienceProffesionLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                                    <Label Text="Lokalizacja" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Lokalizacja" Text="{Binding ExperienceLocationLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="2" Grid.Column="0">
-                                    <Label Text="Data rozpoczęcia pracy" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding ExperienceStartDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="2" Grid.Column="1">
-                                    <Label Text="Data zakończenia pracy" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding ExperienceEndDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-
-                                <HorizontalStackLayout
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertExperienceCommand}"
-                                        Text="Dodaj do opisu"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideExperienceGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="Kierunek" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Kierunek" Text="{Binding SchoolDegreeLocal}" />
+                            </Border>
                         </VerticalStackLayout>
-                    </Frame>
 
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="experienceListLayout">
-                            <ListView x:Name="experienceListControll" ItemsSource="{Binding ExperiencesList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="Green" HeightRequest="200">
-                                                <Label Text="{Binding CompanyName}" />
-                                                <Label Text="{Binding Proffesion}" />
-                                                <Label Text="{Binding Location}" />
-                                                <Label Text="{Binding StartDate}" />
-                                                <Label Text="{Binding EndDate}" />
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                            <Label Text="Data rozpoczęcia nauki" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding SchoolStartDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+                            <Label Text="Data zakończenia nauki" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding SchoolEndDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+
+                        <HorizontalStackLayout
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertEducationCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj do wykształcenia"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideEducationGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="7"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="educationListLayout">
+                    <ListView x:Name="educationListControll" ItemsSource="{Binding EducationsList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <VerticalStackLayout>
+                                        <Frame
+                                            Margin="0,5,0,5"
+                                            Padding="15"
+                                            CornerRadius="10">
+                                            <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto,auto,auto">
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Nazwa szkoły: " />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Text="Lokalizacja szkoły: " />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="0"
+                                                    Text="Poziom szkoły: " />
+                                                <Label
+                                                    Grid.Row="3"
+                                                    Grid.Column="0"
+                                                    Text="Kierunek: " />
+                                                <Label
+                                                    Grid.Row="4"
+                                                    Grid.Column="0"
+                                                    Text="Data rozpoczęcia szkoły: " />
+                                                <Label
+                                                    Grid.Row="5"
+                                                    Grid.Column="0"
+                                                    Text="Data zakończenia szkoły: " />
+
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding SchoolName}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding SchoolLocation}" />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding SchoolLevel}" />
+                                                <Label
+                                                    Grid.Row="3"
+                                                    Grid.Column="1"
+                                                    Text="{Binding SchoolDegree}" />
+                                                <Label
+                                                    Grid.Row="4"
+                                                    Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding SchoolStartDate}" />
+                                                <Label
+                                                    Grid.Row="5"
+                                                    Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding SchoolEndDate}" />
                                                 <Button
-                                                    Clicked="DeleteExperience_Click"
-                                                    CommandParameter="{Binding Id}"
-                                                    Text="Usuń element doświadczenia" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="educationLayout">
-                            <Label Text="Wykształcenie" />
-                            <Button Clicked="DisplayEducationGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="educationGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                                    <Label Text="Nazwa szkoły/uczelni" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa szkoły/uczelni" Text="{Binding SchoolNameLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                                    <Label Text="Nazwa szkoły/uczelni" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Miejscowość" Text="{Binding SchoolLocationLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-                                    <Label Text="Poziom wykształcenia" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <Picker ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SchoolLevelLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                                    <Label Text="Kierunek" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Kierunek" Text="{Binding SchoolDegreeLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="2" Grid.Column="0">
-                                    <Label Text="Data rozpoczęcia nauki" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding SchoolStartDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="2" Grid.Column="1">
-                                    <Label Text="Data zakończenia nauki" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding SchoolEndDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-
-                                <HorizontalStackLayout
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertEducationCommand}"
-                                        Text="Dodaj do wykształcenia"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideEducationGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="educationListLayout">
-                            <ListView x:Name="educationListControll" ItemsSource="{Binding EducationsList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="red" HeightRequest="200">
-                                                <Label Text="{Binding SchoolName}" />
-                                                <Label Text="{Binding SchoolLocation}" />
-                                                <Label Text="{Binding SchoolLevel}" />
-                                                <Label Text="{Binding SchoolDegree}" />
-                                                <Label Text="{Binding SchoolStartDate}" />
-                                                <Label Text="{Binding SchoolEndDate}" />
-                                                <Button
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="6"
+                                                    Grid.Column="2"
                                                     Clicked="DeleteEducation_Click"
                                                     CommandParameter="{Binding Id}"
-                                                    Text="Usuń element wykształcenia" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="languageLayout">
-                            <Label Text="Języki obce" />
-                            <Button Clicked="DisplayLanguageGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="languageGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                                    <Label Text="Język" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Język" Text="{Binding LanguageNameLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                                    <Label Text="Poziom języka" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <Picker ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding LanguageLevelLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <HorizontalStackLayout
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertLanguageCommand}"
-                                        Text="Dodaj język"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideLanguagesGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="languageListLayout">
-                            <ListView x:Name="languageListControll" ItemsSource="{Binding LanguagesList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="red" HeightRequest="200">
-                                                <Label Text="{Binding LanguageName}" />
-                                                <Label Text="{Binding LanguageLevel}" />
-                                                <Button
-                                                    Clicked="DeleteLanguage_Click"
-                                                    CommandParameter="{Binding Id}"
-                                                    Text="Usuń język" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="abilityLayout">
-                            <Label Text="Umiejętności / Uprawnienia" />
-                            <Button Clicked="DisplayAbilityGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="abilityGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                                    <Label Text="Umiejętności / Uprawnienia" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Umiejętności / Uprawnienia" Text="{Binding AbilityNameLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <HorizontalStackLayout
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertAbilityCommand}"
-                                        Text="Dodaj umiejętność"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideAbilityGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="abilityListLayout">
-                            <ListView x:Name="abilityListControll" ItemsSource="{Binding AbilitiesList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
-                                                <Label Text="{Binding AbilityName}" />
-                                                <Button
-                                                    Clicked="DeleteAbility_Click"
-                                                    CommandParameter="{Binding Id}"
-                                                    Text="Usuń umiejętność" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="courseLayout">
-                            <Label Text="Kursy / Szkolenia / Certyfikaty" />
-                            <Button Clicked="DisplayCourseGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="courseGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                                    <Label Text="Nazwa kursu" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa kursu" Text="{Binding CourseNameLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                                    <Label Text="Nazwa organizatora" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Nazwa organizatora" Text="{Binding CourseOrganizerLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-                                    <Label Text="Data rozpoczęcia kursu" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding CourseStartDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                                    <Label Text="Data zakończenia kursu" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <DatePicker Date="{Binding CourseEndDateLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <HorizontalStackLayout
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertCourseCommand}"
-                                        Text="Dodaj kurs"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideCourseGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="courseListLayout">
-                            <ListView x:Name="courseListControll" ItemsSource="{Binding CoursesList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
-                                                <Label Text="{Binding CourseName}" />
-                                                <Label Text="{Binding CourseOrganizer}" />
-                                                <Label Text="{Binding CourseStartDate}" />
-                                                <Label Text="{Binding CourseEndDate}" />
-                                                <Button
-                                                    Clicked="DeleteCourse_Click"
-                                                    CommandParameter="{Binding Id}"
-                                                    Text="Usuń kurs" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="linkLayout">
-                            <Label Text="linki do innych portali" />
-                            <Button Clicked="DisplayLinkGrid_Clicked" Text="Dodaj" />
-                            <Grid x:Name="linkGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-
-                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                                    <Label Text="Link" />
-                                    <Border Style="{StaticResource EntryBorder}">
-                                        <controlls:BorderlessEntry Placeholder="Link" Text="{Binding LinkContentLocal}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <HorizontalStackLayout
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="End">
-                                    <Button
-                                        Command="{Binding InsertLinkCommand}"
-                                        Text="Dodaj kurs"
-                                        WidthRequest="250" />
-                                    <Button
-                                        Clicked="HideLinkGrid_Clicked"
-                                        Text="Zamknij okno"
-                                        WidthRequest="250" />
-
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame
-                        Padding="20"
-                        BorderColor="Black"
-                        IsVisible="{Binding IsEmployee}">
-                        <VerticalStackLayout x:Name="linkListLayout">
-                            <ListView x:Name="linkListControll" ItemsSource="{Binding LinksList}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <VerticalStackLayout Background="Blue" HeightRequest="200">
-                                                <Label Text="{Binding LinkContent}" />
-                                                <Button
-                                                    Clicked="DeleteLink_Click"
-                                                    CommandParameter="{Binding Id}"
-                                                    Text="Usuń link" />
-                                            </VerticalStackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </VerticalStackLayout>
-                    </Frame>
+                                                    Style="{StaticResource ProfilePageButton}"
+                                                    Text="Usuń element wykształcenia"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                        </Frame>
+                                    </VerticalStackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </VerticalStackLayout>
-            </Grid>
-        </ScrollView>
-    </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="8"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="languageLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Języki obce" />
+                    <Button
+                        x:Name="languageGridButton"
+                        Clicked="DisplayLanguageGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="languageGrid" ColumnSpacing="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Język" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Język" Text="{Binding LanguageNameLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="Poziom języka" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <Picker ItemsSource="{Binding LanguageLevels}" SelectedItem="{Binding LanguageLevelLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertLanguageCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj język"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideLanguagesGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="9"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="languageListLayout">
+                    <ListView x:Name="languageListControll" ItemsSource="{Binding LanguagesList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        Margin="0,5,0,5"
+                                        Padding="5"
+                                        CornerRadius="10">
+                                        <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
+                                            <HorizontalStackLayout Grid.Column="0">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding LanguageName}"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    Margin="4,0,4,0"
+                                                    Text="poziom"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding LanguageLevel}"
+                                                    VerticalTextAlignment="Center" />
+                                            </HorizontalStackLayout>
+                                            <Button
+                                                Grid.Column="1"
+                                                Clicked="DeleteLanguage_Click"
+                                                CommandParameter="{Binding Id}"
+                                                Style="{StaticResource ProfilePageButton}"
+                                                Text="Usuń język" />
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="10"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="abilityLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Umiejętności / Uprawnienia" />
+                    <Button
+                        x:Name="abilityGridButton"
+                        Clicked="DisplayAbilityGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="abilityGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Umiejętności / Uprawnienia" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Umiejętności / Uprawnienia" Text="{Binding AbilityNameLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertAbilityCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj umiejętność"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideAbilityGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="11"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="abilityListLayout">
+                    <ListView x:Name="abilityListControll" ItemsSource="{Binding AbilitiesList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        Margin="0,5,0,5"
+                                        Padding="5"
+                                        CornerRadius="10">
+                                        <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Binding AbilityName}"
+                                                VerticalTextAlignment="Center" />
+                                            <Button
+                                                Grid.Column="1"
+                                                Clicked="DeleteAbility_Click"
+                                                CommandParameter="{Binding Id}"
+                                                Style="{StaticResource ProfilePageButton}"
+                                                Text="Usuń umiejętność" />
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="12"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="courseLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="Kursy / Szkolenia / Certyfikaty" />
+                    <Button
+                        x:Name="courseGridButton"
+                        Clicked="DisplayCourseGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="courseGrid" ColumnSpacing="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Nazwa kursu" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Nazwa kursu" Text="{Binding CourseNameLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                            <Label Text="Nazwa organizatora" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Nazwa organizatora" Text="{Binding CourseOrganizerLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="Data rozpoczęcia kursu" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding CourseStartDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="Data zakończenia kursu" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <DatePicker Date="{Binding CourseEndDateLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertCourseCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj kurs"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideCourseGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="13"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="courseListLayout">
+                    <ListView x:Name="courseListControll" ItemsSource="{Binding CoursesList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        Margin="0,10,0,10"
+                                        Padding="20"
+                                        CornerRadius="10">
+                                        <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto">
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Text="Nazwa kursu: " />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Text="Organizator kursu: " />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="Data rozpoczęcia kursu: " />
+                                            <Label
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Text="Data zakończenia kursu: " />
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding CourseName}" />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding CourseOrganizer}" />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding CourseStartDate}" />
+                                            <Label
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,0"
+                                                FontAttributes="Bold"
+                                                Text="{Binding CourseEndDate}" />
+
+                                            <Button
+                                                Grid.Row="0"
+                                                Grid.RowSpan="3"
+                                                Grid.Column="2"
+                                                Clicked="DeleteCourse_Click"
+                                                CommandParameter="{Binding Id}"
+                                                Style="{StaticResource ProfilePageButton}"
+                                                Text="Usuń kurs"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="14"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="linkLayout">
+                    <Label Style="{StaticResource InfoBoxHeader}" Text="linki do innych portali" />
+                    <Button
+                        x:Name="linkGridButton"
+                        Clicked="DisplayLinkGrid_Clicked"
+                        Style="{StaticResource ProfilePageButton}"
+                        Text="Dodaj" />
+                    <Grid x:Name="linkGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                            <Label Text="Link" />
+                            <Border Style="{StaticResource EntryBorder}">
+                                <controlls:BorderlessEntry Placeholder="Link" Text="{Binding LinkContentLocal}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="End">
+                            <Button
+                                Command="{Binding InsertLinkCommand}"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Dodaj kurs"
+                                WidthRequest="250" />
+                            <Button
+                                Clicked="HideLinkGrid_Clicked"
+                                Style="{StaticResource ProfilePageButton}"
+                                Text="Zamknij okno"
+                                WidthRequest="250" />
+
+                        </HorizontalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Grid.Row="15"
+                Padding="20"
+                IsVisible="{Binding IsEmployee}"
+                Style="{StaticResource ProfilePageBorderBox}">
+                <VerticalStackLayout x:Name="linkListLayout">
+                    <ListView x:Name="linkListControll" ItemsSource="{Binding LinksList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        Margin="0,5,0,5"
+                                        Padding="5"
+                                        CornerRadius="10">
+                                        <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Binding LinkContent}"
+                                                VerticalTextAlignment="Center" />
+                                            <Button
+                                                Grid.Column="1"
+                                                Clicked="DeleteLink_Click"
+                                                CommandParameter="{Binding Id}"
+                                                Style="{StaticResource ProfilePageButton}"
+                                                Text="Usuń link" />
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </ScrollView>
 </ContentPage>

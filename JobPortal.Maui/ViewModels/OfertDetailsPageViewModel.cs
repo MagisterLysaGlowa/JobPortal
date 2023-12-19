@@ -26,16 +26,23 @@ namespace JobPortal.Maui.ViewModels
         string requirementName;
         [ObservableProperty]
         string dutyName;
+        [ObservableProperty]
+        bool applicationIsPossible;
+        [ObservableProperty]
+        string buttonImageSource;
 
         /*REPOSITORY INITALIZATION*/
         IRequirementRepository requirementService = new RequirementService();
         IJobOfertRepository jobOfertService = new JobOfertService();
         IBenefitRepository benefitService = new BenefitService();
         IDutyRepository dutyService = new DutyService();
+        IUserRepository userService = new UserService();
 
+        /*UTILITY PROPERTIES*/
+        User User { get; set; }
         public OfertDetailsPageViewModel()
         {
-
+            User = App.user;
         }
 
         public async Task SetupDetailPage()
@@ -43,6 +50,13 @@ namespace JobPortal.Maui.ViewModels
             Duties = await dutyService.GetDuties(JobOfert.Id);
             Requirements = await requirementService.GetRequirements(JobOfert.Id);
             Benefits = await benefitService.GetBenefits(JobOfert.Id);
+            var applicationsList = await userService.GetUserJobOfertApplications(User.Id);
+            bool currentlyApplicated = applicationsList.Any(x => x.JobOfertId == JobOfert.Id);
+            ApplicationIsPossible = !currentlyApplicated;
+
+            var favouritiesList = await userService.GetUserJobOfertFavourites(User.Id);
+            bool isCurrentlyFavourite = favouritiesList.Any(x => x.JobOfertId == JobOfert.Id);
+            ButtonImageSource = isCurrentlyFavourite ? "heart_fill_icon.png" : "heart_icon.png";
         }
 
         [RelayCommand]
@@ -53,6 +67,22 @@ namespace JobPortal.Maui.ViewModels
                 ["JobOfert"] = JobOfert,
                 ["UserId"] = App.user.Id,
             });
+        }
+
+        [RelayCommand]
+        private async Task ToggleOfertToFavourites()
+        {
+            var favouritiesList = await userService.GetUserJobOfertFavourites(User.Id);
+            bool isCurrentlyFavourite = favouritiesList.Any(x => x.JobOfertId == JobOfert.Id);
+            if (isCurrentlyFavourite)
+            {
+                await userService.RemoveUserJobOfertFavourite(User.Id,JobOfert.Id);
+            }
+            else
+            {
+                await userService.PostUserJobOfertFavourite(User.Id, JobOfert);
+            }
+            ButtonImageSource = isCurrentlyFavourite ? "heart_icon.png" : "heart_fill_icon.png";
         }
     }
 }

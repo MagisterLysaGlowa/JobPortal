@@ -31,4 +31,10 @@ public partial class HomePage : ContentPage
     // Prevent default selection highlight
     ((ListView)sender).SelectedItem = null;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        vm.SetUpHomePageInfo();
+    }
 }

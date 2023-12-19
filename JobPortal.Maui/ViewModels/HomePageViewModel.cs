@@ -111,7 +111,7 @@ namespace JobPortal.Maui.ViewModels
             SetUpHomePageInfo();
         }
 
-        private async void SetUpHomePageInfo()
+        public async void SetUpHomePageInfo()
         {
             await ReRenderJobOfertsList();
             var categoriesFilterList = await categoryService.GetCategoriesAsString();

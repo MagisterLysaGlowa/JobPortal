@@ -59,6 +59,8 @@
 	  <None Remove="Resources\Images\esa.png" />
 	  <None Remove="Resources\Images\filter_off_icon_black.png" />
 	  <None Remove="Resources\Images\filter_on_icon_black.png" />
+	  <None Remove="Resources\Images\heart_fill_icon.png" />
+	  <None Remove="Resources\Images\heart_icon.png" />
 	  <None Remove="Resources\Images\job_type_icon.png" />
 	  <None Remove="Resources\Images\job_type_icon_black.png" />
 	  <None Remove="Resources\Images\location_icon.png" />
@@ -82,6 +84,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\CurrentApplicationsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\FavouriteOfertsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">

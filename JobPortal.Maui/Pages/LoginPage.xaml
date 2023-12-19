@@ -42,7 +42,7 @@
         <Border
             Grid.Column="1"
             Padding="0,70,0,70"
-            MaximumHeightRequest="500"
+            MaximumHeightRequest="600"
             MaximumWidthRequest="500"
             StrokeShape="RoundRectangle 30,30,30,30"
             VerticalOptions="Center">
@@ -52,6 +52,8 @@
                 VerticalOptions="Center">
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -89,6 +91,7 @@
                             Background="LightGray"
                             HeightRequest="60"
                             Placeholder="Email"
+                            PlaceholderColor="Black"
                             Text="{Binding Email}"
                             WidthRequest="300">
                             <controlls:BorderlessEntry.Triggers>
@@ -117,13 +120,14 @@
                     </Border.Triggers>
                 </Border>
                 <Label
+                    Grid.Row="2"
                     IsVisible="{Binding EmailError}"
                     Text="{Binding EmailErrorText}"
                     TextColor="Red" />
 
                 <!--  PASSWORD ENTRY  -->
                 <Border
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     Margin="0,15,0,0"
                     Background="LightGray"
@@ -140,6 +144,7 @@
                             HeightRequest="60"
                             IsPassword="True"
                             Placeholder="Hasło"
+                            PlaceholderColor="Black"
                             Text="{Binding Password}"
                             WidthRequest="300">
                             <controlls:BorderlessEntry.Triggers>
@@ -168,12 +173,13 @@
                     </Border.Triggers>
                 </Border>
                 <Label
+                    Grid.Row="4"
                     IsVisible="{Binding PasswordError}"
                     Text="{Binding PasswordErrorText}"
                     TextColor="Red" />
 
                 <Button
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.Column="0"
                     Margin="0,30,0,0"
                     Background="#F27141"

@@ -498,6 +498,21 @@ namespace JobPortal.Api.Data.Migrations
                     b.ToTable("UserJobOfertApplication");
                 });
 
+            modelBuilder.Entity("JobPortal.Api.Models.UserJobOfertFavourite", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobOfertId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "JobOfertId");
+
+                    b.HasIndex("JobOfertId");
+
+                    b.ToTable("UserJobOfertsFavourite");
+                });
+
             modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
                 {
                     b.Property<int>("UserId")
@@ -762,6 +777,25 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("JobPortal.Api.Models.UserJobOfertFavourite", b =>
+                {
+                    b.HasOne("JobPortal.Api.Models.JobOfert", "JobOfert")
+                        .WithMany("UserJobOfertsFavourites")
+                        .HasForeignKey("JobOfertId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobPortal.Api.Models.User", "User")
+                        .WithMany("UserJobOfertsFavourites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobOfert");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
                 {
                     b.HasOne("JobPortal.Api.Models.Language", "Language")
@@ -856,6 +890,8 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.Navigation("UserJobOfertsApplications");
 
+                    b.Navigation("UserJobOfertsFavourites");
+
                     b.Navigation("userJobOferts");
                 });
 
@@ -887,6 +923,8 @@ namespace JobPortal.Api.Data.Migrations
                     b.Navigation("UserExperiences");
 
                     b.Navigation("UserJobOfertsApplications");
+
+                    b.Navigation("UserJobOfertsFavourites");
 
                     b.Navigation("UserLanguages");
 

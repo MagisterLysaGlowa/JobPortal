@@ -37,7 +37,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="240" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <Border
@@ -142,13 +142,20 @@
                     </Grid>
 
 
-                    <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                    <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
                         <Button
                             Command="{Binding NavigateToJobOfertApplicationCommand}"
+                            IsVisible="{Binding ApplicationIsPossible}"
                             Style="{StaticResource DetailButton}"
                             Text="Aplikuj" />
-                        <Button Style="{StaticResource DetailButton}" Text="Zapisz" />
-                    </VerticalStackLayout>
+                        <ImageButton
+                            Margin="5,0,10,0"
+                            BackgroundColor="Transparent"
+                            Command="{Binding ToggleOfertToFavouritesCommand}"
+                            HeightRequest="50"
+                            Source="{Binding ButtonImageSource}"
+                            WidthRequest="50" />
+                    </HorizontalStackLayout>
                 </Grid>
             </Border>
 

@@ -317,7 +317,6 @@ namespace JobPortal.Maui.ViewModels
                     carrier.Name = CarrierName;
                     carrier.DateSince = CarrierSince;
                     carrier.UserId = User.Id;
-                    await Shell.Current.DisplayAlert("dodany", $"dodany ID: {carrier.Name} {carrier.DateSince} {carrier.UserId}", "dodany");
                     await carrierService.AddCarrier(carrier);
                 }
             }

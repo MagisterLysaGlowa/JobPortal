@@ -21,7 +21,9 @@ public partial class ProfilePage : ContentPage
         abilityLayout.Children.Remove(abilityGrid);
         courseLayout.Children.Remove(courseGrid);
         linkLayout.Children.Remove(linkGrid);
-
+        Task.Delay(100);
+        ((IView)scrollViewControll).InvalidateMeasure();
+        ((IView)basicInfoGrid).InvalidateMeasure();
         /*UI CHANGES RELATED WITH VIEWMODEL*/
 
         if (!vm.CurrentlyWorking)
@@ -66,39 +68,33 @@ public partial class ProfilePage : ContentPage
 
         if(e.PropertyName == nameof(vm.ExperiencesList))
         {
-            experienceListLayout.HeightRequest = vm.ExperiencesList.Count * 200;
-            experienceListLayout.Remove(experienceListControll);
-            experienceListLayout.Add(experienceListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)experienceLayout).InvalidateMeasure();
         }
         if (e.PropertyName == nameof(vm.EducationsList))
         {
-            educationListLayout.HeightRequest = vm.EducationsList.Count * 200;
-            educationListLayout.Remove(educationListControll);
-            educationListLayout.Add(educationListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)educationLayout).InvalidateMeasure();
         }
         if (e.PropertyName == nameof(vm.LanguagesList))
         {
-            languageListLayout.HeightRequest = vm.LanguagesList.Count * 200;
-            languageListLayout.Remove(languageListControll);
-            languageListLayout.Add(languageListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)languageLayout).InvalidateMeasure();
         }
         if (e.PropertyName == nameof(vm.AbilitiesList))
         {
-            abilityListLayout.HeightRequest = vm.AbilitiesList.Count * 200;
-            abilityListLayout.Remove(abilityListControll);
-            abilityListLayout.Add(abilityListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)abilityLayout).InvalidateMeasure();
         }
         if (e.PropertyName == nameof(vm.CoursesList))
         {
-            courseListLayout.HeightRequest = vm.CoursesList.Count * 200;
-            courseListLayout.Remove(courseListControll);
-            courseListLayout.Add(courseListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)courseLayout).InvalidateMeasure();
         }
         if (e.PropertyName == nameof(vm.LinksList))
         {
-            linkListLayout.HeightRequest = vm.LinksList.Count * 200;
-            linkListLayout.Remove(linkListControll);
-            linkListLayout.Add(linkListControll);
+            ((IView)scrollViewControll).InvalidateMeasure();
+            ((IView)linkLayout).InvalidateMeasure();
         }
     }
 
@@ -127,11 +123,13 @@ public partial class ProfilePage : ContentPage
     private void DisplayExperienceGrid_Clicked(object sender, EventArgs e)
     {
         experienceLayout.Children.Add(experienceGrid);
+        experienceGridButton.IsVisible = false;
     }
 
     private void HideExperienceGrid_Clicked(object sender, EventArgs e)
     {
         experienceLayout.Children.Remove(experienceGrid);
+        experienceGridButton.IsVisible = true;
     }
 
     private async void DeleteExperience_Click(object sender, EventArgs e)
@@ -143,10 +141,12 @@ public partial class ProfilePage : ContentPage
     private void DisplayEducationGrid_Clicked(object sender, EventArgs e)
     {
         educationLayout.Children.Add(educationGrid);
+        educationGridButton.IsVisible = false;
     }
     private void HideEducationGrid_Clicked(object sender, EventArgs e)
     {
         educationLayout.Children.Remove(educationGrid);
+        educationGridButton.IsVisible = true;
     }
 
     private async void DeleteEducation_Click(object sender, EventArgs e)
@@ -164,21 +164,25 @@ public partial class ProfilePage : ContentPage
     private void HideLanguagesGrid_Clicked(object sender, EventArgs e)
     {
         languageLayout.Children.Remove(languageGrid);
+        languageGridButton.IsVisible = true;
     }
 
     private void DisplayLanguageGrid_Clicked(object sender, EventArgs e)
     {
         languageLayout.Children.Add(languageGrid);
+        languageGridButton.IsVisible = false;
     }
 
     private void DisplayAbilityGrid_Clicked(object sender, EventArgs e)
     {
         abilityLayout.Children.Add(abilityGrid);
+        abilityGridButton.IsVisible = false;
     }
 
     private void HideAbilityGrid_Clicked(object sender, EventArgs e)
     {
         abilityLayout.Children.Remove(abilityGrid);
+        abilityGridButton.IsVisible = true;
     }
 
     private async void DeleteAbility_Click(object sender, EventArgs e)
@@ -196,11 +200,13 @@ public partial class ProfilePage : ContentPage
     private void HideCourseGrid_Clicked(object sender, EventArgs e)
     {
         courseLayout.Children.Remove(courseGrid);
+        courseGridButton.IsVisible = true;
     }
 
     private void DisplayCourseGrid_Clicked(object sender, EventArgs e)
     {
         courseLayout.Children.Add(courseGrid);
+        courseGridButton.IsVisible = false;
     }
 
     private async void DeleteLink_Click(object sender, EventArgs e)
@@ -212,10 +218,12 @@ public partial class ProfilePage : ContentPage
     private void HideLinkGrid_Clicked(object sender, EventArgs e)
     {
         linkLayout.Children.Remove(linkGrid);
+        linkGridButton.IsVisible = true;
     }
 
     private void DisplayLinkGrid_Clicked(object sender, EventArgs e)
     {
         linkLayout.Children.Add(linkGrid);
+        linkGridButton.IsVisible = false;
     }
 }

@@ -40,6 +40,7 @@ namespace JobPortal.Api.Data
 
         public DbSet<UserJobOfert> UserJobOfert { get; set; } = default!;
         public DbSet<UserJobOfertApplication> UserJobOfertApplication { get; set; } = default!;
+        public DbSet<UserJobOfertFavourite> UserJobOfertsFavourite { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -222,6 +223,20 @@ namespace JobPortal.Api.Data
             modelBuilder.Entity<UserJobOfertApplication>()
                 .HasOne(ue => ue.JobOfert)
                 .WithMany(e => e.UserJobOfertsApplications)
+                .HasForeignKey(ue => ue.JobOfertId);
+
+            /*SETUP MANY TO MANY USER TO JOB OFERT FAVOURTIES RELATION*/
+            modelBuilder.Entity<UserJobOfertFavourite>()
+                .HasKey(ue => new { ue.UserId, ue.JobOfertId });
+
+            modelBuilder.Entity<UserJobOfertFavourite>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UserJobOfertsFavourites)
+                .HasForeignKey(ue => ue.UserId);
+
+            modelBuilder.Entity<UserJobOfertFavourite>()
+                .HasOne(ue => ue.JobOfert)
+                .WithMany(e => e.UserJobOfertsFavourites)
                 .HasForeignKey(ue => ue.JobOfertId);
         }
     }

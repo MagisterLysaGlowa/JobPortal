@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/Styles/HomePageStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/OfertDetailsPageStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/JobOfertApplicationStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ProfilePageStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

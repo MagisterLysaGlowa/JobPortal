@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.FavouriteOfertsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="FavouriteOfertsPage"
+    Shell.NavBarIsVisible="False">
+    <ScrollView x:Name="scrollViewControll">
+        <Grid MaximumWidthRequest="1200" MinimumWidthRequest="800">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                BackgroundColor="#f27f62"
+                StrokeShape="RoundRectangle 0,0,30,30"
+                StrokeThickness="0">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="40"
+                    HorizontalTextAlignment="Center"
+                    Text="Ulubione ogłoszenia"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Margin="0,40,0,0"
+                Padding="20,40,20,40"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                StrokeThickness="0">
+                <ListView ItemsSource="{Binding UserJobOferts}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Border
+                                    Margin="0,10,0,10"
+                                    Padding="20,30,20,30"
+                                    StrokeShape="RoundRectangle 20,20,20,20">
+                                    <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto,auto,auto">
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            FontSize="23"
+                                            Text="{Binding PositionName}"
+                                            TextColor="#f27f62" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Text="{Binding CompanyName}" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Text="{Binding RecruitmentEndDate}" />
+
+                                        <Button
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
+                                            Grid.Column="2"
+                                            Margin="0,0,15,0"
+                                            BackgroundColor="#EB4545"
+                                            Clicked="DeleteFavourite_Clicked"
+                                            CommandParameter="{Binding Id}"
+                                            CornerRadius="8"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            HeightRequest="50"
+                                            Text="Usuń z ulubionych"
+                                            TextColor="White"
+                                            WidthRequest="200" />
+                                    </Grid>
+                                </Border>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </Grid>
+    </ScrollView>
+</ContentPage>

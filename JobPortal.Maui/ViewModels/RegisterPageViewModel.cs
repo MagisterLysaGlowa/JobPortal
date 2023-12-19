@@ -19,7 +19,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*NAME PROPERTIES*/
         [ObservableProperty]
-        private string name = "kacper";
+        private string name;
         [ObservableProperty]
         private bool nameError = false;
         [ObservableProperty]
@@ -27,7 +27,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*SURNAME PROPERTIES*/
         [ObservableProperty]
-        private string surname = "piaskowy";
+        private string surname;
         [ObservableProperty]
         private bool surnameError = false;
         [ObservableProperty]
@@ -35,7 +35,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*EMAIL PROPERTIES*/
         [ObservableProperty]
-        private string email = "kacper@wp.pl";
+        private string email;
         [ObservableProperty]
         private bool emailError = false;
         [ObservableProperty]
@@ -43,7 +43,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*PHONE NUMBER PROPERTIES*/
         [ObservableProperty]
-        private string phoneNumber = "123456789";
+        private string phoneNumber;
         [ObservableProperty]
         private bool phoneNumberError = false;
         [ObservableProperty]
@@ -51,7 +51,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*PASSWORD PROPERTIES*/
         [ObservableProperty]
-        private string password = "Dol@r12345";
+        private string password;
         [ObservableProperty]
         private bool passwordError = false;
         [ObservableProperty]
@@ -59,7 +59,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*PASSWORD REPEAT PROPERTIES*/
         [ObservableProperty]
-        private string repeatPassword = "Dol@r12345";
+        private string repeatPassword;
         [ObservableProperty]
         private bool repeatPasswordError = false;
         [ObservableProperty]
@@ -67,7 +67,7 @@ namespace JobPortal.Maui.ViewModels
 
         /*LOCATION PROPERTIES*/
         [ObservableProperty]
-        private string location = "Limanowa";
+        private string location;
         [ObservableProperty]
         private bool locationError = false;
         [ObservableProperty]
@@ -112,6 +112,7 @@ namespace JobPortal.Maui.ViewModels
             bool correct = await EntryValidation(frame);
             if (!correct) return;
             Step++;
+            TriggerActionRequested?.Invoke(this, EventArgs.Empty);
         }
 
         [RelayCommand]
@@ -212,6 +213,7 @@ namespace JobPortal.Maui.ViewModels
             user.Access = IsEmployee ? "employee" : "employer";
 
             await userRepository.Register(user);
+            Step = 0;
             await Shell.Current.DisplayAlert("Informacja dla użytkownika", "Pomyślnie zarejestrowano do serwisu", "Ok");
             await Shell.Current.GoToAsync("//loginPage");
         }

@@ -10,7 +10,7 @@
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.FlyoutHeader>
-        <Grid Padding="10">
+        <Grid Padding="10,20,10,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*" />
@@ -21,7 +21,7 @@
                 Padding="0"
                 Background="#2B0B98"
                 HeightRequest="80"
-                Stroke="#C49B33"
+                Stroke="#F5F5F5"
                 StrokeShape="RoundRectangle 100"
                 StrokeThickness="6"
                 WidthRequest="80">
@@ -30,9 +30,21 @@
                     Aspect="Fill"
                     BackgroundColor="Pink" />
             </Border>
-            <HorizontalStackLayout Grid.Column="1">
-                <Label Text="{Binding Name}" />
-                <Label Margin="5,0,0,0" Text="{Binding Surname}" />
+            <HorizontalStackLayout
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="{Binding Name}"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    Margin="5,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="{Binding Surname}"
+                    VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
         </Grid>
     </Shell.FlyoutHeader>
@@ -70,6 +82,10 @@
         Title="Aktualne aplikacje"
         ContentTemplate="{DataTemplate pages:CurrentApplicationsPage}"
         Route="currentApplicationsPage" />
+    <ShellContent
+        Title="Ulubione ogłoszenia"
+        ContentTemplate="{DataTemplate pages:FavouriteOfertsPage}"
+        Route="favouriteJobOfertsPage" />
     <ShellContent
         x:Name="jobOfertShellContentControll"
         Title="Dodaj ofertę"

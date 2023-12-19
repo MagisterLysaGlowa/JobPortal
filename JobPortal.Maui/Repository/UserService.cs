@@ -235,11 +235,80 @@ namespace JobPortal.Maui.Repository
                     client.BaseAddress = new Uri(url);
 
                     HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        public async Task<User> PostUserJobOfertFavourite(int userId, JobOfert jobOfert)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var json = JsonConvert.SerializeObject(jobOfert);
+                    var requestContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    string url = $"{apiUrl}/PostUserJobOfertFavourite/{userId}";
+                    client.BaseAddress = new Uri(url);
+                    var response = await client.PostAsync(client.BaseAddress, requestContent);
+
                     if (response.IsSuccessStatusCode)
                     {
-                        await Shell.Current.DisplayAlert("delete", "delete", "delete");
+                        string responseContent = response.Content.ReadAsStringAsync().Result;
+                        User fetchedUser = JsonConvert.DeserializeObject<User>(responseContent);
+                        return await Task.FromResult(fetchedUser);
                     }
-                    return;
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<UserJobOfertFavourite>> GetUserJobOfertFavourites(int userId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetUserJobOfertFavourites/{userId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<UserJobOfertFavourite> userJobOfertFav = JsonConvert.DeserializeObject<List<UserJobOfertFavourite>>(json);
+                        return userJobOfertFav;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task RemoveUserJobOfertFavourite(int userId, int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/deleteUserJobOfertFavourite/{userId}/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
                 }
             }
             catch (Exception ex)

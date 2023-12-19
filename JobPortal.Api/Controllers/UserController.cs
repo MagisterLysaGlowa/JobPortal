@@ -69,6 +69,25 @@ namespace JobPortal.Api.Controllers
             return Ok(userJobOfertApplications);
         }
 
+        [HttpGet("GetUserJobOfertFavourites/{userId}")]
+        public async Task<ActionResult<UserJobOfertApplication>> GetUserJobOfertFavourites(int userId)
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var userJobOfertApplications = await _context.UserJobOfertsFavourite.Where(x => x.UserId == userId).ToListAsync();
+
+
+
+            if (userJobOfertApplications == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userJobOfertApplications);
+        }
+
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -132,6 +151,27 @@ namespace JobPortal.Api.Controllers
             jobOfert.JobOfertCategories = new();
             var user = _context.Users.Find(userId);
             user?.UserJobOfertsApplications.Add(new UserJobOfertApplication { JobOfert = jobOfert , CreatedAt = DateTime.Now});
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
+
+        [HttpPost("PostUserJobOfertFavourite/{userId}")]
+        public async Task<ActionResult<User>> PostUserJobOfertFavourite(int userId, JobOfert jobOfert)
+        {
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'AppDbContext.JobOferts'  is null.");
+            }
+
+            if (_context.UserJobOfertsFavourite.Any(x => x.UserId == userId && x.JobOfertId == jobOfert.Id))
+            {
+                return NoContent();
+            }
+
+            jobOfert.JobOfertCategories = new();
+            var user = _context.Users.Find(userId);
+            user?.UserJobOfertsFavourites.Add(new UserJobOfertFavourite { JobOfert = jobOfert});
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
@@ -215,6 +255,21 @@ namespace JobPortal.Api.Controllers
             if (userJobOfert != null)
             {
                 _context.UserJobOfertApplication.Remove(userJobOfert);
+                _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("deleteUserJobOfertFavourite/{userId}/{jobOfertId}")]
+        public IActionResult deleteUserJobOfertFavourite(int userId, int jobOfertId)
+        {
+            var userJobOfert = _context.UserJobOfertsFavourite
+                .FirstOrDefault(sc => sc.UserId == userId && sc.JobOfertId == jobOfertId);
+
+            if (userJobOfert != null)
+            {
+                _context.UserJobOfertsFavourite.Remove(userJobOfert);
                 _context.SaveChanges();
             }
 

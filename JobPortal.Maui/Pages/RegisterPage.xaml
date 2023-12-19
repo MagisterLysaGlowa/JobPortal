@@ -42,7 +42,11 @@
             Style="{StaticResource RegisterBoxStyle}">
             <Grid RowDefinitions="auto,20,auto,20,auto">
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
-                    <controlls:BorderlessEntry Style="{StaticResource RegisterEntry}" Text="{Binding Name}" />
+                    <controlls:BorderlessEntry
+                        Placeholder="Imię"
+                        PlaceholderColor="Black"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding Name}" />
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding NameError}"
@@ -66,7 +70,11 @@
                     Text="{Binding NameErrorText}" />
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
-                    <controlls:BorderlessEntry Style="{StaticResource RegisterEntry}" Text="{Binding Surname}" />
+                    <controlls:BorderlessEntry
+                        Placeholder="Nazwisko"
+                        PlaceholderColor="Black"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding Surname}" />
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding SurnameError}"
@@ -106,7 +114,11 @@
             Style="{StaticResource RegisterBoxStyle}">
             <Grid RowDefinitions="auto,20,auto,20,auto">
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
-                    <controlls:BorderlessEntry Style="{StaticResource RegisterEntry}" Text="{Binding Email}" />
+                    <controlls:BorderlessEntry
+                        Placeholder="E-mail"
+                        PlaceholderColor="Black"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding Email}" />
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding EmailError}"
@@ -130,7 +142,11 @@
                     Text="{Binding EmailErrorText}" />
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
-                    <controlls:BorderlessEntry Style="{StaticResource RegisterEntry}" Text="{Binding PhoneNumber}" />
+                    <controlls:BorderlessEntry
+                        Placeholder="Numer telefonu"
+                        PlaceholderColor="Black"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding PhoneNumber}" />
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding PhoneNumberError}"
@@ -180,6 +196,8 @@
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
                         IsPassword="True"
+                        Placeholder="Hasło"
+                        PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
                         Text="{Binding Password}" />
                     <Border.Triggers>
@@ -207,6 +225,8 @@
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
                         IsPassword="True"
+                        Placeholder="Powtórz hasło"
+                        PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
                         Text="{Binding RepeatPassword}" />
                     <Border.Triggers>
@@ -283,7 +303,11 @@
                     Text="{Binding DateOfBirthErrorText}" />
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
-                    <controlls:BorderlessEntry Style="{StaticResource RegisterEntry}" Text="{Binding Location}" />
+                    <controlls:BorderlessEntry
+                        Placeholder="Miejscowość"
+                        PlaceholderColor="Black"
+                        Style="{StaticResource RegisterEntry}"
+                        Text="{Binding Location}" />
                     <Border.Triggers>
                         <DataTrigger
                             Binding="{Binding LocationError}"
