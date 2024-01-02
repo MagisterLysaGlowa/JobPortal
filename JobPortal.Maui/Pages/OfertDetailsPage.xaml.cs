@@ -12,6 +12,10 @@ public partial class OfertDetailsPage : ContentPage
 		InitializeComponent();
         BindingContext = ofertDetailsPageViewModel;
         vm = ofertDetailsPageViewModel;
+        if(App.user.Access == "admin")
+        {
+            OfertDeleteButton.IsVisible = true;
+        }
     }
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {

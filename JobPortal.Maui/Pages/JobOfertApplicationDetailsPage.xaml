@@ -6,10 +6,25 @@
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
     Title="JobOfertApplicationDetailsPage"
     BackgroundColor="#f5f5f5"
-    Shell.NavBarIsVisible="False">
+    Shell.BackgroundColor="#f27f62">
+    <ContentPage.Style>
+        <OnIdiom x:TypeArguments="Style">
+            <OnIdiom.Desktop>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="False" />
+                </Style>
+            </OnIdiom.Desktop>
+
+            <OnIdiom.Phone>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="True" />
+                </Style>
+            </OnIdiom.Phone>
+        </OnIdiom>
+    </ContentPage.Style>
     <ScrollView>
 
-        <Grid MaximumWidthRequest="1200" MinimumWidthRequest="800">
+        <Grid MaximumWidthRequest="1200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
                 <RowDefinition Height="auto" />
@@ -113,7 +128,10 @@
             <Border Grid.Row="2" Style="{StaticResource InfoBorderBox}">
                 <VerticalStackLayout>
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Umiejętności" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Abilities}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Abilities}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -140,7 +158,10 @@
             <Border Grid.Row="3" Style="{StaticResource InfoBorderBox}">
                 <VerticalStackLayout>
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Doświadczenie zawodowe" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Experiences}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Experiences}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -200,7 +221,10 @@
                 <VerticalStackLayout>
 
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Wykształcenie" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Educations}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Educations}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -263,7 +287,10 @@
             <Border Grid.Row="5" Style="{StaticResource InfoBorderBox}">
                 <VerticalStackLayout>
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Kursy / szkolenia" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Courses}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Courses}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -311,7 +338,10 @@
             <Border Grid.Row="6" Style="{StaticResource InfoBorderBox}">
                 <VerticalStackLayout>
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Języki obce" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Languages}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Languages}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -345,7 +375,10 @@
             <Border Grid.Row="7" Style="{StaticResource InfoBorderBox}">
                 <VerticalStackLayout>
                     <Label Style="{StaticResource InfoBoxHeader}" Text="Linki do innych portali" />
-                    <ListView IsEnabled="False" ItemsSource="{Binding Links}">
+                    <ListView
+                        HasUnevenRows="True"
+                        IsEnabled="False"
+                        ItemsSource="{Binding Links}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

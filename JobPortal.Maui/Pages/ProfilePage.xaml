@@ -8,7 +8,22 @@
     Title="ProfilePage"
     x:DataType="viewmodels:ProfilePageViewModel"
     BackgroundColor="#F5F5F5"
-    Shell.NavBarIsVisible="False">
+    Shell.BackgroundColor="#f27f62">
+    <ContentPage.Style>
+        <OnIdiom x:TypeArguments="Style">
+            <OnIdiom.Desktop>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="False" />
+                </Style>
+            </OnIdiom.Desktop>
+
+            <OnIdiom.Phone>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="True" />
+                </Style>
+            </OnIdiom.Phone>
+        </OnIdiom>
+    </ContentPage.Style>
     <ContentPage.Resources>
         <Style x:Key="EntryBorder" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
@@ -17,10 +32,7 @@
         </Style>
     </ContentPage.Resources>
     <ScrollView x:Name="scrollViewControll">
-        <Grid
-            HorizontalOptions="Center"
-            MaximumWidthRequest="1200"
-            MinimumWidthRequest="800">
+        <Grid HorizontalOptions="Center" MaximumWidthRequest="1200">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
@@ -46,11 +58,24 @@
                 BackgroundColor="#f27f62"
                 StrokeShape="RoundRectangle 0,0,30,30"
                 StrokeThickness="0">
-                <Grid Margin="30,0,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="auto,auto" />
+                                    <Setter Property="Margin" Value="30,0,0,0" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*" />
+                                    <Setter Property="Margin" Value="0,0,0,0" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
 
                     <Border
                         Grid.Column="0"
@@ -82,6 +107,21 @@
                             FontSize="30"
                             Text="{Binding CurrentHeaderSurname}"
                             TextColor="White" />
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="IsVisible" Value="False" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                     </HorizontalStackLayout>
                 </Grid>
             </Border>
@@ -96,7 +136,24 @@
                 MaximumWidthRequest="1200"
                 MinimumWidthRequest="800"
                 Style="{StaticResource ProfilePageBorderBox}">
-                <Grid ColumnSpacing="40" RowSpacing="20">
+                <Grid>
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnSpacing" Value="40" />
+                                    <Setter Property="RowSpacing" Value="20" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnSpacing" Value="10" />
+                                    <Setter Property="RowSpacing" Value="8" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -216,10 +273,24 @@
                             <Label Text="Nie jestem aktualnie zatrudniony/a" VerticalTextAlignment="Center" />
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
-                    <Grid
-                        x:Name="workGrid"
-                        ColumnSpacing="40"
-                        RowSpacing="20">
+                    <Grid x:Name="workGrid">
+                        <Grid.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="ColumnSpacing" Value="40" />
+                                        <Setter Property="RowSpacing" Value="20" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="ColumnSpacing" Value="10" />
+                                        <Setter Property="RowSpacing" Value="8" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Grid.Style>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -317,17 +388,23 @@
                     </HorizontalStackLayout>
 
                     <Grid x:Name="carrierGrid" ColumnSpacing="40">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
+                        <Grid.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="ColumnDefinitions" Value="auto,auto,auto" />
+                                        <Setter Property="RowDefinitions" Value="auto,auto" />
+                                    </Style>
+                                </OnIdiom.Desktop>
 
-
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="ColumnDefinitions" Value="*" />
+                                        <Setter Property="RowDefinitions" Value="auto,auto,auto,auto" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Grid.Style>
 
                         <Border
                             Grid.Row="0"
@@ -336,23 +413,80 @@
                             <controlls:BorderlessEntry Placeholder="Nazwa stanowiska" Text="{Binding CarrierName}" />
                         </Border>
                         <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
+                            HorizontalTextAlignment="Center"
                             Text="od"
-                            VerticalTextAlignment="Center" />
-                        <Border
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{StaticResource EntryBorder}">
+                            VerticalTextAlignment="Center">
+                            <Label.Style>
+                                <OnIdiom x:TypeArguments="Style">
+                                    <OnIdiom.Desktop>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Grid.Column" Value="1" />
+                                            <Setter Property="Grid.Row" Value="0" />
+                                        </Style>
+                                    </OnIdiom.Desktop>
+
+                                    <OnIdiom.Phone>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Grid.Column" Value="0" />
+                                            <Setter Property="Grid.Row" Value="1" />
+                                        </Style>
+                                    </OnIdiom.Phone>
+                                </OnIdiom>
+                            </Label.Style>
+                        </Label>
+                        <Border>
                             <DatePicker Date="{Binding CarrierSince}" />
+                            <Border.Style>
+                                <OnIdiom x:TypeArguments="Style">
+                                    <OnIdiom.Desktop>
+                                        <Style TargetType="Border">
+                                            <Style.BasedOn>
+                                                <Style BasedOn="{StaticResource EntryBorder}" TargetType="Border" />
+                                            </Style.BasedOn>
+                                            <Setter Property="Grid.Column" Value="2" />
+                                            <Setter Property="Grid.Row" Value="0" />
+                                        </Style>
+                                    </OnIdiom.Desktop>
+
+                                    <OnIdiom.Phone>
+                                        <Style TargetType="Border">
+                                            <Style.BasedOn>
+                                                <Style BasedOn="{StaticResource EntryBorder}" TargetType="Border" />
+                                            </Style.BasedOn>
+                                            <Setter Property="Grid.Column" Value="0" />
+                                            <Setter Property="Grid.Row" Value="2" />
+                                        </Style>
+                                    </OnIdiom.Phone>
+                                </OnIdiom>
+                            </Border.Style>
                         </Border>
 
-                        <Button
-                            Grid.Row="2"
-                            Command="{Binding SetCarrierInfoEditModeCommand}"
-                            Style="{StaticResource ProfilePageButton}"
-                            Text="{Binding CarrierInfoEditButtonText}"
-                            WidthRequest="250" />
+                        <Button Command="{Binding SetCarrierInfoEditModeCommand}" Text="{Binding CarrierInfoEditButtonText}">
+                            <Button.Style>
+                                <OnIdiom x:TypeArguments="Style">
+                                    <OnIdiom.Desktop>
+                                        <Style TargetType="Button">
+                                            <Style.BasedOn>
+                                                <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                            </Style.BasedOn>
+                                            <Setter Property="Grid.Column" Value="0" />
+                                            <Setter Property="Grid.Row" Value="2" />
+                                            <Setter Property="WidthRequest" Value="250" />
+                                        </Style>
+                                    </OnIdiom.Desktop>
+
+                                    <OnIdiom.Phone>
+                                        <Style TargetType="Button">
+                                            <Style.BasedOn>
+                                                <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                            </Style.BasedOn>
+                                            <Setter Property="Grid.Column" Value="0" />
+                                            <Setter Property="Grid.Row" Value="3" />
+                                        </Style>
+                                    </OnIdiom.Phone>
+                                </OnIdiom>
+                            </Button.Style>
+                        </Button>
                     </Grid>
                 </VerticalStackLayout>
             </Border>
@@ -428,14 +562,15 @@
                             HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertExperienceCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj do opisu"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideExperienceGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
+                                Text="Zamknij okno" />
 
                         </HorizontalStackLayout>
                     </Grid>
@@ -448,15 +583,36 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="experienceListLayout">
-                    <ListView x:Name="experienceListControll" ItemsSource="{Binding ExperiencesList}">
+                    <ListView
+                        x:Name="experienceListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding ExperiencesList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame Padding="15" CornerRadius="10">
-                                        <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto,auto">
+                                    <Border Padding="15" StrokeShape="RoundRectangle 10,10,10,10">
+                                        <Grid>
+                                            <Grid.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="auto,*,auto" />
+                                                            <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="auto,*" />
+                                                            <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Grid.Style>
                                             <Label
                                                 Grid.Row="0"
                                                 Grid.Column="0"
+                                                HorizontalOptions="Start"
                                                 Text="Nazwa firmy: " />
                                             <Label
                                                 Grid.Row="1"
@@ -506,16 +662,38 @@
                                                 FontAttributes="Bold"
                                                 Text="{Binding EndDate}" />
                                             <Button
-                                                Grid.Row="0"
-                                                Grid.RowSpan="5"
-                                                Grid.Column="2"
                                                 Clicked="DeleteExperience_Click"
                                                 CommandParameter="{Binding Id}"
-                                                Style="{StaticResource ProfilePageButton}"
                                                 Text="Usuń element doświadczenia"
-                                                VerticalOptions="Center" />
+                                                VerticalOptions="Center">
+                                                <Button.Style>
+                                                    <OnIdiom x:TypeArguments="Style">
+                                                        <OnIdiom.Desktop>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Row" Value="0" />
+                                                                <Setter Property="Grid.Column" Value="2" />
+                                                                <Setter Property="Grid.RowSpan" Value="5" />
+                                                            </Style>
+                                                        </OnIdiom.Desktop>
+
+                                                        <OnIdiom.Phone>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Row" Value="5" />
+                                                                <Setter Property="Grid.Column" Value="0" />
+                                                                <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            </Style>
+                                                        </OnIdiom.Phone>
+                                                    </OnIdiom>
+                                                </Button.Style>
+                                            </Button>
                                         </Grid>
-                                    </Frame>
+                                    </Border>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -598,14 +776,15 @@
                             HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertEducationCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj do wykształcenia"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideEducationGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
+                                Text="Zamknij okno" />
 
                         </HorizontalStackLayout>
                     </Grid>
@@ -618,16 +797,36 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="educationListLayout">
-                    <ListView x:Name="educationListControll" ItemsSource="{Binding EducationsList}">
+                    <ListView
+                        x:Name="educationListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding EducationsList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <VerticalStackLayout>
-                                        <Frame
+                                        <Border
                                             Margin="0,5,0,5"
                                             Padding="15"
-                                            CornerRadius="10">
-                                            <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto,auto,auto">
+                                            StrokeShape="RoundRectangle 10,10,10,10">
+                                            <Grid>
+                                                <Grid.Style>
+                                                    <OnIdiom x:TypeArguments="Style">
+                                                        <OnIdiom.Desktop>
+                                                            <Style TargetType="Grid">
+                                                                <Setter Property="ColumnDefinitions" Value="auto,*,auto" />
+                                                                <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto,auto" />
+                                                            </Style>
+                                                        </OnIdiom.Desktop>
+
+                                                        <OnIdiom.Phone>
+                                                            <Style TargetType="Grid">
+                                                                <Setter Property="ColumnDefinitions" Value="auto,*" />
+                                                                <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto,auto,auto" />
+                                                            </Style>
+                                                        </OnIdiom.Phone>
+                                                    </OnIdiom>
+                                                </Grid.Style>
                                                 <Label
                                                     Grid.Row="0"
                                                     Grid.Column="0"
@@ -674,6 +873,8 @@
                                                 <Label
                                                     Grid.Row="3"
                                                     Grid.Column="1"
+                                                    Margin="5,0,0,0"
+                                                    FontAttributes="Bold"
                                                     Text="{Binding SchoolDegree}" />
                                                 <Label
                                                     Grid.Row="4"
@@ -688,16 +889,38 @@
                                                     FontAttributes="Bold"
                                                     Text="{Binding SchoolEndDate}" />
                                                 <Button
-                                                    Grid.Row="0"
-                                                    Grid.RowSpan="6"
-                                                    Grid.Column="2"
                                                     Clicked="DeleteEducation_Click"
                                                     CommandParameter="{Binding Id}"
-                                                    Style="{StaticResource ProfilePageButton}"
                                                     Text="Usuń element wykształcenia"
-                                                    VerticalOptions="Center" />
+                                                    VerticalOptions="Center">
+                                                    <Button.Style>
+                                                        <OnIdiom x:TypeArguments="Style">
+                                                            <OnIdiom.Desktop>
+                                                                <Style TargetType="Button">
+                                                                    <Style.BasedOn>
+                                                                        <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                    </Style.BasedOn>
+                                                                    <Setter Property="Grid.Row" Value="0" />
+                                                                    <Setter Property="Grid.Column" Value="2" />
+                                                                    <Setter Property="Grid.RowSpan" Value="6" />
+                                                                </Style>
+                                                            </OnIdiom.Desktop>
+
+                                                            <OnIdiom.Phone>
+                                                                <Style TargetType="Button">
+                                                                    <Style.BasedOn>
+                                                                        <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                    </Style.BasedOn>
+                                                                    <Setter Property="Grid.Row" Value="6" />
+                                                                    <Setter Property="Grid.Column" Value="0" />
+                                                                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                                </Style>
+                                                            </OnIdiom.Phone>
+                                                        </OnIdiom>
+                                                    </Button.Style>
+                                                </Button>
                                             </Grid>
-                                        </Frame>
+                                        </Border>
                                     </VerticalStackLayout>
                                 </ViewCell>
                             </DataTemplate>
@@ -750,15 +973,15 @@
                             HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertLanguageCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj język"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideLanguagesGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
-
+                                Text="Zamknij okno" />
                         </HorizontalStackLayout>
                     </Grid>
                 </VerticalStackLayout>
@@ -770,14 +993,17 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="languageListLayout">
-                    <ListView x:Name="languageListControll" ItemsSource="{Binding LanguagesList}">
+                    <ListView
+                        x:Name="languageListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding LanguagesList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame
+                                    <Border
                                         Margin="0,5,0,5"
                                         Padding="5"
-                                        CornerRadius="10">
+                                        StrokeShape="RoundRectangle 10,10,10,10">
                                         <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
                                             <HorizontalStackLayout Grid.Column="0">
                                                 <Label
@@ -800,7 +1026,7 @@
                                                 Style="{StaticResource ProfilePageButton}"
                                                 Text="Usuń język" />
                                         </Grid>
-                                    </Frame>
+                                    </Border>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -823,7 +1049,6 @@
                     <Grid x:Name="abilityGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -838,21 +1063,18 @@
                             </Border>
                         </VerticalStackLayout>
 
-                        <HorizontalStackLayout
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            HorizontalOptions="End">
+                        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertAbilityCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj umiejętność"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideAbilityGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
+                                Text="Zamknij okno" />
 
                         </HorizontalStackLayout>
                     </Grid>
@@ -865,27 +1087,67 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="abilityListLayout">
-                    <ListView x:Name="abilityListControll" ItemsSource="{Binding AbilitiesList}">
+                    <ListView
+                        x:Name="abilityListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding AbilitiesList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame
+                                    <Border
                                         Margin="0,5,0,5"
                                         Padding="5"
-                                        CornerRadius="10">
-                                        <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
+                                        StrokeShape="RoundRectangle 10,10,10,10">
+                                        <Grid VerticalOptions="Center">
+                                            <Grid.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                                            <Setter Property="RowDefinitions" Value="auto" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="*" />
+                                                            <Setter Property="RowDefinitions" Value="auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Grid.Style>
+
                                             <Label
                                                 Grid.Column="0"
                                                 Text="{Binding AbilityName}"
                                                 VerticalTextAlignment="Center" />
                                             <Button
-                                                Grid.Column="1"
                                                 Clicked="DeleteAbility_Click"
                                                 CommandParameter="{Binding Id}"
-                                                Style="{StaticResource ProfilePageButton}"
-                                                Text="Usuń umiejętność" />
+                                                Text="Usuń umiejętność">
+                                                <Button.Style>
+                                                    <OnIdiom x:TypeArguments="Style">
+                                                        <OnIdiom.Desktop>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Column" Value="1" />
+                                                            </Style>
+                                                        </OnIdiom.Desktop>
+
+                                                        <OnIdiom.Phone>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Row" Value="1" />
+                                                            </Style>
+                                                        </OnIdiom.Phone>
+                                                    </OnIdiom>
+                                                </Button.Style>
+                                            </Button>
                                         </Grid>
-                                    </Frame>
+                                    </Border>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -952,14 +1214,15 @@
                             HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertCourseCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj kurs"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideCourseGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
+                                Text="Zamknij okno" />
 
                         </HorizontalStackLayout>
                     </Grid>
@@ -972,15 +1235,35 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="courseListLayout">
-                    <ListView x:Name="courseListControll" ItemsSource="{Binding CoursesList}">
+                    <ListView
+                        x:Name="courseListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding CoursesList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame
+                                    <Border
                                         Margin="0,10,0,10"
                                         Padding="20"
-                                        CornerRadius="10">
+                                        StrokeShape="RoundRectangle 10,10,10,10">
                                         <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="auto,auto,auto,auto">
+                                            <Grid.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="auto,*,auto" />
+                                                            <Setter Property="RowDefinitions" Value="auto,auto,auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="auto,*" />
+                                                            <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Grid.Style>
                                             <Label
                                                 Grid.Row="0"
                                                 Grid.Column="0"
@@ -1024,16 +1307,38 @@
                                                 Text="{Binding CourseEndDate}" />
 
                                             <Button
-                                                Grid.Row="0"
-                                                Grid.RowSpan="3"
-                                                Grid.Column="2"
                                                 Clicked="DeleteCourse_Click"
                                                 CommandParameter="{Binding Id}"
-                                                Style="{StaticResource ProfilePageButton}"
                                                 Text="Usuń kurs"
-                                                VerticalOptions="Center" />
+                                                VerticalOptions="Center">
+                                                <Button.Style>
+                                                    <OnIdiom x:TypeArguments="Style">
+                                                        <OnIdiom.Desktop>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Column" Value="2" />
+                                                                <Setter Property="Grid.Row" Value="0" />
+                                                                <Setter Property="Grid.RowSpan" Value="3" />
+                                                            </Style>
+                                                        </OnIdiom.Desktop>
+
+                                                        <OnIdiom.Phone>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Column" Value="0" />
+                                                                <Setter Property="Grid.Row" Value="4" />
+                                                                <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            </Style>
+                                                        </OnIdiom.Phone>
+                                                    </OnIdiom>
+                                                </Button.Style>
+                                            </Button>
                                         </Grid>
-                                    </Frame>
+                                    </Border>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -1056,7 +1361,6 @@
                     <Grid x:Name="linkGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -1074,18 +1378,18 @@
                         <HorizontalStackLayout
                             Grid.Row="1"
                             Grid.Column="0"
-                            Grid.ColumnSpan="2"
                             HorizontalOptions="End">
                             <Button
                                 Command="{Binding InsertLinkCommand}"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Dodaj kurs"
-                                WidthRequest="250" />
+                                Text="Dodaj" />
                             <Button
+                                Margin="10,0,0,0"
                                 Clicked="HideLinkGrid_Clicked"
+                                MaximumWidthRequest="250"
                                 Style="{StaticResource ProfilePageButton}"
-                                Text="Zamknij okno"
-                                WidthRequest="250" />
+                                Text="Zamknij okno" />
 
                         </HorizontalStackLayout>
                     </Grid>
@@ -1098,27 +1402,65 @@
                 IsVisible="{Binding IsEmployee}"
                 Style="{StaticResource ProfilePageBorderBox}">
                 <VerticalStackLayout x:Name="linkListLayout">
-                    <ListView x:Name="linkListControll" ItemsSource="{Binding LinksList}">
+                    <ListView
+                        x:Name="linkListControll"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding LinksList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame
+                                    <Border
                                         Margin="0,5,0,5"
                                         Padding="5"
-                                        CornerRadius="10">
+                                        StrokeShape="RoundRectangle 10,10,10,10">
                                         <Grid ColumnDefinitions="*,auto" VerticalOptions="Center">
+                                            <Grid.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="RowDefinitions" Value="auto,auto" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Grid.Style>
                                             <Label
                                                 Grid.Column="0"
                                                 Text="{Binding LinkContent}"
                                                 VerticalTextAlignment="Center" />
                                             <Button
-                                                Grid.Column="1"
                                                 Clicked="DeleteLink_Click"
                                                 CommandParameter="{Binding Id}"
-                                                Style="{StaticResource ProfilePageButton}"
-                                                Text="Usuń link" />
+                                                Text="Usuń link">
+                                                <Button.Style>
+                                                    <OnIdiom x:TypeArguments="Style">
+                                                        <OnIdiom.Desktop>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Column" Value="1" />
+                                                            </Style>
+                                                        </OnIdiom.Desktop>
+
+                                                        <OnIdiom.Phone>
+                                                            <Style TargetType="Button">
+                                                                <Style.BasedOn>
+                                                                    <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                                                </Style.BasedOn>
+                                                                <Setter Property="Grid.Row" Value="1" />
+                                                            </Style>
+                                                        </OnIdiom.Phone>
+                                                    </OnIdiom>
+                                                </Button.Style>
+                                            </Button>
                                         </Grid>
-                                    </Frame>
+                                    </Border>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

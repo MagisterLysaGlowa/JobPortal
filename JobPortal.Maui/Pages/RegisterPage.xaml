@@ -12,10 +12,22 @@
         x:Name="mainRegisterGrid"
         MaximumHeightRequest="600"
         MaximumWidthRequest="1200">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.Style>
+            <OnIdiom x:TypeArguments="Style">
+                <!--  Style for Windows  -->
+                <OnIdiom.Desktop>
+                    <Style TargetType="Grid">
+                        <Setter Property="ColumnDefinitions" Value="*,*" />
+                    </Style>
+                </OnIdiom.Desktop>
+                <!--  Style for Android  -->
+                <OnIdiom.Phone>
+                    <Style TargetType="Grid">
+                        <Setter Property="ColumnDefinitions" Value="*" />
+                    </Style>
+                </OnIdiom.Phone>
+            </OnIdiom>
+        </Grid.Style>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -32,6 +44,22 @@
             StrokeThickness="2"
             VerticalOptions="CenterAndExpand">
             <Image Aspect="Fill" Source="register_banner.png" />
+            <Border.Style>
+                <OnIdiom x:TypeArguments="Style">
+                    <!--  Style for Windows  -->
+                    <OnIdiom.Desktop>
+                        <Style TargetType="Border">
+                            <Setter Property="IsVisible" Value="True" />
+                        </Style>
+                    </OnIdiom.Desktop>
+                    <!--  Style for Android  -->
+                    <OnIdiom.Phone>
+                        <Style TargetType="Border">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Style>
+                    </OnIdiom.Phone>
+                </OnIdiom>
+            </Border.Style>
         </Border>
 
         <!--  FIRST REGISTER BOX  -->
@@ -43,6 +71,7 @@
             <Grid RowDefinitions="auto,20,auto,20,auto">
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         Placeholder="Imię"
                         PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
@@ -71,6 +100,7 @@
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         Placeholder="Nazwisko"
                         PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
@@ -115,6 +145,7 @@
             <Grid RowDefinitions="auto,20,auto,20,auto">
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         Placeholder="E-mail"
                         PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
@@ -143,6 +174,7 @@
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         Placeholder="Numer telefonu"
                         PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
@@ -195,6 +227,7 @@
             <Grid RowDefinitions="auto,20,auto,20,auto">
                 <Border Grid.Row="0" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         IsPassword="True"
                         Placeholder="Hasło"
                         PlaceholderColor="Black"
@@ -224,6 +257,7 @@
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         IsPassword="True"
                         Placeholder="Powtórz hasło"
                         PlaceholderColor="Black"
@@ -304,6 +338,7 @@
 
                 <Border Grid.Row="2" Style="{StaticResource RegisterEntryBorder}">
                     <controlls:BorderlessEntry
+                        Margin="10"
                         Placeholder="Miejscowość"
                         PlaceholderColor="Black"
                         Style="{StaticResource RegisterEntry}"
@@ -471,7 +506,7 @@
                 BorderColor="Transparent"
                 Command="{Binding NavigateToLoginPageCommand}"
                 FontSize="18"
-                HeightRequest="20"
+                HeightRequest="70"
                 Text="Wróć do logowania"
                 TextColor="Gray" />
         </HorizontalStackLayout>

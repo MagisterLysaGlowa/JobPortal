@@ -6,14 +6,27 @@
     xmlns:viewmodel="clr-namespace:JobPortal.Maui.ViewModels"
     Title="CurrentApplicationsPage"
     BackgroundColor="#F5F5F5"
-    Shell.NavBarIsVisible="False">
+    Shell.BackgroundColor="#f27f62">
+    <ContentPage.Style>
+        <OnIdiom x:TypeArguments="Style">
+            <OnIdiom.Desktop>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="False" />
+                </Style>
+            </OnIdiom.Desktop>
+
+            <OnIdiom.Phone>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="True" />
+                </Style>
+            </OnIdiom.Phone>
+        </OnIdiom>
+    </ContentPage.Style>
     <ScrollView x:Name="scrollViewControll">
-        <Grid MaximumWidthRequest="1200" MinimumWidthRequest="800">
+        <Grid MaximumWidthRequest="1200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Border
@@ -31,45 +44,117 @@
             </Border>
 
             <Border
+                x:Name="borderControll"
                 Grid.Row="1"
                 Margin="0,40,0,0"
                 Padding="20,40,20,40"
                 BackgroundColor="White"
                 StrokeShape="RoundRectangle 20,20,20,20"
                 StrokeThickness="0">
-                <ListView ItemsSource="{Binding UserJobOferts}">
+                <ListView
+                    x:Name="listControll"
+                    HasUnevenRows="True"
+                    ItemTapped="OnItemTapped"
+                    ItemsSource="{Binding UserJobOferts}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Border
                                     Margin="0,10,0,10"
                                     Padding="20,30,20,30"
+                                    HeightRequest="200"
                                     StrokeShape="RoundRectangle 20,20,20,20">
-                                    <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto,auto,auto">
+                                    <Grid>
+                                        <Grid.Style>
+                                            <OnIdiom x:TypeArguments="Style">
+                                                <OnIdiom.Desktop>
+                                                    <Style TargetType="Grid">
+                                                        <Setter Property="ColumnDefinitions" Value="*,auto,auto" />
+                                                        <Setter Property="RowDefinitions" Value="auto,auto,auto" />
+                                                    </Style>
+                                                </OnIdiom.Desktop>
+
+                                                <OnIdiom.Phone>
+                                                    <Style TargetType="Grid">
+                                                        <Setter Property="ColumnDefinitions" Value="*,*" />
+                                                        <Setter Property="RowDefinitions" Value="auto,auto,auto,auto" />
+                                                    </Style>
+                                                </OnIdiom.Phone>
+                                            </OnIdiom>
+                                        </Grid.Style>
                                         <Label
                                             Grid.Row="0"
                                             Grid.Column="0"
                                             FontAttributes="Bold"
                                             FontSize="23"
                                             Text="{Binding PositionName}"
-                                            TextColor="#f27f62" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Text="{Binding CompanyName}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="0"
-                                            Text="{Binding RecruitmentEndDate}" />
+                                            TextColor="#f27f62">
+                                            <Label.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.Row" Value="0" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            <Setter Property="Grid.Row" Value="0" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Label.Style>
+                                        </Label>
+                                        <Label Text="{Binding CompanyName}">
+                                            <Label.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            <Setter Property="Grid.Row" Value="1" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            <Setter Property="Grid.Row" Value="1" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Label.Style>
+                                        </Label>
+                                        <Label Text="{Binding RecruitmentEndDate}">
+                                            <Label.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.Row" Value="2" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                            <Setter Property="Grid.Row" Value="2" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Label.Style>
+                                        </Label>
                                         <Border
-                                            Grid.Row="0"
-                                            Grid.RowSpan="3"
-                                            Grid.Column="2"
                                             BackgroundColor="LimeGreen"
                                             HeightRequest="50"
                                             StrokeShape="RoundRectangle 8,8,8,8"
-                                            VerticalOptions="Center"
-                                            WidthRequest="200">
+                                            StrokeThickness="0"
+                                            VerticalOptions="Center">
                                             <Label
                                                 FontAttributes="Bold"
                                                 FontSize="18"
@@ -77,12 +162,29 @@
                                                 Text="Aktywne"
                                                 TextColor="White"
                                                 VerticalOptions="Center" />
+                                            <Border.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Grid.Column" Value="2" />
+                                                            <Setter Property="Grid.Row" Value="0" />
+                                                            <Setter Property="Grid.RowSpan" Value="3" />
+                                                            <Setter Property="WidthRequest" Value="200" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Grid.Column" Value="1" />
+                                                            <Setter Property="Grid.Row" Value="3" />
+                                                            <Setter Property="WidthRequest" Value="140" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Border.Style>
                                         </Border>
 
                                         <Button
-                                            Grid.Row="0"
-                                            Grid.RowSpan="3"
-                                            Grid.Column="1"
                                             Margin="0,0,15,0"
                                             BackgroundColor="#EB4545"
                                             Clicked="DeleteApplication_Clicked"
@@ -92,8 +194,28 @@
                                             FontSize="18"
                                             HeightRequest="50"
                                             Text="Cofnij aplikację"
-                                            TextColor="White"
-                                            WidthRequest="200" />
+                                            TextColor="White">
+                                            <Button.Style>
+                                                <OnIdiom x:TypeArguments="Style">
+                                                    <OnIdiom.Desktop>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Grid.Column" Value="1" />
+                                                            <Setter Property="Grid.Row" Value="0" />
+                                                            <Setter Property="Grid.RowSpan" Value="3" />
+                                                            <Setter Property="WidthRequest" Value="200" />
+                                                        </Style>
+                                                    </OnIdiom.Desktop>
+
+                                                    <OnIdiom.Phone>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Grid.Column" Value="0" />
+                                                            <Setter Property="Grid.Row" Value="3" />
+                                                            <Setter Property="WidthRequest" Value="140" />
+                                                        </Style>
+                                                    </OnIdiom.Phone>
+                                                </OnIdiom>
+                                            </Button.Style>
+                                        </Button>
                                     </Grid>
                                 </Border>
                             </ViewCell>

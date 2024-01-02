@@ -7,20 +7,40 @@
     Title="OfertDetailsPage"
     x:DataType="viewmodel:OfertDetailsPageViewModel"
     BackgroundColor="#fafafa"
-    Shell.NavBarIsVisible="False">
+    Shell.BackgroundColor="#f27f62">
+    <ContentPage.Style>
+        <OnIdiom x:TypeArguments="Style">
+            <OnIdiom.Desktop>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="False" />
+                </Style>
+            </OnIdiom.Desktop>
+
+            <OnIdiom.Phone>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="True" />
+                </Style>
+            </OnIdiom.Phone>
+        </OnIdiom>
+    </ContentPage.Style>
     <ScrollView>
 
         <Grid ColumnDefinitions="*" HorizontalOptions="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="160" />
-                <RowDefinition Height="100" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+            <Grid.Style>
+                <OnIdiom x:TypeArguments="Style">
+                    <OnIdiom.Desktop>
+                        <Style TargetType="Grid">
+                            <Setter Property="RowDefinitions" Value="160,auto,auto,auto,auto,auto,auto,auto,auto" />
+                        </Style>
+                    </OnIdiom.Desktop>
+
+                    <OnIdiom.Phone>
+                        <Style TargetType="Grid">
+                            <Setter Property="RowDefinitions" Value="auto,auto,auto,auto,auto,auto,auto,auto,auto" />
+                        </Style>
+                    </OnIdiom.Phone>
+                </OnIdiom>
+            </Grid.Style>
 
             <Border
                 x:Name="measureBorderFix"
@@ -30,27 +50,73 @@
                 Padding="0"
                 BackgroundColor="#f27f62"
                 MaximumWidthRequest="1200"
-                MinimumWidthRequest="1000"
-                StrokeShape="RoundRectangle 0,0,0,0"
                 StrokeThickness="0">
                 <Grid x:Name="measureGridFix" VerticalOptions="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="240,*,auto" />
+                                    <Setter Property="RowDefinitions" Value="*" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*" />
+                                    <Setter Property="RowDefinitions" Value="100,*,*" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
 
                     <Border
                         Grid.Column="0"
                         Padding="0"
-                        HeightRequest="140"
                         StrokeShape="RoundRectangle 100"
-                        StrokeThickness="0"
-                        WidthRequest="140">
+                        StrokeThickness="0">
                         <Image Aspect="Fill" Source="microsoft_icon.jpg" />
+                        <Border.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Border">
+                                        <Setter Property="WidthRequest" Value="140" />
+                                        <Setter Property="HeightRequest" Value="140" />
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Border">
+                                        <Setter Property="WidthRequest" Value="80" />
+                                        <Setter Property="HeightRequest" Value="80" />
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Border.Style>
                     </Border>
 
-                    <Grid Grid.Column="1" VerticalOptions="Center">
+                    <Grid VerticalOptions="Center">
+                        <Grid.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Grid.Column" Value="1" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Grid.Style>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -143,6 +209,23 @@
 
 
                     <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="2" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="2" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                         <Button
                             Command="{Binding NavigateToJobOfertApplicationCommand}"
                             IsVisible="{Binding ApplicationIsPossible}"
@@ -153,6 +236,7 @@
                             BackgroundColor="Transparent"
                             Command="{Binding ToggleOfertToFavouritesCommand}"
                             HeightRequest="50"
+                            IsVisible="{Binding FavouriteIsPossible}"
                             Source="{Binding ButtonImageSource}"
                             WidthRequest="50" />
                     </HorizontalStackLayout>
@@ -165,15 +249,26 @@
                 BackgroundColor="White"
                 StrokeShape="RoundRectangle 0,0,15,15"
                 StrokeThickness="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid RowSpacing="10">
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*,*,*,*" />
+                                    <Setter Property="RowDefinitions" Value="*" />
+                                </Style>
+                            </OnIdiom.Desktop>
 
-                    <HorizontalStackLayout Grid.Column="0" VerticalOptions="Center">
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*" />
+                                    <Setter Property="RowDefinitions" Value="60,60,60,60" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
                         <Image
                             Margin="0,0,10,0"
                             HeightRequest="60"
@@ -186,6 +281,23 @@
                                 TextColor="Gray" />
                             <Label Text="{Binding JobOfert.EmploymentType}" />
                         </VerticalStackLayout>
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center">
@@ -201,6 +313,23 @@
                                 TextColor="Gray" />
                             <Label Text="{Binding JobOfert.PositionLevel}" />
                         </VerticalStackLayout>
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="1" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
@@ -216,6 +345,23 @@
                                 TextColor="Gray" />
                             <Label Text="{Binding JobOfert.EmploymentContract}" />
                         </VerticalStackLayout>
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="2" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="2" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Column="3" VerticalOptions="Center">
@@ -231,6 +377,23 @@
                                 TextColor="Gray" />
                             <Label Text="{Binding JobOfert.JobType}" />
                         </VerticalStackLayout>
+                        <HorizontalStackLayout.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="3" />
+                                        <Setter Property="Grid.Row" Value="0" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="HorizontalStackLayout">
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="3" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </HorizontalStackLayout.Style>
                     </HorizontalStackLayout>
                 </Grid>
             </Border>
@@ -319,6 +482,15 @@
                 </VerticalStackLayout>
             </Border>
 
+            <Button
+                x:Name="OfertDeleteButton"
+                Grid.Row="6"
+                Margin="0,0,0,20"
+                BackgroundColor="#eb3d3d"
+                Command="{Binding DeleteJobOfertCommand}"
+                IsVisible="False"
+                Text="Usuń ofertę pracy"
+                WidthRequest="200" />
         </Grid>
     </ScrollView>
 </ContentPage>

@@ -24,10 +24,8 @@ namespace JobPortal.Maui.Repository
                     string url = $"{apiUrl}/{userId}";
                     client.BaseAddress = new Uri(url);
                     var response = await client.PostAsync(client.BaseAddress, requestContent);
-                    await Shell.Current.DisplayAlert("dziala", $"dziala {response.RequestMessage}", "dziala");
                     if (response.IsSuccessStatusCode)
                     {
-                        await Shell.Current.DisplayAlert("esa", "esa", "esa");
                         string responseContent = response.Content.ReadAsStringAsync().Result;
                         JobOfert result = JsonConvert.DeserializeObject<JobOfert>(responseContent);
                         return await Task.FromResult(result);
@@ -116,6 +114,24 @@ namespace JobPortal.Maui.Repository
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public async Task DeleteJobOfert(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

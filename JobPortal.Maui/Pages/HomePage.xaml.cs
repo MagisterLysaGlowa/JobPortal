@@ -10,11 +10,13 @@ public partial class HomePage : ContentPage
 {
 
     private HomePageViewModel vm;
+    private bool filterIsVisible = false;
     public HomePage(HomePageViewModel homePageViewModel)
 	{
 		InitializeComponent();
         BindingContext = homePageViewModel;
         vm = homePageViewModel;
+        filterBorder.IsVisible = filterIsVisible;
     }
 
     private async void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -36,5 +38,11 @@ public partial class HomePage : ContentPage
     {
         base.OnAppearing();
         vm.SetUpHomePageInfo();
+    }
+
+    private void ToggleFilter_Click(object sender, EventArgs e)
+    {
+        filterIsVisible = !filterIsVisible;
+        filterBorder.IsVisible = filterIsVisible;
     }
 }

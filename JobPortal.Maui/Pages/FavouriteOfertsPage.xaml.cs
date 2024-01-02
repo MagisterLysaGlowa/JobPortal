@@ -1,4 +1,6 @@
+using JobPortal.Maui.Model;
 using JobPortal.Maui.ViewModels;
+using Newtonsoft.Json;
 
 namespace JobPortal.Maui.Pages;
 
@@ -22,5 +24,19 @@ public partial class FavouriteOfertsPage : ContentPage
     {
         base.OnAppearing();
         await vm.SetupFavourites();
+    }
+
+    private async void OnItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        if (e.Item is JobOfert tappedJobOfert)
+        {
+            string serializedObject = JsonConvert.SerializeObject(tappedJobOfert);
+            await Shell.Current.GoToAsync($"//ofertDetailsPage", new Dictionary<string, object>
+            {
+                ["JobOfert"] = tappedJobOfert
+            });
+        }
+
+    ((ListView)sender).SelectedItem = null;
     }
 }

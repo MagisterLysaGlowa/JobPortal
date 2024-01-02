@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JobPortal.Maui.ViewModels
@@ -233,29 +234,35 @@ namespace JobPortal.Maui.ViewModels
 
         /*BASIC USER INFO EDIT COMMAND*/
         [RelayCommand]
-        private void SetBasicInfoEditMode()
+        private async Task SetBasicInfoEditMode()
         {
             BasicInfoEditButtonText = BasicInfoEdit ? "Edytuj" : "Zapisz";
             if (BasicInfoEdit)
             {
-                User user = new User();
-                user.Id = User.Id;
-                user.Access = User.Access;
-                user.Password = User.Password;
-                user.ImagePath = User.ImagePath;
+                if (await EntryValidation())
+                {
+                    User user = new User();
+                    user.Id = User.Id;
+                    user.Access = User.Access;
+                    user.Password = User.Password;
+                    user.ImagePath = User.ImagePath;
 
-                user.Name = Name;
-                user.Email = Email;
-                user.Surname = Surname;
-                user.Location = Location;
-                user.BirthDate = BirthDate;
-                user.PhoneNumber = PhoneNumber;
+                    user.Name = Name;
+                    user.Email = Email;
+                    user.Surname = Surname;
+                    user.Location = Location;
+                    user.BirthDate = BirthDate;
+                    user.PhoneNumber = PhoneNumber;
 
-                userService.UpdateUser(User.Id,user);
-                string userDetails = JsonConvert.SerializeObject(user);
-                Preferences.Set(nameof(App.user), userDetails);
+                    await userService.UpdateUser(User.Id,user);
+                    string userDetails = JsonConvert.SerializeObject(user);
+                    Preferences.Set(nameof(App.user), userDetails);
+                }
             }
-            BasicInfoEdit = !BasicInfoEdit;
+            if(await EntryValidation())
+            {
+                BasicInfoEdit = !BasicInfoEdit;
+            }
         }
 
         /*USER WORK INFO EDIT COMMAND*/
@@ -602,5 +609,87 @@ namespace JobPortal.Maui.ViewModels
                 ReRenderLinkList();
             }
         }
+
+        public async Task<bool> EntryValidation()
+        {
+            Regex name_and_surname_regex = new Regex("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,}$");
+
+            /*NAME VALIDATION*/
+            if (!String.IsNullOrWhiteSpace(Name))
+            {
+                if (!name_and_surname_regex.IsMatch(Name))
+                {
+                    await Shell.Current.DisplayAlert("Niepoprawne dane","Pole imię musi mieć więcej niż 2 znaki!", "OK");
+                    return false;
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Pole imię nie może być puste!", "OK");
+                return false;
+            }
+
+            /*SURNAME VALIDATION*/
+            if (!String.IsNullOrWhiteSpace(Surname))
+            {
+                if (!name_and_surname_regex.IsMatch(Surname))
+                {
+                    await Shell.Current.DisplayAlert("Niepoprawne dane", "Pole nazwisko musi mieć więcej niż 2 znaki", "OK");
+                    return false;
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Pole nazwisko nie może być puste!", "OK");
+                return false;
+            }
+
+            Regex email_regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            Regex phone_regex = new Regex(@"^\d{9}$");
+            /*EMAIL VALIDATION*/
+            if (!String.IsNullOrWhiteSpace(Email))
+            {
+                if (!email_regex.IsMatch(Email))
+                {
+                    await Shell.Current.DisplayAlert("Niepoprawne dane", "Niepoprawny email!", "OK");
+                    return false;
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Pole email nie może być puste!", "OK");
+                return false;
+            }
+
+            /*PHONE NUMBER VALIDATION*/
+            if (!String.IsNullOrWhiteSpace(PhoneNumber))
+            {
+                if (!phone_regex.IsMatch(PhoneNumber))
+                {
+                    await Shell.Current.DisplayAlert("Niepoprawne dane", "Niepoprawny numer telefonu!", "OK");
+                    return false;
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Pole numer telefonu nie może być puste!", "OK");
+                return false;
+            }
+
+            if (Utils.Utils.CalculateAge(BirthDate) > 123 == true)
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Ty jeszcze żyjesz?", "OK");
+                return false;
+            }
+
+            if (String.IsNullOrWhiteSpace(Location))
+            {
+                await Shell.Current.DisplayAlert("Niepoprawne dane", "Miejscowość zamieszkania nie może być pusta!", "OK");
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

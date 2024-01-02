@@ -35,4 +35,28 @@ public partial class JobOfertPage : ContentPage
 	{
 
 	}
+
+    private void RemoveCategory_Click(object sender, EventArgs e)
+    {
+		string categoryName = (string)(sender as ImageButton).CommandParameter;
+		vm.JobOfertCategories.RemoveAt(vm.JobOfertCategories.IndexOf(vm.JobOfertCategories.Where(x => x.CategoryName == categoryName).FirstOrDefault()));
+    }
+
+    private void RemoveRequirement_Click(object sender, EventArgs e)
+    {
+        string requirementName = (string)(sender as ImageButton).CommandParameter;
+        vm.JobOfertRequirements.RemoveAt(vm.JobOfertRequirements.IndexOf(vm.JobOfertRequirements.Where(x => x.RequirementName == requirementName).FirstOrDefault()));
+    }
+
+    private void RemoveDuty_Click(object sender, EventArgs e)
+    {
+        string dutyName = (string)(sender as ImageButton).CommandParameter;
+        vm.JobOfertDuties.RemoveAt(vm.JobOfertDuties.IndexOf(vm.JobOfertDuties.Where(x => x.DutyName == dutyName).FirstOrDefault()));
+    }
+
+    private void RemoveBenefit_Click(object sender, EventArgs e)
+    {
+        string benefitName = (string)(sender as ImageButton).CommandParameter;
+        vm.JobOfertBenefits.RemoveAt(vm.JobOfertBenefits.IndexOf(vm.JobOfertBenefits.Where(x => x.BenefitName == benefitName).FirstOrDefault()));
+    }
 }

@@ -9,14 +9,14 @@ namespace JobPortal.Maui.ViewModels
     public partial class LoginPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string email;
+        private string email = "kacper@wp.pl";
         [ObservableProperty]
         private bool emailError = false;
         [ObservableProperty]
         private string emailErrorText;
 
         [ObservableProperty]
-        private string password;
+        private string password = "Dol@r12345";
         [ObservableProperty]
         private bool passwordError;
         [ObservableProperty]

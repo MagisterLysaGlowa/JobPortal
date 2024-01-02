@@ -82,6 +82,7 @@ namespace JobPortal.Maui.ViewModels
         private async Task MakeApplication()
         {
             await userService.PostUserJobOfertApplication(UserId, JobOfert);
+            await Shell.Current.GoToAsync("//currentApplicationsPage");
         }
     }
 }

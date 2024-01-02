@@ -10,6 +10,8 @@ namespace JobPortal.Maui
         private static IFileOperationRepository uploadFileService = new FileOperationsService();
         private static Image userImage;
         private static ShellContent jobOfertShellContent;
+        private static ShellContent currentApplicationsShellContent;
+        private static ShellContent favouriteJobOfertsShellContent;
         private static User user;
         public static User User
         {
@@ -28,6 +30,8 @@ namespace JobPortal.Maui
             InitializeComponent();
             userImage = userProfileImage;
             jobOfertShellContent = jobOfertShellContentControll;
+            currentApplicationsShellContent = currentApplicationsShellContentControll;
+            favouriteJobOfertsShellContent = favouriteJobOfertsShellContentControll;
         }
 
         public async static void UpdateUi()
@@ -39,6 +43,14 @@ namespace JobPortal.Maui
                 jobOfertShellContent.FlyoutItemIsVisible = false;
                 jobOfertShellContent.IsEnabled = false;
             }
+            else
+            {
+                currentApplicationsShellContent.FlyoutItemIsVisible = false;
+                currentApplicationsShellContent.IsEnabled = false;
+                favouriteJobOfertsShellContent.FlyoutItemIsVisible = false;
+                favouriteJobOfertsShellContent.IsEnabled = false;
+            }
+
         }
     }
 }

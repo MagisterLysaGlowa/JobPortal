@@ -193,12 +193,6 @@ namespace JobPortal.Maui.ViewModels
         [RelayCommand]
         public async Task RegisterUser()
         {
-            /*FILE UPLOAD TO SERVER RESOURCES AND PATH IS INSERT INTO DATABASE*/
-            string[] fileInfo = Utils.Utils.GetFileExtension(FileToUpload.FileName);
-            fileInfo[0] = $"{Name.ToUpper()[0]}{Surname.ToUpper()[0]}_{Utils.Utils.GenerateRandomNumber(9)}.{fileInfo[1]}";
-
-            await uploadFileRepository.UploadUserImage(FileToUpload, fileInfo[0]);
-
             /*CREATING USER WHICH WILL BE INSERTED TO DB*/
             User user = new User();
             user.Name = Name;
@@ -206,7 +200,19 @@ namespace JobPortal.Maui.ViewModels
             user.Surname = Surname;
             user.Password = Password;
             user.Location = Location;
-            user.ImagePath = fileInfo[0];
+            /*FILE UPLOAD TO SERVER RESOURCES AND PATH IS INSERT INTO DATABASE*/
+            if (FileToUpload != null)
+            {
+                string[] fileInfo = Utils.Utils.GetFileExtension(FileToUpload.FileName);
+                fileInfo[0] = $"{Name.ToUpper()[0]}{Surname.ToUpper()[0]}_{Utils.Utils.GenerateRandomNumber(9)}.{fileInfo[1]}";
+
+                await uploadFileRepository.UploadUserImage(FileToUpload, fileInfo[0]);
+                user.ImagePath = fileInfo[0];
+            }
+            else
+            {
+                user.ImagePath = "user_icon.jpg";
+            }
             user.BirthDate = DateOfBirth;
             user.PhoneNumber = PhoneNumber;
 

@@ -29,6 +29,8 @@ namespace JobPortal.Maui.ViewModels
         [ObservableProperty]
         bool applicationIsPossible;
         [ObservableProperty]
+        bool favouriteIsPossible = true;
+        [ObservableProperty]
         string buttonImageSource;
 
         /*REPOSITORY INITALIZATION*/
@@ -47,12 +49,19 @@ namespace JobPortal.Maui.ViewModels
 
         public async Task SetupDetailPage()
         {
+            await Task.Delay(100);
             Duties = await dutyService.GetDuties(JobOfert.Id);
             Requirements = await requirementService.GetRequirements(JobOfert.Id);
             Benefits = await benefitService.GetBenefits(JobOfert.Id);
             var applicationsList = await userService.GetUserJobOfertApplications(User.Id);
             bool currentlyApplicated = applicationsList.Any(x => x.JobOfertId == JobOfert.Id);
             ApplicationIsPossible = !currentlyApplicated;
+
+            if(App.user.Access == "employer" || App.user.Access == "admin")
+            {
+                ApplicationIsPossible = false;
+                FavouriteIsPossible = false;
+            }
 
             var favouritiesList = await userService.GetUserJobOfertFavourites(User.Id);
             bool isCurrentlyFavourite = favouritiesList.Any(x => x.JobOfertId == JobOfert.Id);
@@ -83,6 +92,17 @@ namespace JobPortal.Maui.ViewModels
                 await userService.PostUserJobOfertFavourite(User.Id, JobOfert);
             }
             ButtonImageSource = isCurrentlyFavourite ? "heart_icon.png" : "heart_fill_icon.png";
+        }
+
+        [RelayCommand]
+        private async Task DeleteJobOfert()
+        {
+            bool delete = await Shell.Current.DisplayAlert("Usuwanie oferty", "Czy napewno chcesz usunąć ofertę?", "Tak", "Nie");
+            if(delete)
+            {
+                await jobOfertService.DeleteJobOfert(JobOfert.Id);
+                await Shell.Current.GoToAsync("//homePage");
+            }
         }
     }
 }

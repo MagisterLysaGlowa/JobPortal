@@ -79,10 +79,12 @@
         Route="jobOfertApplicationDetailsPage"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
+        x:Name="currentApplicationsShellContentControll"
         Title="Aktualne aplikacje"
         ContentTemplate="{DataTemplate pages:CurrentApplicationsPage}"
         Route="currentApplicationsPage" />
     <ShellContent
+        x:Name="favouriteJobOfertsShellContentControll"
         Title="Ulubione ogłoszenia"
         ContentTemplate="{DataTemplate pages:FavouriteOfertsPage}"
         Route="favouriteJobOfertsPage" />
@@ -91,4 +93,8 @@
         Title="Dodaj ofertę"
         ContentTemplate="{DataTemplate pages:JobOfertPage}"
         Route="jobOfertPage" />
+    <ShellContent
+        Title="Wyloguj się"
+        ContentTemplate="{DataTemplate pages:LogoutPage}"
+        Route="logoutPage" />
 </Shell>

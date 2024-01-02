@@ -69,6 +69,7 @@
 	  <None Remove="Resources\Images\login_banner.jpeg" />
 	  <None Remove="Resources\Images\operating_mode_icon.png" />
 	  <None Remove="Resources\Images\register_icon.png" />
+	  <None Remove="Resources\Images\remove_icon.png" />
 	  <None Remove="Resources\Images\star_icon.png" />
 	</ItemGroup>
 
@@ -101,6 +102,9 @@
 	  <MauiXaml Update="Pages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\LogoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\OfertDetailsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -126,5 +130,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadGenericExceptionInfoBarJobPortalMauiHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarJobPortalMauiHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

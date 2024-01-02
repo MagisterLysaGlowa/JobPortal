@@ -84,6 +84,24 @@ namespace JobPortal.Maui.ViewModels
         {
             "zdalna", "stacjonarna", "hybrydowa"
         };
+
+        /*FILTER PROPERTIES*/
+        [ObservableProperty]
+        List<string> positionLevelFilterList = new List<string>()
+        {
+            "wszystkie",
+            "praktykant/stażysta",
+            "asystent",
+            "młodszy specjalista",
+            "specjalista",
+            "starszy specjalista",
+            "ekspert",
+            "kierownik/koordynator",
+            "menedżer",
+            "dyrektor",
+            "prezes"
+        };
+
         [ObservableProperty]
         List<string> categoriesList;
 
@@ -149,7 +167,6 @@ namespace JobPortal.Maui.ViewModels
             JobOfert db_result = await jobOfertService.AddJobOfert(User.Id,jobOfert);
             if(db_result != null)
             {
-                await Shell.Current.DisplayAlert("dodano", "dodano", "dodano");
                 foreach (Category category in JobOfertCategories)
                 {
                     await categoryService.AddCategory(db_result.Id, category);
@@ -166,7 +183,31 @@ namespace JobPortal.Maui.ViewModels
                 {
                     await benefitService.AddBenefit(db_result.Id,benefit);
                 }
+                ClearAllInputs();
+                await Shell.Current.GoToAsync("//homePage");
             }
+        }
+
+        private void ClearAllInputs()
+        {
+            CompanyName = "";
+            CompanyAddress = "";
+            CompanyLocation = "";
+            CompanyDescription = "";
+            PositionName = "";
+            PositionLevel = "";
+            RecruitmentEndDate = DateTime.Now;
+            EmploymentContract = "";
+            EmploymentType = "";
+            JobType = "";
+            SalaryMinimum = 0;
+            SalaryMaximum = 0;
+            WorkStartHour = TimeSpan.Zero;
+            WorkEndHour = TimeSpan.Zero;
+            JobOfertCategories.Clear();
+            JobOfertDuties.Clear();
+            JobOfertBenefits.Clear();
+            JobOfertRequirements.Clear();
         }
 
         /*INSERT CATEGORY COMMAND*/
@@ -181,6 +222,7 @@ namespace JobPortal.Maui.ViewModels
                 {
                     JobOfertCategories.Add(category);
                 }
+                CategoryInput = "";
             }
             else
             {
@@ -205,6 +247,7 @@ namespace JobPortal.Maui.ViewModels
             {
                 JobOfertRequirements.Add(requirement);
             }
+            RequirementNameLocal = "";
         }
 
         /*INSERT DUTY COMMAND*/
@@ -217,7 +260,7 @@ namespace JobPortal.Maui.ViewModels
             {
                 JobOfertDuties.Add(duty);
             }
-            
+            DutyNameLocal = "";
         }
 
         /*INSERT BENEFIT COMMAND*/
@@ -230,7 +273,7 @@ namespace JobPortal.Maui.ViewModels
             {
                 JobOfertBenefits.Add(benefit);
             }
-
+            BenefitNameLocal = "";
         }
 
         private async void SetUpJobOfertPage()
