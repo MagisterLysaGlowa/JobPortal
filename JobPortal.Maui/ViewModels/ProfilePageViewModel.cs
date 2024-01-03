@@ -222,6 +222,11 @@ namespace JobPortal.Maui.ViewModels
 
         public ProfilePageViewModel()
         {
+
+        }
+
+        public void PageAppearing()
+        {
             /*GET USER SAVED IN PREFERENCES FILES*/
             User = JsonConvert.DeserializeObject<User>(Preferences.Get(nameof(App.user), null));
 

@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
     xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
-    Title="ProfilePage"
+    Title="Strona profilowa"
     x:DataType="viewmodels:ProfilePageViewModel"
     BackgroundColor="#F5F5F5"
     Shell.BackgroundColor="#f27f62">
@@ -32,8 +32,22 @@
         </Style>
     </ContentPage.Resources>
     <ScrollView x:Name="scrollViewControll">
-        <Grid HorizontalOptions="Center" MaximumWidthRequest="1200">
+        <Grid HorizontalOptions="Center">
+            <Grid.Style>
+                <OnIdiom x:TypeArguments="Style">
+                    <OnIdiom.Desktop>
+                        <Style TargetType="Grid">
+                            <Setter Property="MaximumWidthRequest" Value="1200" />
+                        </Style>
+                    </OnIdiom.Desktop>
 
+                    <OnIdiom.Phone>
+                        <Style TargetType="Grid">
+                            <Setter Property="MaximumWidthRequest" Value="400" />
+                        </Style>
+                    </OnIdiom.Phone>
+                </OnIdiom>
+            </Grid.Style>
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
                 <RowDefinition Height="auto" />

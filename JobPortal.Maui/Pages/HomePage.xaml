@@ -46,7 +46,7 @@
                     <OnIdiom.Phone>
                         <Style TargetType="Grid">
                             <Setter Property="MinimumWidthRequest" Value="0" />
-                            <Setter Property="MaximumWidthRequest" Value="350" />
+                            <Setter Property="MaximumWidthRequest" Value="400" />
                         </Style>
                     </OnIdiom.Phone>
                 </OnIdiom>

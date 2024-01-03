@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:JobPortal.Maui.ViewModels"
-    Title="CurrentApplicationsPage"
+    Title="Aktualne aplikacje"
     BackgroundColor="#F5F5F5"
     Shell.BackgroundColor="#f27f62">
     <ContentPage.Style>
@@ -23,7 +23,22 @@
         </OnIdiom>
     </ContentPage.Style>
     <ScrollView x:Name="scrollViewControll">
-        <Grid MaximumWidthRequest="1200">
+        <Grid>
+            <Grid.Style>
+                <OnIdiom x:TypeArguments="Style">
+                    <OnIdiom.Desktop>
+                        <Style TargetType="Grid">
+                            <Setter Property="MaximumWidthRequest" Value="1200" />
+                        </Style>
+                    </OnIdiom.Desktop>
+
+                    <OnIdiom.Phone>
+                        <Style TargetType="Grid">
+                            <Setter Property="MaximumWidthRequest" Value="400" />
+                        </Style>
+                    </OnIdiom.Phone>
+                </OnIdiom>
+            </Grid.Style>
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
                 <RowDefinition Height="auto" />

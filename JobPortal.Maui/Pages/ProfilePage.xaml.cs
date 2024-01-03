@@ -226,4 +226,9 @@ public partial class ProfilePage : ContentPage
         linkLayout.Children.Add(linkGrid);
         linkGridButton.IsVisible = false;
     }
+
+    protected override void OnAppearing()
+    {
+        vm.PageAppearing();
+    }
 }

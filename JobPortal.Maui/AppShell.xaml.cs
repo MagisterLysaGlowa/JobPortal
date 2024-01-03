@@ -42,6 +42,10 @@ namespace JobPortal.Maui
             {
                 jobOfertShellContent.FlyoutItemIsVisible = false;
                 jobOfertShellContent.IsEnabled = false;
+                currentApplicationsShellContent.FlyoutItemIsVisible = true;
+                currentApplicationsShellContent.IsEnabled = true;
+                favouriteJobOfertsShellContent.FlyoutItemIsVisible = true;
+                favouriteJobOfertsShellContent.IsEnabled = true;
             }
             else
             {
