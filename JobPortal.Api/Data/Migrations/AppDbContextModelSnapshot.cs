@@ -35,7 +35,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ability");
+                    b.ToTable("Ability", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Benefit", b =>
@@ -51,7 +51,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Benefit");
+                    b.ToTable("Benefit", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>
@@ -77,7 +77,7 @@ namespace JobPortal.Api.Data.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("Carrier");
+                    b.ToTable("Carrier", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Category", b =>
@@ -93,7 +93,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Course", b =>
@@ -118,7 +118,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Duty", b =>
@@ -134,7 +134,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Duty");
+                    b.ToTable("Duty", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Education", b =>
@@ -165,7 +165,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Education");
+                    b.ToTable("Education", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Experience", b =>
@@ -193,7 +193,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Experience");
+                    b.ToTable("Experience", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfert", b =>
@@ -251,7 +251,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobOferts");
+                    b.ToTable("JobOferts", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfertBenefit", b =>
@@ -266,7 +266,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("BenefitId");
 
-                    b.ToTable("JobOfertBenefit");
+                    b.ToTable("JobOfertBenefit", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfertCategory", b =>
@@ -281,7 +281,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("JobOfertCategory");
+                    b.ToTable("JobOfertCategory", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfertDuty", b =>
@@ -296,7 +296,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("DutyId");
 
-                    b.ToTable("JobOfertDuty");
+                    b.ToTable("JobOfertDuty", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.JobOfertRequirement", b =>
@@ -311,7 +311,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("RequirementId");
 
-                    b.ToTable("JobOfertRequirement");
+                    b.ToTable("JobOfertRequirement", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Language", b =>
@@ -330,7 +330,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Language", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Link", b =>
@@ -346,7 +346,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Link");
+                    b.ToTable("Link", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Requirement", b =>
@@ -362,7 +362,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requirement");
+                    b.ToTable("Requirement", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.User", b =>
@@ -402,7 +402,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserAbility", b =>
@@ -417,7 +417,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("AbilityId");
 
-                    b.ToTable("UserAbility");
+                    b.ToTable("UserAbility", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserCourse", b =>
@@ -432,7 +432,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("UserCourse");
+                    b.ToTable("UserCourse", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserEducation", b =>
@@ -447,7 +447,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("EducationId");
 
-                    b.ToTable("UserEducation");
+                    b.ToTable("UserEducation", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserExperience", b =>
@@ -462,7 +462,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("ExperienceId");
 
-                    b.ToTable("UserExperience");
+                    b.ToTable("UserExperience", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserJobOfert", b =>
@@ -477,7 +477,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("JobOfertId");
 
-                    b.ToTable("UserJobOfert");
+                    b.ToTable("UserJobOfert", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserJobOfertApplication", b =>
@@ -495,7 +495,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("JobOfertId");
 
-                    b.ToTable("UserJobOfertApplication");
+                    b.ToTable("UserJobOfertApplication", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserJobOfertFavourite", b =>
@@ -510,7 +510,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("JobOfertId");
 
-                    b.ToTable("UserJobOfertsFavourite");
+                    b.ToTable("UserJobOfertsFavourite", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserLanguage", b =>
@@ -525,7 +525,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("UserLanguage");
+                    b.ToTable("UserLanguage", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.UserLink", b =>
@@ -540,7 +540,7 @@ namespace JobPortal.Api.Data.Migrations
 
                     b.HasIndex("LinkId");
 
-                    b.ToTable("UserLink");
+                    b.ToTable("UserLink", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Work", b =>
@@ -575,7 +575,7 @@ namespace JobPortal.Api.Data.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("Work");
+                    b.ToTable("Work", (string)null);
                 });
 
             modelBuilder.Entity("JobPortal.Api.Models.Carrier", b =>

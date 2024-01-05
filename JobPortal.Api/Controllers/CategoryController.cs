@@ -50,6 +50,23 @@ namespace JobPortal.Api.Controllers
             return category;
         }
 
+        [HttpGet("GetCategoriesForJobOfert/{jobOfertId}")]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesForJobOfert(int jobOfertId)
+        {
+            if (_context.Category == null)
+            {
+                return NotFound();
+            }
+            var categories = await _context.JobOfertCategory.Where(entity => entity.JobOfertId == jobOfertId).Select(entity => entity.Category).ToListAsync();
+
+            if (categories == null)
+            {
+                return NotFound();
+            }
+
+            return categories;
+        }
+
         // PUT: api/Category/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

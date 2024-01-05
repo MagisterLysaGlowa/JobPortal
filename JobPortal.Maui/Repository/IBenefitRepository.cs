@@ -11,5 +11,6 @@ namespace JobPortal.Maui.Repository
     {
         Task<Benefit> AddBenefit(int jobOfertId,Benefit benefit);
         Task<List<Benefit>> GetBenefits(int jobOfertId);
+        Task DeleteBenefitsByJobOfert(int jobOfertId);
     }
 }

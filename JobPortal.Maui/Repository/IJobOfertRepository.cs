@@ -9,5 +9,6 @@ namespace JobPortal.Maui.ViewModels
         Task<JobOfert> GetJobOfert(int jobOfertId);
         Task<List<JobOfert>> GetAllJobOfertsWithCategories();
         Task DeleteJobOfert(int jobOfertId);
+        Task<bool> UpdateJobOfert(int jobOfertId, JobOfert jobOfert);
     }
 }

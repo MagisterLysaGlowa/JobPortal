@@ -9,14 +9,14 @@ namespace JobPortal.Maui.ViewModels
     public partial class LoginPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string email = "kacper@wp.pl";
+        private string email;
         [ObservableProperty]
         private bool emailError = false;
         [ObservableProperty]
         private string emailErrorText;
 
         [ObservableProperty]
-        private string password = "Dol@r12345";
+        private string password;
         [ObservableProperty]
         private bool passwordError;
         [ObservableProperty]
@@ -72,6 +72,8 @@ namespace JobPortal.Maui.ViewModels
                 AppShell.User = user;
                 App.user = user;
                 await Shell.Current?.GoToAsync("//homePage");
+                Email = "";
+                Password = "";
 
             }
             catch (Exception ex)

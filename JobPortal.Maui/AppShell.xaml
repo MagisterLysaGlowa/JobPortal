@@ -55,6 +55,11 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False" />
     <ShellContent
+        Title="Edit Job Ofert Page"
+        ContentTemplate="{DataTemplate pages:EditJobOfertPage}"
+        Route="editJobOfertPage"
+        Shell.FlyoutItemIsVisible="False" />
+    <ShellContent
         Title="Register Page"
         ContentTemplate="{DataTemplate pages:RegisterPage}"
         Route="registerPage"

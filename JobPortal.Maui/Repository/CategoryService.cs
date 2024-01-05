@@ -67,6 +67,31 @@ namespace JobPortal.Maui.Repository
             }
         }
 
+        public async Task<List<Category>> GetCategories(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/GetCategoriesForJobOfert/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        List<Category> categories = JsonConvert.DeserializeObject<List<Category>>(json);
+                        return categories;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<string>> GetCategoriesAsString()
         {
             var categories = await GetCategories();

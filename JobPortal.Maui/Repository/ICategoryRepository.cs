@@ -12,5 +12,6 @@ namespace JobPortal.Maui.Repository
         Task<Category> AddCategory(int jobOfertId, Category category);
         Task<List<Category>> GetCategories();
         Task<List<string>> GetCategoriesAsString();
+        Task<List<Category>> GetCategories(int jobOfertId);
     }
 }

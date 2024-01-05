@@ -108,6 +108,8 @@ namespace JobPortal.Api.Controllers
               return Problem("Entity set 'AppDbContext.Duty'  is null.");
           }
             _context.Duty.Add(duty);
+            await _context.SaveChangesAsync();
+
             var jobOfert = _context.JobOferts.Find(jobOfertId);
             jobOfert?.JobOfertDuties.Add(new JobOfertDuty { Duty = duty });
             await _context.SaveChangesAsync();
@@ -130,6 +132,30 @@ namespace JobPortal.Api.Controllers
             }
 
             _context.Duty.Remove(duty);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("DeleteDutyByJobOfert/{jobOfertId}")]
+        public async Task<IActionResult> DeleteDutyByJobOfert(int jobOfertId)
+        {
+            if (_context.Duty == null)
+            {
+                return NotFound();
+            }
+            var duties = await _context.JobOfertDuty.Where(entity => entity.JobOfertId == jobOfertId).Select(entity => entity.Duty).ToListAsync();
+            if (duties == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in duties)
+            {
+                _context.JobOfertDuty.Remove(await _context.JobOfertDuty.Where(x => x.DutyId == item.Id && x.JobOfertId == jobOfertId).FirstOrDefaultAsync());
+                _context.Duty.Remove(item);
+            }
+
             await _context.SaveChangesAsync();
 
             return NoContent();

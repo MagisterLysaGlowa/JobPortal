@@ -42,6 +42,24 @@ namespace JobPortal.Maui.Repository
             }
         }
 
+        public async Task DeleteDutiesByJobOfert(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/DeleteDutyByJobOfert/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public async Task<List<Duty>> GetDuties(int jobOfertId)
         {
             try

@@ -88,6 +88,17 @@ namespace JobPortal.Api.Controllers
             return Ok(userJobOfertApplications);
         }
 
+        [HttpGet("IsUserJobOfert/{userId}/{jobOfertId}")]
+        public async Task<ActionResult<bool>> IsUserJobOfert(int userId,int jobOfertId)
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+            var userJobOfert = await _context.UserJobOfert.AnyAsync(x => x.JobOfertId == jobOfertId && x.UserId == userId);
+            return Ok(userJobOfert);
+        }
+
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

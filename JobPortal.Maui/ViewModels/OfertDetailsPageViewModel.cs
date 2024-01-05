@@ -32,6 +32,8 @@ namespace JobPortal.Maui.ViewModels
         bool favouriteIsPossible = true;
         [ObservableProperty]
         string buttonImageSource;
+        [ObservableProperty]
+        bool isUserJobOfert;
 
         /*REPOSITORY INITALIZATION*/
         IRequirementRepository requirementService = new RequirementService();
@@ -44,12 +46,15 @@ namespace JobPortal.Maui.ViewModels
         User User { get; set; }
         public OfertDetailsPageViewModel()
         {
-            User = App.user;
+            
         }
 
         public async Task SetupDetailPage()
         {
             await Task.Delay(100);
+            User = App.user;
+
+            IsUserJobOfert = await userService.IsUserJobOfert(User.Id, JobOfert.Id);
             Duties = await dutyService.GetDuties(JobOfert.Id);
             Requirements = await requirementService.GetRequirements(JobOfert.Id);
             Benefits = await benefitService.GetBenefits(JobOfert.Id);
@@ -103,6 +108,15 @@ namespace JobPortal.Maui.ViewModels
                 await jobOfertService.DeleteJobOfert(JobOfert.Id);
                 await Shell.Current.GoToAsync("//homePage");
             }
+        }
+
+        [RelayCommand]
+        private async Task EditJobOfert()
+        {
+            await Shell.Current.GoToAsync($"//editJobOfertPage", new Dictionary<string, object>
+            {
+                ["JobOfert"] = JobOfert
+            });
         }
     }
 }

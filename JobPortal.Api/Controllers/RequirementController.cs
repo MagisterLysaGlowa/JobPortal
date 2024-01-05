@@ -108,11 +108,35 @@ namespace JobPortal.Api.Controllers
               return Problem("Entity set 'AppDbContext.Requirement'  is null.");
           }
             _context.Requirement.Add(requirement);
+            await _context.SaveChangesAsync();
+
             var jobOfert = _context.JobOferts.Find(jobOfertId);
             jobOfert?.JobOfertRequirements.Add(new JobOfertRequirement { Requirement = requirement });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRequirement", new { id = requirement.Id }, requirement);
+        }
+
+        [HttpPost("AddAllRequirements/{jobOfertId}")]
+        public async Task<ActionResult> AddAllRequirements(int jobOfertId, List<Requirement> requirements)
+        {
+            await Console.Out.WriteLineAsync($"tutaj jestem {requirements.Count}");
+            if (_context.Requirement == null)
+            {
+                return Problem("Entity set 'AppDbContext.Requirement'  is null.");
+            }
+
+            var jobOfert = _context.JobOferts.Find(jobOfertId);
+
+            foreach (var item in requirements)
+            {
+                _context.Requirement.Add(item);
+                jobOfert?.JobOfertRequirements.Add(new JobOfertRequirement { Requirement = item });
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         // DELETE: api/Requirement/5
@@ -130,6 +154,30 @@ namespace JobPortal.Api.Controllers
             }
 
             _context.Requirement.Remove(requirement);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("DeleteRequirementByJobOfert/{jobOfertId}")]
+        public async Task<IActionResult> DeleteRequirementByJobOfert(int jobOfertId)
+        {
+            if (_context.Requirement == null)
+            {
+                return NotFound();
+            }
+            var requirements = await _context.JobOfertRequirement.Where(entity => entity.JobOfertId == jobOfertId).Select(entity => entity.Requirement).ToListAsync();
+            if (requirements == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in requirements)
+            {
+                _context.JobOfertRequirement.Remove(await _context.JobOfertRequirement.Where(x => x.RequirementId == item.Id && x.JobOfertId == jobOfertId).FirstOrDefaultAsync());
+                _context.Requirement.Remove(item);     
+            }
+
             await _context.SaveChangesAsync();
 
             return NoContent();

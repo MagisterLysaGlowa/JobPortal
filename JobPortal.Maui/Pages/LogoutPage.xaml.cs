@@ -15,7 +15,11 @@ public partial class LogoutPage : ContentPage
     protected async override void OnAppearing()
     {
 		await Task.Delay(50);
-		App.user = null;
+        if (Preferences.ContainsKey(nameof(App.user)))
+        {
+            Preferences.Remove(nameof(App.user));
+        }
+        App.user = null;
 		await Shell.Current.GoToAsync("//loginPage");
     }
 }

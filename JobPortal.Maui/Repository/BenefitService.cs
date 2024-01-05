@@ -42,6 +42,24 @@ namespace JobPortal.Maui.Repository
             }
         }
 
+        public async Task DeleteBenefitsByJobOfert(int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/DeleteBenefitByJobOfert/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.DeleteAsync(client.BaseAddress);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public async Task<List<Benefit>> GetBenefits(int jobOfertId)
         {
             try

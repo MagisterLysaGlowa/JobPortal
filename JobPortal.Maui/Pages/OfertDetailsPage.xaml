@@ -497,15 +497,21 @@
                 </VerticalStackLayout>
             </Border>
 
-            <Button
-                x:Name="OfertDeleteButton"
-                Grid.Row="6"
-                Margin="0,0,0,20"
-                BackgroundColor="#eb3d3d"
-                Command="{Binding DeleteJobOfertCommand}"
-                IsVisible="False"
-                Text="Usuń ofertę pracy"
-                WidthRequest="200" />
+
+            <HorizontalStackLayout Grid.Row="6" Margin="0,0,0,50">
+                <Button
+                    Margin="0,0,5,0"
+                    BackgroundColor="#E9AB17"
+                    Command="{Binding EditJobOfertCommand}"
+                    IsVisible="{Binding IsUserJobOfert}"
+                    Text="Edytuj ofertę pracy" />
+                <Button
+                    Margin="5,0,0,0"
+                    BackgroundColor="#eb3d3d"
+                    Command="{Binding DeleteJobOfertCommand}"
+                    IsVisible="{Binding IsUserJobOfert}"
+                    Text="Usuń ofertę pracy" />
+            </HorizontalStackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>

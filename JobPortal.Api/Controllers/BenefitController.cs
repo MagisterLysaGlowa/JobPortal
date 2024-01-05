@@ -108,6 +108,8 @@ namespace JobPortal.Api.Controllers
               return Problem("Entity set 'AppDbContext.Benefit'  is null.");
           }
             _context.Benefit.Add(benefit);
+            await _context.SaveChangesAsync();
+
             var jobOfert = _context.JobOferts.Find(jobOfertId);
             jobOfert?.JobOfertBenefits.Add(new JobOfertBenefit { Benefit = benefit });
             await _context.SaveChangesAsync();
@@ -130,6 +132,30 @@ namespace JobPortal.Api.Controllers
             }
 
             _context.Benefit.Remove(benefit);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("DeleteBenefitByJobOfert/{jobOfertId}")]
+        public async Task<IActionResult> DeleteBenefitByJobOfert(int jobOfertId)
+        {
+            if (_context.Benefit == null)
+            {
+                return NotFound();
+            }
+            var benefits = await _context.JobOfertBenefit.Where(entity => entity.JobOfertId == jobOfertId).Select(entity => entity.Benefit).ToListAsync();
+            if (benefits == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in benefits)
+            {
+                _context.JobOfertBenefit.Remove(await _context.JobOfertBenefit.Where(x => x.BenefitId == item.Id && x.JobOfertId == jobOfertId).FirstOrDefaultAsync());
+                _context.Benefit.Remove(item);
+            }
+
             await _context.SaveChangesAsync();
 
             return NoContent();

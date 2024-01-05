@@ -14,6 +14,7 @@ namespace JobPortal.Maui.Repository
         Task<User> UpdateUser(int id, User user);
         Task<bool> CheckIfEmailIsFree(string email);
         Task<bool> CheckIfPhoneIsFree(string phone);
+        Task<bool> IsUserJobOfert(int userId, int jobOfertId);
         Task RemoveUserJobOfertApplication(int userId, int jobOfertId);
         Task RemoveUserJobOfertFavourite(int userId, int jobOfertId);
     }

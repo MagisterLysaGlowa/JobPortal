@@ -6,5 +6,6 @@ namespace JobPortal.Maui.Repository
     {
         Task<Duty> AddDuty(int jobOfertId, Duty duty);
         Task<List<Duty>> GetDuties(int jobOfertId);
+        Task DeleteDutiesByJobOfert(int jobOfertId);
     }
 }

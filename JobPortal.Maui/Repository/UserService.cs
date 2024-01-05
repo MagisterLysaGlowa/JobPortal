@@ -316,5 +316,30 @@ namespace JobPortal.Maui.Repository
                 return;
             }
         }
+
+        public async Task<bool> IsUserJobOfert(int userId, int jobOfertId)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string url = $"{apiUrl}/IsUserJobOfert/{userId}/{jobOfertId}";
+                    client.BaseAddress = new Uri(url);
+
+                    HttpResponseMessage response = await client.GetAsync(client.BaseAddress);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        bool yes = JsonConvert.DeserializeObject<bool>(json);
+                        return yes;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

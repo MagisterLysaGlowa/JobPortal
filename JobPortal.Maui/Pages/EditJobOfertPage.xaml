@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JobPortal.Maui.Pages.EditJobOfertPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controlls="clr-namespace:JobPortal.Maui.Controlls"
+    xmlns:viewmodels="clr-namespace:JobPortal.Maui.ViewModels"
+    Title="EditJobOfertPage"
+    BackgroundColor="#F5F5F5"
+    Shell.BackgroundColor="#f27f62">
+    <ContentPage.Style>
+        <OnIdiom x:TypeArguments="Style">
+            <OnIdiom.Desktop>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="False" />
+                </Style>
+            </OnIdiom.Desktop>
+
+            <OnIdiom.Phone>
+                <Style TargetType="ContentPage">
+                    <Setter Property="Shell.NavBarIsVisible" Value="True" />
+                </Style>
+            </OnIdiom.Phone>
+        </OnIdiom>
+    </ContentPage.Style>
+    <ContentPage.Resources>
+        <Style x:Key="EntryBorder" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+            <Setter Property="Stroke" Value="black" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid Margin="0,0,0,0">
+        <ScrollView>
+            <Grid HorizontalOptions="Center">
+                <Grid.Style>
+                    <OnIdiom x:TypeArguments="Style">
+                        <OnIdiom.Desktop>
+                            <Style TargetType="Grid">
+                                <Setter Property="MaximumWidthRequest" Value="1200" />
+                            </Style>
+                        </OnIdiom.Desktop>
+
+                        <OnIdiom.Phone>
+                            <Style TargetType="Grid">
+                                <Setter Property="MaximumWidthRequest" Value="400" />
+                            </Style>
+                        </OnIdiom.Phone>
+                    </OnIdiom>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="20"
+                    BorderColor="black">
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Grid.Style>
+                                <OnIdiom x:TypeArguments="Style">
+                                    <OnIdiom.Desktop>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="ColumnSpacing" Value="40" />
+                                        </Style>
+                                    </OnIdiom.Desktop>
+
+                                    <OnIdiom.Phone>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="ColumnSpacing" Value="20" />
+                                        </Style>
+                                    </OnIdiom.Phone>
+                                </OnIdiom>
+                            </Grid.Style>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Text="Informacje o firmie" />
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                <Label Text="Nazwa firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry
+                                        HeightRequest="60"
+                                        Placeholder="Nazwa firmy"
+                                        Text="{Binding CompanyName}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                <Label Text="Adres firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry
+                                        HeightRequest="60"
+                                        Placeholder="Adres firmy"
+                                        Text="{Binding CompanyAddress}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Lokalizacja" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry
+                                        HeightRequest="60"
+                                        Placeholder="Lokalizacja"
+                                        Text="{Binding CompanyLocation}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Opis firmy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Editor
+                                        HeightRequest="60"
+                                        Placeholder="Opis firmy"
+                                        Text="{Binding CompanyDescription}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Text="Opis stanowiska" />
+
+                            <VerticalStackLayout Grid.Row="5" Grid.Column="0">
+                                <Label Text="Nazwa stanowiska" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <controlls:BorderlessEntry
+                                        HeightRequest="60"
+                                        Placeholder="Nazwa stanowiska"
+                                        Text="{Binding PositionName}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="5" Grid.Column="1">
+                                <Label Text="Poziom stanowiska" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker
+                                        HeightRequest="60"
+                                        ItemsSource="{Binding PositionLevelFilterList}"
+                                        SelectedItem="{Binding PositionLevel}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Rodzaj umowy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker
+                                        HeightRequest="60"
+                                        ItemsSource="{Binding EmploymentContractOptionsList}"
+                                        SelectedItem="{Binding EmploymentContract}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="7" Grid.Column="0">
+                                <Label Text="Wymiar zatrudnienia" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker
+                                        HeightRequest="60"
+                                        ItemsSource="{Binding EmploymentTypeList}"
+                                        SelectedItem="{Binding EmploymentType}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="7" Grid.Column="1">
+                                <Label Text="Rodzaj pracy" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <Picker
+                                        HeightRequest="60"
+                                        ItemsSource="{Binding JobTypeList}"
+                                        SelectedItem="{Binding JobType}" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="0">
+                                <Label Text="Widełki wynagrodzenia" />
+                                <Grid ColumnDefinitions="*,auto,*">
+                                    <Border Grid.Column="0" Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry
+                                            HeightRequest="60"
+                                            HorizontalTextAlignment="Center"
+                                            Keyboard="Numeric"
+                                            Placeholder="od"
+                                            Text="{Binding SalaryMinimum}" />
+                                    </Border>
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="-"
+                                        VerticalTextAlignment="Center" />
+                                    <Border Grid.Column="2" Style="{StaticResource EntryBorder}">
+                                        <controlls:BorderlessEntry
+                                            HeightRequest="60"
+                                            HorizontalTextAlignment="Center"
+                                            Keyboard="Numeric"
+                                            Placeholder="do"
+                                            Text="{Binding SalaryMaximum}" />
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="8" Grid.Column="1">
+                                <Label Text="Godziny pracy" />
+                                <Grid ColumnDefinitions="*,auto,*">
+                                    <Border Grid.Column="0" Style="{StaticResource EntryBorder}">
+                                        <TimePicker HeightRequest="60" Time="{Binding WorkStartHour}" />
+                                    </Border>
+                                    <Label Grid.Column="1" Text="-" />
+                                    <Border Grid.Column="2" Style="{StaticResource EntryBorder}">
+                                        <TimePicker HeightRequest="60" Time="{Binding WorkEndHour}" />
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Row="9"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Label Text="Okres rekrutacji do" />
+                                <Border Style="{StaticResource EntryBorder}">
+                                    <DatePicker Date="{Binding RecruitmentEndDate}" HeightRequest="60" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Grid
+                    x:Name="categoryGrid"
+                    Grid.Row="1"
+                    Padding="15">
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                    <Setter Property="RowDefinitions" Value="auto,auto,auto" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*" />
+                                    <Setter Property="RowDefinitions" Value="auto,auto,auto,auto" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource InfoBoxHeader}"
+                        Text="Kategoria" />
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource EntryBorder}">
+                        <Picker
+                            HeightRequest="60"
+                            ItemsSource="{Binding CategoriesList}"
+                            SelectedIndexChanged="CategoryPicker_Changed"
+                            SelectedItem="{Binding CategoryChoice}" />
+                    </Border>
+
+                    <VerticalStackLayout
+                        x:Name="categoryLayout"
+                        Grid.Row="2"
+                        Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                HeightRequest="60"
+                                Placeholder="Nazwa kategorii"
+                                Text="{Binding CategoryInput}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Command="{Binding InsertCategoryCommand}"
+                        HeightRequest="60"
+                        Text="Dodaj kategorie">
+                        <Button.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Column" Value="1" />
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Column" Value="0" />
+                                        <Setter Property="Grid.Row" Value="3" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="2" Padding="15">
+                    <ListView HasUnevenRows="True" ItemsSource="{Binding JobOfertCategories}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="40,*,80" VerticalOptions="Center">
+                                        <Label Grid.Column="0" Style="{StaticResource IconLabel}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding CategoryName}"
+                                            VerticalTextAlignment="Center" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            Padding="10"
+                                            BackgroundColor="#eb3d3d"
+                                            Clicked="RemoveCategory_Click"
+                                            CommandParameter="{Binding CategoryName}"
+                                            CornerRadius="10"
+                                            HeightRequest="80"
+                                            Source="remove_icon.png"
+                                            WidthRequest="80" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="3" Padding="15">
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="RowDefinitions" Value="auto,auto" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
+                    <VerticalStackLayout Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                HeightRequest="60"
+                                Placeholder="Dodaj wymaganie"
+                                Text="{Binding RequirementNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Command="{Binding InsertRequirementCommand}"
+                        HeightRequest="60"
+                        Text="Dodaj wymaganie">
+                        <Button.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Column" Value="1" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="4" Padding="15">
+                    <ListView HasUnevenRows="True" ItemsSource="{Binding JobOfertRequirements}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="40,*,80" VerticalOptions="Center">
+                                        <Label Grid.Column="0" Style="{StaticResource IconLabel}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding RequirementName}"
+                                            VerticalTextAlignment="Center" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            Padding="10"
+                                            BackgroundColor="#eb3d3d"
+                                            Clicked="RemoveRequirement_Click"
+                                            CommandParameter="{Binding RequirementName}"
+                                            CornerRadius="10"
+                                            HeightRequest="80"
+                                            Source="remove_icon.png"
+                                            WidthRequest="80" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="5" Padding="15">
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="RowDefinitions" Value="auto,auto" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
+
+                    <VerticalStackLayout Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                HeightRequest="60"
+                                Placeholder="Dodaj obowiązek"
+                                Text="{Binding DutyNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Command="{Binding InsertDutyCommand}"
+                        HeightRequest="60"
+                        Text="Dodaj obowiązek">
+                        <Button.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Column" Value="1" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="6" Padding="15">
+                    <ListView HasUnevenRows="True" ItemsSource="{Binding JobOfertDuties}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="40,*,80" VerticalOptions="Center">
+                                        <Label Grid.Column="0" Style="{StaticResource IconLabel}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding DutyName}"
+                                            VerticalTextAlignment="Center" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            Padding="10"
+                                            BackgroundColor="#eb3d3d"
+                                            Clicked="RemoveDuty_Click"
+                                            CommandParameter="{Binding DutyName}"
+                                            CornerRadius="10"
+                                            HeightRequest="80"
+                                            Source="remove_icon.png"
+                                            WidthRequest="80" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="7" Padding="15">
+                    <Grid.Style>
+                        <OnIdiom x:TypeArguments="Style">
+                            <OnIdiom.Desktop>
+                                <Style TargetType="Grid">
+                                    <Setter Property="ColumnDefinitions" Value="*,auto" />
+                                </Style>
+                            </OnIdiom.Desktop>
+
+                            <OnIdiom.Phone>
+                                <Style TargetType="Grid">
+                                    <Setter Property="RowDefinitions" Value="auto,auto" />
+                                </Style>
+                            </OnIdiom.Phone>
+                        </OnIdiom>
+                    </Grid.Style>
+                    <VerticalStackLayout Grid.Column="0">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <controlls:BorderlessEntry
+                                HeightRequest="60"
+                                Placeholder="Dodaj przywilej"
+                                Text="{Binding BenefitNameLocal}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding InsertBenefitCommand}"
+                        HeightRequest="60"
+                        Text="Dodaj przywilej">
+                        <Button.Style>
+                            <OnIdiom x:TypeArguments="Style">
+                                <OnIdiom.Desktop>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Column" Value="1" />
+                                    </Style>
+                                </OnIdiom.Desktop>
+
+                                <OnIdiom.Phone>
+                                    <Style TargetType="Button">
+                                        <Style.BasedOn>
+                                            <Style BasedOn="{StaticResource ProfilePageButton}" TargetType="Button" />
+                                        </Style.BasedOn>
+                                        <Setter Property="Grid.Row" Value="1" />
+                                    </Style>
+                                </OnIdiom.Phone>
+                            </OnIdiom>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <VerticalStackLayout Grid.Row="8" Padding="15">
+                    <ListView HasUnevenRows="True" ItemsSource="{Binding JobOfertBenefits}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="40,*,80" VerticalOptions="Center">
+                                        <Label Grid.Column="0" Style="{StaticResource IconLabel}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding BenefitName}"
+                                            VerticalTextAlignment="Center" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            Padding="10"
+                                            BackgroundColor="#eb3d3d"
+                                            Clicked="RemoveBenefit_Click"
+                                            CommandParameter="{Binding BenefitName}"
+                                            CornerRadius="10"
+                                            HeightRequest="80"
+                                            Source="remove_icon.png"
+                                            WidthRequest="80" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <Button
+                    Grid.Row="9"
+                    Margin="0,0,0,100"
+                    Command="{Binding EditJobOfertCommand}"
+                    HeightRequest="60"
+                    Style="{StaticResource ProfilePageButton}"
+                    Text="Edytuj ofertę pracy" />
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>
